@@ -2,7 +2,7 @@
   "name": "laundry",
   "type": "module",
   "scripts": {
-    "start": "bun run --hot src/index.ts",
+    "start": "tsc --noemit && bun run --watch src/index.ts",
     "sh": "bun run --watch src/index.ts",
     "check": "tsc --noEmit"
   },
