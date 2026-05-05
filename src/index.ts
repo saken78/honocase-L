@@ -1,18 +1,13 @@
-import { OpenAPIHono } from "@hono/zod-openapi";
 import AuthController from "./auth/auth.controller";
-import type { Context } from "hono";
+import { logger } from "hono/logger";
+import { Hono } from "hono";
+import GlobalError from "./lib/error-handling";
 
-const root = new OpenAPIHono();
+const root = new Hono();
+root.use("/*", logger());
+root.basePath("/api").route("/auth", AuthController);
 
-root
-  .basePath("/api")
-  .route(
-    "/",
-    root.get("", (c: Context) => {
-      return c.text("Hello ApiHono!");
-    }),
-  )
-  .route("/auth", AuthController);
+root.onError(GlobalError);
 
 export default {
   port: 9999,
