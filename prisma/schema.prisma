@@ -76,6 +76,7 @@ model services {
 
 model users {
   id            String     @id @default(dbgenerated("(uuid())")) @db.Char(70)
+  email         String     @unique(map: "email") @db.VarChar(100)
   firstname     String     @db.VarChar(100)
   lastname      String?    @db.VarChar(100)
   password_hash String     @db.Char(200)

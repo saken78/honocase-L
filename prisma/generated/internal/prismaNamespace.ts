@@ -847,6 +847,7 @@ export type ServicesScalarFieldEnum = (typeof ServicesScalarFieldEnum)[keyof typ
 
 export const UsersScalarFieldEnum = {
   id: 'id',
+  email: 'email',
   firstname: 'firstname',
   lastname: 'lastname',
   password_hash: 'password_hash',
@@ -916,6 +917,7 @@ export type servicesOrderByRelevanceFieldEnum = (typeof servicesOrderByRelevance
 
 export const usersOrderByRelevanceFieldEnum = {
   id: 'id',
+  email: 'email',
   firstname: 'firstname',
   lastname: 'lastname',
   password_hash: 'password_hash'
