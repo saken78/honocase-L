@@ -42,6 +42,8 @@ export const DELETE_SCHEMA = z.object({
 export type AuthResponse = {
   email: string;
   firstname: string;
+  lastname?: string;
+  role: string;
 };
 
 export const AUTH_RESPONSE_SCHEMA = {
@@ -52,7 +54,7 @@ export const AUTH_RESPONSE_SCHEMA = {
 export type JWT_PAYLOAD = {
   sub?: string;
   email?: string;
-  role?: string | null | undefined;
+  role?: string;
   exp?: number;
   iat?: number;
 };

@@ -32,7 +32,7 @@ export const authService = {
         email: request.email,
         password_hash: password,
         firstname: request.firstname,
-        lastname: request.lastname,
+        lastname: request.lastname ?? null,
         role: request.role as users_role,
       },
     });
@@ -40,6 +40,7 @@ export const authService = {
     return {
       email: user.email,
       firstname: user.firstname,
+      role: user.role,
     };
   },
   async login(req: LoginUserRequest, c: Context): Promise<AuthResponse> {
@@ -91,8 +92,9 @@ export const authService = {
     const token = await sign(pay, SECRET);
     await setSignedCookie(c, "refresh_token", token, SECRET);
     return {
-      firstname: result.firstname,
       email: result.email,
+      firstname: result.firstname,
+      role: result.role,
     };
   },
   async me(c: Context): Promise<{ data: JWT_PAYLOAD }> {
