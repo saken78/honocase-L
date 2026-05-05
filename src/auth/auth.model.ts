@@ -5,8 +5,8 @@ export const REGISTER_SCHEMA = z.object({
   email: z.string().email().min(1).max(100),
   password: z.string().min(8).max(100),
   firstname: z.string().min(4).max(100),
-  lastname: z.string().min(4).max(100).nullable(),
-  role: users_role,
+  lastname: z.string().min(4).max(100).optional(),
+  role: z.string(),
 });
 
 export type RegisterUserRequest = {
@@ -14,6 +14,7 @@ export type RegisterUserRequest = {
   password: string;
   firstname: string;
   lastname?: string;
+  role: users_role;
 };
 
 export type LoginUserRequest = {
@@ -44,8 +45,8 @@ export type AuthResponse = {
 };
 
 export const AUTH_RESPONSE_SCHEMA = {
-  email: z.string().openapi("example@gmail.com"),
-  firstname: z.string().openapi("example"),
+  email: z.string(),
+  firstname: z.string(),
 };
 
 export type JWT_PAYLOAD = {
