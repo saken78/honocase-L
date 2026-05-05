@@ -1,0 +1,138 @@
+import { prisma } from "../db/index";
+import {
+  type JWT_PAYLOAD,
+  type LoginUserRequest,
+  type RegisterUserRequest,
+  type AuthResponse,
+  REGISTER_SCHEMA,
+  LOGIN_SCHEMA,
+  RESET_PASSWORD_SCHEMA,
+  DELETE_SCHEMA,
+} from "./auth.model";
+import { HttpStatus } from "../lib/status_code";
+import { HTTPException } from "hono/http-exception";
+import { sign } from "hono/jwt";
+import { SECRET } from "../lib/secret";
+import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
+import type { Context } from "hono";
+import type { users_role } from "../../prisma/generated/enums";
+
+export const authService = {
+  async register(req: RegisterUserRequest): Promise<AuthResponse> {
+    const request = REGISTER_SCHEMA.parse(req);
+
+    const password = await Bun.password.hash(request.password, {
+      algorithm: "argon2id",
+      memoryCost: 4,
+      timeCost: 3,
+    });
+
+    const user = await prisma.users.create({
+      data: {
+        email: request.email,
+        password_hash: password,
+        firstname: request.firstname,
+        lastname: request.lastname,
+        role: request.role as users_role,
+      },
+    });
+
+    return {
+      email: user.email,
+      firstname: user.firstname,
+    };
+  },
+  async login(req: LoginUserRequest, c: Context): Promise<AuthResponse> {
+    const request = LOGIN_SCHEMA.parse(req);
+
+    if (!SECRET || SECRET === undefined) {
+      throw new HTTPException(HttpStatus.BAD_REQUEST, {
+        message: "Secret not found",
+      });
+    }
+
+    const result = await prisma.users.findUnique({
+      where: { email: request.email },
+      select: {
+        id: true,
+        firstname: true,
+        email: true,
+        password_hash: true,
+        role: true,
+      },
+    });
+
+    if (!result) {
+      throw new HTTPException(HttpStatus.UNAUTHORIZED, {
+        message: "Unauthorized",
+      });
+    }
+
+    const match = await Bun.password.verify(
+      request.password,
+      result.password_hash,
+    );
+
+    if (!match) {
+      throw new HTTPException(HttpStatus.UNAUTHORIZED, {
+        message: "Unauthorized",
+      });
+    }
+    const user_role: string = result.role;
+
+    const pay: JWT_PAYLOAD = {
+      sub: result.id,
+      email: result.email,
+      role: user_role,
+      exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      iat: Math.floor(Date.now() / 1000),
+    };
+
+    const token = await sign(pay, SECRET);
+    await setSignedCookie(c, "refresh_token", token, SECRET);
+    return {
+      firstname: result.firstname,
+      email: result.email,
+    };
+  },
+  async me(c: Context): Promise<{ data: JWT_PAYLOAD }> {
+    const result = c.get("user");
+    return {
+      data: result,
+    };
+  },
+  async logout(c: Context): Promise<void> {
+    const cookie = await getSignedCookie(c, SECRET, "refresh_token");
+    if (!cookie) {
+      throw new HTTPException(HttpStatus.UNAUTHORIZED, {
+        message: "Cookie Already Cleared",
+      });
+    }
+    deleteCookie(c, "refresh_token");
+  },
+  async resetPassword(password: string, email: string): Promise<void> {
+    const request = RESET_PASSWORD_SCHEMA.parse(password);
+
+    const npw = await Bun.password.hash(request.password, {
+      algorithm: "argon2id",
+      memoryCost: 4,
+      timeCost: 3,
+    });
+
+    await prisma.users.update({
+      where: { email: email },
+      data: { password_hash: npw },
+    });
+  },
+  async deleteAccount(email: string): Promise<void> {
+    const validatet_email = DELETE_SCHEMA.parse(email);
+    if (!validatet_email.email) {
+      throw new HTTPException(HttpStatus.UNAUTHORIZED, {
+        message: "Unauthorized",
+      });
+    }
+    await prisma.users.delete({
+      where: { email: validatet_email.email },
+    });
+  },
+};
