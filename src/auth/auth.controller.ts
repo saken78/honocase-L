@@ -3,6 +3,7 @@ import { authService } from "./auth.service";
 import {
   type AuthResponse,
   type GetMeUser,
+  type JWT_PAYLOAD,
   type JWT_RESPONSE,
   type LoginUserRequest,
   type LoginUserResponse,
@@ -53,12 +54,21 @@ AuthController.post(
   },
 );
 AuthController.use(AuthMiddleware);
-AuthController.get("/me", async (c: Context): Promise<JSONRespondReturn<GetMeUser<AuthResponse>, HttpStatus.OK> => {
-  const result = await authService.me(c);
-  return c.json({
-    data: result.data,
-  });
-});
+AuthController.get(
+  "/me",
+  async (
+    c: Context,
+  ): Promise<JSONRespondReturn<GetMeUser<JWT_RESPONSE>, HttpStatus.OK>> => {
+    const result = await authService.me(c);
+    return c.json(
+      {
+        data: result,
+        status_code: HttpStatus.OK,
+      },
+      HttpStatus.OK,
+    );
+  },
+);
 AuthController.patch("/current", async (c: Context) => {
   const user: JWT_RESPONSE = c.get("user");
   const body: ResetPasswordRequest = await c.req.json();
