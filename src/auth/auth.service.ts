@@ -8,6 +8,7 @@ import {
   LOGIN_SCHEMA,
   RESET_PASSWORD_SCHEMA,
   DELETE_SCHEMA,
+  type JWT_RESPONSE,
 } from "./auth.model";
 import { HttpStatus } from "../lib/status_code";
 import { HTTPException } from "hono/http-exception";
@@ -97,11 +98,9 @@ export const authService = {
       role: result.role,
     };
   },
-  async me(c: Context): Promise<{ data: JWT_PAYLOAD }> {
+  async me(c: Context): Promise<JWT_RESPONSE> {
     const result = c.get("user");
-    return {
-      data: result,
-    };
+    return result;
   },
   async logout(c: Context): Promise<void> {
     const cookie = await getSignedCookie(c, SECRET, "refresh_token");
