@@ -65,3 +65,18 @@ export type JWT_RESPONSE = {
   firstname: string;
   role: string;
 };
+
+export type RegisterUserReponse<T> = {
+  data: T;
+  status_code: number;
+};
+
+export type LoginUserResponse<T> = {
+  data: T;
+  status_code: number;
+};
+
+export type GetMeUser<T> = {
+  data: T;
+  status_code: number;
+};
