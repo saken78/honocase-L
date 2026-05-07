@@ -1,34 +1,59 @@
 import { Hono, type Context } from "hono";
 import { authService } from "./auth.service";
 import {
+  type AuthResponse,
+  type GetMeUser,
   type JWT_RESPONSE,
   type LoginUserRequest,
+  type LoginUserResponse,
+  type RegisterUserReponse,
   type RegisterUserRequest,
   type ResetPasswordRequest,
 } from "./auth.model";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
+import type { JSONRespondReturn } from "@/lib/json";
 
 const AuthController = new Hono();
-AuthController.post("/", async (c: Context) => {
-  const body: RegisterUserRequest = await c.req.json();
-  const result = await authService.register(body);
-  c.status(HttpStatus.CREATED);
-  return c.json({
-    data: result,
-    status_code: HttpStatus.CREATED,
-  });
-});
-AuthController.post("/login", async (c: Context) => {
-  const body: LoginUserRequest = await c.req.json();
-  const result = await authService.login(body, c);
-  return c.json({
-    data: result,
-    status_code: HttpStatus.OK,
-  });
-});
+AuthController.post(
+  "/",
+  async (
+    c: Context,
+  ): Promise<
+    JSONRespondReturn<RegisterUserReponse<AuthResponse>, HttpStatus.CREATED>
+  > => {
+    const body: RegisterUserRequest = await c.req.json();
+    const result = await authService.register(body);
+    c.status(HttpStatus.CREATED);
+    return c.json(
+      {
+        data: result,
+        status_code: HttpStatus.CREATED,
+      },
+      HttpStatus.CREATED,
+    );
+  },
+);
+AuthController.post(
+  "/login",
+  async (
+    c: Context,
+  ): Promise<
+    JSONRespondReturn<LoginUserResponse<AuthResponse>, HttpStatus.OK>
+  > => {
+    const body: LoginUserRequest = await c.req.json();
+    const result = await authService.login(body, c);
+    return c.json(
+      {
+        data: result,
+        status_code: HttpStatus.OK,
+      },
+      HttpStatus.OK,
+    );
+  },
+);
 AuthController.use(AuthMiddleware);
-AuthController.get("/me", async (c: Context) => {
+AuthController.get("/me", async (c: Context): Promise<JSONRespondReturn<GetMeUser<AuthResponse>, HttpStatus.OK> => {
   const result = await authService.me(c);
   return c.json({
     data: result.data,

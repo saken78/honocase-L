@@ -1,29 +1,46 @@
 import { Hono, type Context } from "hono";
 import { UserService } from "./user.service";
 import { HTTPException } from "hono/http-exception";
+import type { JSONRespondReturn } from "@/lib/json";
+import type { GetAllUser, GetUserById, UserResponse } from "./user.model";
+import type { HttpStatus } from "@/lib/status_code";
 
 export const UserController = new Hono();
 
-UserController.get("/", async (c: Context) => {
-  const user = await UserService.getAllUser();
-  return c.json(
-    {
-      data: user,
-      status_code: 200,
-    },
-    200,
-  );
-});
+UserController.get(
+  "/",
+  async (
+    c: Context,
+  ): Promise<JSONRespondReturn<GetAllUser<UserResponse[]>, HttpStatus.OK>> => {
+    const user = await UserService.getAllUser();
+    return c.json(
+      {
+        data: user,
+      },
+      200,
+    );
+  },
+);
 
-UserController.get("/:id", async (c: Context) => {
-  const param: string | undefined = c.req.param("id");
-  if (!param || undefined) {
-    throw new HTTPException(403, { message: "param not found" });
-  }
-  const user = await UserService.getUserId(param);
-  return c.json({
-    data: user,
-  });
-});
+UserController.get(
+  "/:id",
+  async (
+    c: Context,
+  ): Promise<JSONRespondReturn<GetUserById<UserResponse>, HttpStatus.OK>> => {
+    const param: string | undefined = c.req.param("id");
+
+    if (!param || undefined) {
+      throw new HTTPException(403, { message: "param not found" });
+    }
+
+    const user = await UserService.getUserId(param);
+    return c.json(
+      {
+        data: user,
+      },
+      200,
+    );
+  },
+);
 
 export default UserController;
