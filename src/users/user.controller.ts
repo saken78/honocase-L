@@ -1,12 +1,14 @@
-import { Hono, type Context } from "hono";
-import { UserService } from "./user.service";
-import { HTTPException } from "hono/http-exception";
 import type { JSONRespondReturn } from "@/lib/json";
-import type { GetAllUser, GetUserById, UserResponse } from "./user.model";
 import type { HttpStatus } from "@/lib/status_code";
+import { AuthMiddleware } from "@/middleware/auth.middleware";
+import { Hono, type Context } from "hono";
+import { HTTPException } from "hono/http-exception";
+import type { GetAllUser, GetUserById, UserResponse } from "./user.model";
+import { UserService } from "./user.service";
 
 export const UserController = new Hono();
 
+UserController.use(AuthMiddleware);
 UserController.get(
   "/",
   async (
