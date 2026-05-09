@@ -9,12 +9,13 @@ datasource db {
 
 model customers {
   id           String    @id @default(dbgenerated("(uuid())")) @db.Char(70)
-  name         String    @db.VarChar(200)
+  firstname    String    @db.VarChar(100)
+  lastname     String?   @db.VarChar(100)
   phone        String    @db.VarChar(200)
   address      String?   @db.VarChar(200)
   total_orders Int?      @default(0) @db.SmallInt
   created_at   DateTime? @default(now()) @db.DateTime(0)
-  updated_at   DateTime? @default(now()) @db.DateTime(0)
+  updated_at   DateTime? @db.DateTime(0)
   orders       orders[]
 }
 
