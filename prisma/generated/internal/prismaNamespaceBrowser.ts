@@ -76,7 +76,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const CustomersScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  firstname: 'firstname',
+  lastname: 'lastname',
   phone: 'phone',
   address: 'address',
   total_orders: 'total_orders',
@@ -176,7 +177,8 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 export const customersOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name',
+  firstname: 'firstname',
+  lastname: 'lastname',
   phone: 'phone',
   address: 'address'
 } as const

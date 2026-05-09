@@ -36,7 +36,8 @@ export type CustomersSumAggregateOutputType = {
 
 export type CustomersMinAggregateOutputType = {
   id: string | null
-  name: string | null
+  firstname: string | null
+  lastname: string | null
   phone: string | null
   address: string | null
   total_orders: number | null
@@ -46,7 +47,8 @@ export type CustomersMinAggregateOutputType = {
 
 export type CustomersMaxAggregateOutputType = {
   id: string | null
-  name: string | null
+  firstname: string | null
+  lastname: string | null
   phone: string | null
   address: string | null
   total_orders: number | null
@@ -56,7 +58,8 @@ export type CustomersMaxAggregateOutputType = {
 
 export type CustomersCountAggregateOutputType = {
   id: number
-  name: number
+  firstname: number
+  lastname: number
   phone: number
   address: number
   total_orders: number
@@ -76,7 +79,8 @@ export type CustomersSumAggregateInputType = {
 
 export type CustomersMinAggregateInputType = {
   id?: true
-  name?: true
+  firstname?: true
+  lastname?: true
   phone?: true
   address?: true
   total_orders?: true
@@ -86,7 +90,8 @@ export type CustomersMinAggregateInputType = {
 
 export type CustomersMaxAggregateInputType = {
   id?: true
-  name?: true
+  firstname?: true
+  lastname?: true
   phone?: true
   address?: true
   total_orders?: true
@@ -96,7 +101,8 @@ export type CustomersMaxAggregateInputType = {
 
 export type CustomersCountAggregateInputType = {
   id?: true
-  name?: true
+  firstname?: true
+  lastname?: true
   phone?: true
   address?: true
   total_orders?: true
@@ -193,7 +199,8 @@ export type customersGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type CustomersGroupByOutputType = {
   id: string
-  name: string
+  firstname: string
+  lastname: string | null
   phone: string
   address: string | null
   total_orders: number | null
@@ -226,7 +233,8 @@ export type customersWhereInput = {
   OR?: Prisma.customersWhereInput[]
   NOT?: Prisma.customersWhereInput | Prisma.customersWhereInput[]
   id?: Prisma.StringFilter<"customers"> | string
-  name?: Prisma.StringFilter<"customers"> | string
+  firstname?: Prisma.StringFilter<"customers"> | string
+  lastname?: Prisma.StringNullableFilter<"customers"> | string | null
   phone?: Prisma.StringFilter<"customers"> | string
   address?: Prisma.StringNullableFilter<"customers"> | string | null
   total_orders?: Prisma.IntNullableFilter<"customers"> | number | null
@@ -237,7 +245,8 @@ export type customersWhereInput = {
 
 export type customersOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstname?: Prisma.SortOrder
+  lastname?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   total_orders?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -252,7 +261,8 @@ export type customersWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.customersWhereInput | Prisma.customersWhereInput[]
   OR?: Prisma.customersWhereInput[]
   NOT?: Prisma.customersWhereInput | Prisma.customersWhereInput[]
-  name?: Prisma.StringFilter<"customers"> | string
+  firstname?: Prisma.StringFilter<"customers"> | string
+  lastname?: Prisma.StringNullableFilter<"customers"> | string | null
   phone?: Prisma.StringFilter<"customers"> | string
   address?: Prisma.StringNullableFilter<"customers"> | string | null
   total_orders?: Prisma.IntNullableFilter<"customers"> | number | null
@@ -263,7 +273,8 @@ export type customersWhereUniqueInput = Prisma.AtLeast<{
 
 export type customersOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstname?: Prisma.SortOrder
+  lastname?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   total_orders?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -281,7 +292,8 @@ export type customersScalarWhereWithAggregatesInput = {
   OR?: Prisma.customersScalarWhereWithAggregatesInput[]
   NOT?: Prisma.customersScalarWhereWithAggregatesInput | Prisma.customersScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"customers"> | string
-  name?: Prisma.StringWithAggregatesFilter<"customers"> | string
+  firstname?: Prisma.StringWithAggregatesFilter<"customers"> | string
+  lastname?: Prisma.StringNullableWithAggregatesFilter<"customers"> | string | null
   phone?: Prisma.StringWithAggregatesFilter<"customers"> | string
   address?: Prisma.StringNullableWithAggregatesFilter<"customers"> | string | null
   total_orders?: Prisma.IntNullableWithAggregatesFilter<"customers"> | number | null
@@ -291,7 +303,8 @@ export type customersScalarWhereWithAggregatesInput = {
 
 export type customersCreateInput = {
   id?: string
-  name: string
+  firstname: string
+  lastname?: string | null
   phone: string
   address?: string | null
   total_orders?: number | null
@@ -302,7 +315,8 @@ export type customersCreateInput = {
 
 export type customersUncheckedCreateInput = {
   id?: string
-  name: string
+  firstname: string
+  lastname?: string | null
   phone: string
   address?: string | null
   total_orders?: number | null
@@ -313,7 +327,8 @@ export type customersUncheckedCreateInput = {
 
 export type customersUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstname?: Prisma.StringFieldUpdateOperationsInput | string
+  lastname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total_orders?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -324,7 +339,8 @@ export type customersUpdateInput = {
 
 export type customersUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstname?: Prisma.StringFieldUpdateOperationsInput | string
+  lastname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total_orders?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -335,7 +351,8 @@ export type customersUncheckedUpdateInput = {
 
 export type customersCreateManyInput = {
   id?: string
-  name: string
+  firstname: string
+  lastname?: string | null
   phone: string
   address?: string | null
   total_orders?: number | null
@@ -345,7 +362,8 @@ export type customersCreateManyInput = {
 
 export type customersUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstname?: Prisma.StringFieldUpdateOperationsInput | string
+  lastname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total_orders?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -355,7 +373,8 @@ export type customersUpdateManyMutationInput = {
 
 export type customersUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstname?: Prisma.StringFieldUpdateOperationsInput | string
+  lastname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total_orders?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -371,7 +390,8 @@ export type customersOrderByRelevanceInput = {
 
 export type customersCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstname?: Prisma.SortOrder
+  lastname?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   total_orders?: Prisma.SortOrder
@@ -385,7 +405,8 @@ export type customersAvgOrderByAggregateInput = {
 
 export type customersMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstname?: Prisma.SortOrder
+  lastname?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   total_orders?: Prisma.SortOrder
@@ -395,7 +416,8 @@ export type customersMaxOrderByAggregateInput = {
 
 export type customersMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  firstname?: Prisma.SortOrder
+  lastname?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
   total_orders?: Prisma.SortOrder
@@ -448,7 +470,8 @@ export type customersUpdateOneRequiredWithoutOrdersNestedInput = {
 
 export type customersCreateWithoutOrdersInput = {
   id?: string
-  name: string
+  firstname: string
+  lastname?: string | null
   phone: string
   address?: string | null
   total_orders?: number | null
@@ -458,7 +481,8 @@ export type customersCreateWithoutOrdersInput = {
 
 export type customersUncheckedCreateWithoutOrdersInput = {
   id?: string
-  name: string
+  firstname: string
+  lastname?: string | null
   phone: string
   address?: string | null
   total_orders?: number | null
@@ -484,7 +508,8 @@ export type customersUpdateToOneWithWhereWithoutOrdersInput = {
 
 export type customersUpdateWithoutOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstname?: Prisma.StringFieldUpdateOperationsInput | string
+  lastname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total_orders?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -494,7 +519,8 @@ export type customersUpdateWithoutOrdersInput = {
 
 export type customersUncheckedUpdateWithoutOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstname?: Prisma.StringFieldUpdateOperationsInput | string
+  lastname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total_orders?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -535,7 +561,8 @@ export type CustomersCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Type
 
 export type customersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  firstname?: boolean
+  lastname?: boolean
   phone?: boolean
   address?: boolean
   total_orders?: boolean
@@ -549,7 +576,8 @@ export type customersSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type customersSelectScalar = {
   id?: boolean
-  name?: boolean
+  firstname?: boolean
+  lastname?: boolean
   phone?: boolean
   address?: boolean
   total_orders?: boolean
@@ -557,7 +585,7 @@ export type customersSelectScalar = {
   updated_at?: boolean
 }
 
-export type customersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "address" | "total_orders" | "created_at" | "updated_at", ExtArgs["result"]["customers"]>
+export type customersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstname" | "lastname" | "phone" | "address" | "total_orders" | "created_at" | "updated_at", ExtArgs["result"]["customers"]>
 export type customersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orders?: boolean | Prisma.customers$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.CustomersCountOutputTypeDefaultArgs<ExtArgs>
@@ -570,7 +598,8 @@ export type $customersPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    name: string
+    firstname: string
+    lastname: string | null
     phone: string
     address: string | null
     total_orders: number | null
@@ -947,7 +976,8 @@ export interface Prisma__customersClient<T, Null = never, ExtArgs extends runtim
  */
 export interface customersFieldRefs {
   readonly id: Prisma.FieldRef<"customers", 'String'>
-  readonly name: Prisma.FieldRef<"customers", 'String'>
+  readonly firstname: Prisma.FieldRef<"customers", 'String'>
+  readonly lastname: Prisma.FieldRef<"customers", 'String'>
   readonly phone: Prisma.FieldRef<"customers", 'String'>
   readonly address: Prisma.FieldRef<"customers", 'String'>
   readonly total_orders: Prisma.FieldRef<"customers", 'Int'>
