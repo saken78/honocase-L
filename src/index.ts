@@ -1,5 +1,6 @@
 import AuthController from "./auth/auth.controller";
 import UserController from "./users/user.controller";
+import CustomersController from "./customers/customers.controller";
 import { logger } from "hono/logger";
 import { Hono } from "hono";
 import GlobalError from "./lib/error-handling";
@@ -7,12 +8,13 @@ import { winstonlogger } from "./lib/winston-logger";
 
 const root = new Hono();
 root.use("/*", logger());
+root.onError(GlobalError);
 root
   .basePath("/api")
   .route("/auth", AuthController)
-  .route("/user", UserController);
+  .route("/users", UserController)
+  .route("/customers", CustomersController);
 
-root.onError(GlobalError);
 for (let i = 0; i < root.routes.length; i++) {
   const route = root.routes[i];
   winstonlogger.info(
