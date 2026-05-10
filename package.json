@@ -4,7 +4,9 @@
   "scripts": {
     "start": "tsc --noemit && bun run --watch src/index.ts",
     "sh": "bun run --watch src/index.ts",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "pull": "bunx prisma db pull",
+    "generate": "bunx prisma generate"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.8.0",
