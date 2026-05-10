@@ -9,8 +9,9 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/customers.ts'
+export type * from './models/order_audit_log.ts'
 export type * from './models/orders.ts'
 export type * from './models/payments.ts'
-export type * from './models/services.ts'
+export type * from './models/service_prices.ts'
 export type * from './models/users.ts'
 export type * from './commonInputTypes.ts'

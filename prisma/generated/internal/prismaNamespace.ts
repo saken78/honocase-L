@@ -385,9 +385,10 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   customers: 'customers',
+  order_audit_log: 'order_audit_log',
   orders: 'orders',
   payments: 'payments',
-  services: 'services',
+  service_prices: 'service_prices',
   users: 'users'
 } as const
 
@@ -404,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "customers" | "orders" | "payments" | "services" | "users"
+    modelProps: "customers" | "order_audit_log" | "orders" | "payments" | "service_prices" | "users"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -471,6 +472,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.customersCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CustomersCountAggregateOutputType> | number
+        }
+      }
+    }
+    order_audit_log: {
+      payload: Prisma.$order_audit_logPayload<ExtArgs>
+      fields: Prisma.order_audit_logFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.order_audit_logFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.order_audit_logFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload>
+        }
+        findFirst: {
+          args: Prisma.order_audit_logFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.order_audit_logFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload>
+        }
+        findMany: {
+          args: Prisma.order_audit_logFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload>[]
+        }
+        create: {
+          args: Prisma.order_audit_logCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload>
+        }
+        createMany: {
+          args: Prisma.order_audit_logCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.order_audit_logDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload>
+        }
+        update: {
+          args: Prisma.order_audit_logUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload>
+        }
+        deleteMany: {
+          args: Prisma.order_audit_logDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.order_audit_logUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.order_audit_logUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$order_audit_logPayload>
+        }
+        aggregate: {
+          args: Prisma.Order_audit_logAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrder_audit_log>
+        }
+        groupBy: {
+          args: Prisma.order_audit_logGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Order_audit_logGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.order_audit_logCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Order_audit_logCountAggregateOutputType> | number
         }
       }
     }
@@ -606,69 +673,69 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    services: {
-      payload: Prisma.$servicesPayload<ExtArgs>
-      fields: Prisma.servicesFieldRefs
+    service_prices: {
+      payload: Prisma.$service_pricesPayload<ExtArgs>
+      fields: Prisma.service_pricesFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.servicesFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload> | null
+          args: Prisma.service_pricesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.servicesFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload>
+          args: Prisma.service_pricesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload>
         }
         findFirst: {
-          args: Prisma.servicesFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload> | null
+          args: Prisma.service_pricesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.servicesFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload>
+          args: Prisma.service_pricesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload>
         }
         findMany: {
-          args: Prisma.servicesFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload>[]
+          args: Prisma.service_pricesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload>[]
         }
         create: {
-          args: Prisma.servicesCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload>
+          args: Prisma.service_pricesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload>
         }
         createMany: {
-          args: Prisma.servicesCreateManyArgs<ExtArgs>
+          args: Prisma.service_pricesCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         delete: {
-          args: Prisma.servicesDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload>
+          args: Prisma.service_pricesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload>
         }
         update: {
-          args: Prisma.servicesUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload>
+          args: Prisma.service_pricesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload>
         }
         deleteMany: {
-          args: Prisma.servicesDeleteManyArgs<ExtArgs>
+          args: Prisma.service_pricesDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.servicesUpdateManyArgs<ExtArgs>
+          args: Prisma.service_pricesUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         upsert: {
-          args: Prisma.servicesUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$servicesPayload>
+          args: Prisma.service_pricesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$service_pricesPayload>
         }
         aggregate: {
-          args: Prisma.ServicesAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateServices>
+          args: Prisma.Service_pricesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateService_prices>
         }
         groupBy: {
-          args: Prisma.servicesGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ServicesGroupByOutputType>[]
+          args: Prisma.service_pricesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Service_pricesGroupByOutputType>[]
         }
         count: {
-          args: Prisma.servicesCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ServicesCountAggregateOutputType> | number
+          args: Prisma.service_pricesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Service_pricesCountAggregateOutputType> | number
         }
       }
     }
@@ -779,11 +846,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const CustomersScalarFieldEnum = {
   id: 'id',
-  firstname: 'firstname',
-  lastname: 'lastname',
+  name: 'name',
   phone: 'phone',
   address: 'address',
-  total_orders: 'total_orders',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -791,29 +856,39 @@ export const CustomersScalarFieldEnum = {
 export type CustomersScalarFieldEnum = (typeof CustomersScalarFieldEnum)[keyof typeof CustomersScalarFieldEnum]
 
 
+export const Order_audit_logScalarFieldEnum = {
+  id: 'id',
+  order_id: 'order_id',
+  user_id: 'user_id',
+  old_status: 'old_status',
+  new_status: 'new_status',
+  notes: 'notes',
+  created_at: 'created_at'
+} as const
+
+export type Order_audit_logScalarFieldEnum = (typeof Order_audit_logScalarFieldEnum)[keyof typeof Order_audit_logScalarFieldEnum]
+
+
 export const OrdersScalarFieldEnum = {
   id: 'id',
   order_code: 'order_code',
   customer_id: 'customer_id',
-  service_id: 'service_id',
+  service_type: 'service_type',
   quantity: 'quantity',
-  base_subtotal: 'base_subtotal',
   is_express: 'is_express',
-  express_fee_percent: 'express_fee_percent',
-  express_fee_amount: 'express_fee_amount',
-  discount: 'discount',
-  total: 'total',
+  base_price: 'base_price',
+  express_surcharge: 'express_surcharge',
+  total_price: 'total_price',
   status: 'status',
+  is_overdue: 'is_overdue',
+  needs_weight_label: 'needs_weight_label',
+  condition_notes: 'condition_notes',
   notes: 'notes',
-  pre_condition: 'pre_condition',
+  estimated_done: 'estimated_done',
+  created_by: 'created_by',
   created_at: 'created_at',
-  expected_ready_at: 'expected_ready_at',
-  actual_ready_at: 'actual_ready_at',
-  picked_up_at: 'picked_up_at',
-  unclaimed_since: 'unclaimed_since',
-  auction_date: 'auction_date',
-  auction_price: 'auction_price',
-  needs_label: 'needs_label'
+  updated_at: 'updated_at',
+  picked_up_at: 'picked_up_at'
 } as const
 
 export type OrdersScalarFieldEnum = (typeof OrdersScalarFieldEnum)[keyof typeof OrdersScalarFieldEnum]
@@ -832,31 +907,24 @@ export const PaymentsScalarFieldEnum = {
 export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
 
 
-export const ServicesScalarFieldEnum = {
+export const Service_pricesScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  base_price: 'base_price',
-  pricing_type: 'pricing_type',
+  service_type: 'service_type',
+  price_per_unit: 'price_per_unit',
   unit_label: 'unit_label',
-  default_turnaround_hours: 'default_turnaround_hours',
-  is_active: 'is_active',
-  created_at: 'created_at'
+  updated_at: 'updated_at'
 } as const
 
-export type ServicesScalarFieldEnum = (typeof ServicesScalarFieldEnum)[keyof typeof ServicesScalarFieldEnum]
+export type Service_pricesScalarFieldEnum = (typeof Service_pricesScalarFieldEnum)[keyof typeof Service_pricesScalarFieldEnum]
 
 
 export const UsersScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  firstname: 'firstname',
-  lastname: 'lastname',
   password_hash: 'password_hash',
   role: 'role',
   is_active: 'is_active',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  created_at: 'created_at'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -880,8 +948,7 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 export const customersOrderByRelevanceFieldEnum = {
   id: 'id',
-  firstname: 'firstname',
-  lastname: 'lastname',
+  name: 'name',
   phone: 'phone',
   address: 'address'
 } as const
@@ -889,13 +956,25 @@ export const customersOrderByRelevanceFieldEnum = {
 export type customersOrderByRelevanceFieldEnum = (typeof customersOrderByRelevanceFieldEnum)[keyof typeof customersOrderByRelevanceFieldEnum]
 
 
+export const order_audit_logOrderByRelevanceFieldEnum = {
+  id: 'id',
+  order_id: 'order_id',
+  user_id: 'user_id',
+  old_status: 'old_status',
+  new_status: 'new_status',
+  notes: 'notes'
+} as const
+
+export type order_audit_logOrderByRelevanceFieldEnum = (typeof order_audit_logOrderByRelevanceFieldEnum)[keyof typeof order_audit_logOrderByRelevanceFieldEnum]
+
+
 export const ordersOrderByRelevanceFieldEnum = {
   id: 'id',
   order_code: 'order_code',
   customer_id: 'customer_id',
-  service_id: 'service_id',
+  condition_notes: 'condition_notes',
   notes: 'notes',
-  pre_condition: 'pre_condition'
+  created_by: 'created_by'
 } as const
 
 export type ordersOrderByRelevanceFieldEnum = (typeof ordersOrderByRelevanceFieldEnum)[keyof typeof ordersOrderByRelevanceFieldEnum]
@@ -911,19 +990,17 @@ export const paymentsOrderByRelevanceFieldEnum = {
 export type paymentsOrderByRelevanceFieldEnum = (typeof paymentsOrderByRelevanceFieldEnum)[keyof typeof paymentsOrderByRelevanceFieldEnum]
 
 
-export const servicesOrderByRelevanceFieldEnum = {
+export const service_pricesOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name'
+  unit_label: 'unit_label'
 } as const
 
-export type servicesOrderByRelevanceFieldEnum = (typeof servicesOrderByRelevanceFieldEnum)[keyof typeof servicesOrderByRelevanceFieldEnum]
+export type service_pricesOrderByRelevanceFieldEnum = (typeof service_pricesOrderByRelevanceFieldEnum)[keyof typeof service_pricesOrderByRelevanceFieldEnum]
 
 
 export const usersOrderByRelevanceFieldEnum = {
   id: 'id',
   email: 'email',
-  firstname: 'firstname',
-  lastname: 'lastname',
   password_hash: 'password_hash'
 } as const
 
@@ -944,13 +1021,6 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
 
 
 /**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -958,9 +1028,9 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 
 
 /**
- * Reference to a field of type 'orders_quantity'
+ * Reference to a field of type 'orders_service_type'
  */
-export type Enumorders_quantityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'orders_quantity'>
+export type Enumorders_service_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'orders_service_type'>
     
 
 
@@ -993,16 +1063,9 @@ export type Enumpayments_methodFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
- * Reference to a field of type 'services_pricing_type'
+ * Reference to a field of type 'service_prices_service_type'
  */
-export type Enumservices_pricing_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'services_pricing_type'>
-    
-
-
-/**
- * Reference to a field of type 'services_unit_label'
- */
-export type Enumservices_unit_labelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'services_unit_label'>
+export type Enumservice_prices_service_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_prices_service_type'>
     
 
 
@@ -1014,9 +1077,9 @@ export type Enumusers_roleFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
 
 
 /**
- * Reference to a field of type 'Float'
+ * Reference to a field of type 'Int'
  */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 /**
@@ -1130,9 +1193,10 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   customers?: Prisma.customersOmit
+  order_audit_log?: Prisma.order_audit_logOmit
   orders?: Prisma.ordersOmit
   payments?: Prisma.paymentsOmit
-  services?: Prisma.servicesOmit
+  service_prices?: Prisma.service_pricesOmit
   users?: Prisma.usersOmit
 }
 

@@ -9,6 +9,15 @@
 * 🟢 You can import this file directly.
 */
 
+export const service_prices_service_type = {
+  kiloan: 'kiloan',
+  satuan: 'satuan',
+  meter: 'meter'
+} as const
+
+export type service_prices_service_type = (typeof service_prices_service_type)[keyof typeof service_prices_service_type]
+
+
 export const payments_method = {
   cash: 'cash',
   transfer: 'transfer',
@@ -18,46 +27,29 @@ export const payments_method = {
 export type payments_method = (typeof payments_method)[keyof typeof payments_method]
 
 
-export const services_pricing_type = {
-  weight: 'weight',
-  item: 'item',
-  fixed: 'fixed'
-} as const
-
-export type services_pricing_type = (typeof services_pricing_type)[keyof typeof services_pricing_type]
-
-
-export const services_unit_label = {
-  kg: 'kg',
-  pcs: 'pcs',
-  EMPTY_ENUM_VALUE: 'EMPTY_ENUM_VALUE'
-} as const
-
-export type services_unit_label = (typeof services_unit_label)[keyof typeof services_unit_label]
-
-
 export const users_role = {
   owner: 'owner',
-  staff: 'staff'
+  karyawan: 'karyawan'
 } as const
 
 export type users_role = (typeof users_role)[keyof typeof users_role]
 
 
-export const orders_quantity = {
-  kg: 'kg',
-  pcs: 'pcs'
+export const orders_service_type = {
+  kiloan: 'kiloan',
+  satuan: 'satuan',
+  express: 'express',
+  meter: 'meter'
 } as const
 
-export type orders_quantity = (typeof orders_quantity)[keyof typeof orders_quantity]
+export type orders_service_type = (typeof orders_service_type)[keyof typeof orders_service_type]
 
 
 export const orders_status = {
   received: 'received',
   washing: 'washing',
   ready: 'ready',
-  picked_up: 'picked_up',
-  auctioned: 'auctioned'
+  picked_up: 'picked_up'
 } as const
 
 export type orders_status = (typeof orders_status)[keyof typeof orders_status]

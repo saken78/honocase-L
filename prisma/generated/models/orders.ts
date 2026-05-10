@@ -27,191 +27,165 @@ export type AggregateOrders = {
 }
 
 export type OrdersAvgAggregateOutputType = {
-  base_subtotal: runtime.Decimal | null
-  express_fee_percent: runtime.Decimal | null
-  express_fee_amount: runtime.Decimal | null
-  discount: runtime.Decimal | null
-  total: runtime.Decimal | null
-  auction_price: runtime.Decimal | null
+  quantity: runtime.Decimal | null
+  base_price: runtime.Decimal | null
+  express_surcharge: runtime.Decimal | null
+  total_price: runtime.Decimal | null
 }
 
 export type OrdersSumAggregateOutputType = {
-  base_subtotal: runtime.Decimal | null
-  express_fee_percent: runtime.Decimal | null
-  express_fee_amount: runtime.Decimal | null
-  discount: runtime.Decimal | null
-  total: runtime.Decimal | null
-  auction_price: runtime.Decimal | null
+  quantity: runtime.Decimal | null
+  base_price: runtime.Decimal | null
+  express_surcharge: runtime.Decimal | null
+  total_price: runtime.Decimal | null
 }
 
 export type OrdersMinAggregateOutputType = {
   id: string | null
   order_code: string | null
   customer_id: string | null
-  service_id: string | null
-  quantity: $Enums.orders_quantity | null
-  base_subtotal: runtime.Decimal | null
+  service_type: $Enums.orders_service_type | null
+  quantity: runtime.Decimal | null
   is_express: boolean | null
-  express_fee_percent: runtime.Decimal | null
-  express_fee_amount: runtime.Decimal | null
-  discount: runtime.Decimal | null
-  total: runtime.Decimal | null
+  base_price: runtime.Decimal | null
+  express_surcharge: runtime.Decimal | null
+  total_price: runtime.Decimal | null
   status: $Enums.orders_status | null
+  is_overdue: boolean | null
+  needs_weight_label: boolean | null
+  condition_notes: string | null
   notes: string | null
-  pre_condition: string | null
+  estimated_done: Date | null
+  created_by: string | null
   created_at: Date | null
-  expected_ready_at: Date | null
-  actual_ready_at: Date | null
+  updated_at: Date | null
   picked_up_at: Date | null
-  unclaimed_since: Date | null
-  auction_date: Date | null
-  auction_price: runtime.Decimal | null
-  needs_label: boolean | null
 }
 
 export type OrdersMaxAggregateOutputType = {
   id: string | null
   order_code: string | null
   customer_id: string | null
-  service_id: string | null
-  quantity: $Enums.orders_quantity | null
-  base_subtotal: runtime.Decimal | null
+  service_type: $Enums.orders_service_type | null
+  quantity: runtime.Decimal | null
   is_express: boolean | null
-  express_fee_percent: runtime.Decimal | null
-  express_fee_amount: runtime.Decimal | null
-  discount: runtime.Decimal | null
-  total: runtime.Decimal | null
+  base_price: runtime.Decimal | null
+  express_surcharge: runtime.Decimal | null
+  total_price: runtime.Decimal | null
   status: $Enums.orders_status | null
+  is_overdue: boolean | null
+  needs_weight_label: boolean | null
+  condition_notes: string | null
   notes: string | null
-  pre_condition: string | null
+  estimated_done: Date | null
+  created_by: string | null
   created_at: Date | null
-  expected_ready_at: Date | null
-  actual_ready_at: Date | null
+  updated_at: Date | null
   picked_up_at: Date | null
-  unclaimed_since: Date | null
-  auction_date: Date | null
-  auction_price: runtime.Decimal | null
-  needs_label: boolean | null
 }
 
 export type OrdersCountAggregateOutputType = {
   id: number
   order_code: number
   customer_id: number
-  service_id: number
+  service_type: number
   quantity: number
-  base_subtotal: number
   is_express: number
-  express_fee_percent: number
-  express_fee_amount: number
-  discount: number
-  total: number
+  base_price: number
+  express_surcharge: number
+  total_price: number
   status: number
+  is_overdue: number
+  needs_weight_label: number
+  condition_notes: number
   notes: number
-  pre_condition: number
+  estimated_done: number
+  created_by: number
   created_at: number
-  expected_ready_at: number
-  actual_ready_at: number
+  updated_at: number
   picked_up_at: number
-  unclaimed_since: number
-  auction_date: number
-  auction_price: number
-  needs_label: number
   _all: number
 }
 
 
 export type OrdersAvgAggregateInputType = {
-  base_subtotal?: true
-  express_fee_percent?: true
-  express_fee_amount?: true
-  discount?: true
-  total?: true
-  auction_price?: true
+  quantity?: true
+  base_price?: true
+  express_surcharge?: true
+  total_price?: true
 }
 
 export type OrdersSumAggregateInputType = {
-  base_subtotal?: true
-  express_fee_percent?: true
-  express_fee_amount?: true
-  discount?: true
-  total?: true
-  auction_price?: true
+  quantity?: true
+  base_price?: true
+  express_surcharge?: true
+  total_price?: true
 }
 
 export type OrdersMinAggregateInputType = {
   id?: true
   order_code?: true
   customer_id?: true
-  service_id?: true
+  service_type?: true
   quantity?: true
-  base_subtotal?: true
   is_express?: true
-  express_fee_percent?: true
-  express_fee_amount?: true
-  discount?: true
-  total?: true
+  base_price?: true
+  express_surcharge?: true
+  total_price?: true
   status?: true
+  is_overdue?: true
+  needs_weight_label?: true
+  condition_notes?: true
   notes?: true
-  pre_condition?: true
+  estimated_done?: true
+  created_by?: true
   created_at?: true
-  expected_ready_at?: true
-  actual_ready_at?: true
+  updated_at?: true
   picked_up_at?: true
-  unclaimed_since?: true
-  auction_date?: true
-  auction_price?: true
-  needs_label?: true
 }
 
 export type OrdersMaxAggregateInputType = {
   id?: true
   order_code?: true
   customer_id?: true
-  service_id?: true
+  service_type?: true
   quantity?: true
-  base_subtotal?: true
   is_express?: true
-  express_fee_percent?: true
-  express_fee_amount?: true
-  discount?: true
-  total?: true
+  base_price?: true
+  express_surcharge?: true
+  total_price?: true
   status?: true
+  is_overdue?: true
+  needs_weight_label?: true
+  condition_notes?: true
   notes?: true
-  pre_condition?: true
+  estimated_done?: true
+  created_by?: true
   created_at?: true
-  expected_ready_at?: true
-  actual_ready_at?: true
+  updated_at?: true
   picked_up_at?: true
-  unclaimed_since?: true
-  auction_date?: true
-  auction_price?: true
-  needs_label?: true
 }
 
 export type OrdersCountAggregateInputType = {
   id?: true
   order_code?: true
   customer_id?: true
-  service_id?: true
+  service_type?: true
   quantity?: true
-  base_subtotal?: true
   is_express?: true
-  express_fee_percent?: true
-  express_fee_amount?: true
-  discount?: true
-  total?: true
+  base_price?: true
+  express_surcharge?: true
+  total_price?: true
   status?: true
+  is_overdue?: true
+  needs_weight_label?: true
+  condition_notes?: true
   notes?: true
-  pre_condition?: true
+  estimated_done?: true
+  created_by?: true
   created_at?: true
-  expected_ready_at?: true
-  actual_ready_at?: true
+  updated_at?: true
   picked_up_at?: true
-  unclaimed_since?: true
-  auction_date?: true
-  auction_price?: true
-  needs_label?: true
   _all?: true
 }
 
@@ -304,26 +278,23 @@ export type ordersGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type OrdersGroupByOutputType = {
   id: string
   order_code: string
-  customer_id: string
-  service_id: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal
+  customer_id: string | null
+  service_type: $Enums.orders_service_type
+  quantity: runtime.Decimal
   is_express: boolean | null
-  express_fee_percent: runtime.Decimal | null
-  express_fee_amount: runtime.Decimal | null
-  discount: runtime.Decimal | null
-  total: runtime.Decimal
-  status: $Enums.orders_status | null
+  base_price: runtime.Decimal
+  express_surcharge: runtime.Decimal | null
+  total_price: runtime.Decimal
+  status: $Enums.orders_status
+  is_overdue: boolean | null
+  needs_weight_label: boolean | null
+  condition_notes: string | null
   notes: string | null
-  pre_condition: string | null
+  estimated_done: Date | null
+  created_by: string | null
   created_at: Date | null
-  expected_ready_at: Date
-  actual_ready_at: Date | null
+  updated_at: Date | null
   picked_up_at: Date | null
-  unclaimed_since: Date | null
-  auction_date: Date | null
-  auction_price: runtime.Decimal | null
-  needs_label: boolean | null
   _count: OrdersCountAggregateOutputType | null
   _avg: OrdersAvgAggregateOutputType | null
   _sum: OrdersSumAggregateOutputType | null
@@ -352,56 +323,50 @@ export type ordersWhereInput = {
   NOT?: Prisma.ordersWhereInput | Prisma.ordersWhereInput[]
   id?: Prisma.StringFilter<"orders"> | string
   order_code?: Prisma.StringFilter<"orders"> | string
-  customer_id?: Prisma.StringFilter<"orders"> | string
-  service_id?: Prisma.StringFilter<"orders"> | string
-  quantity?: Prisma.Enumorders_quantityFilter<"orders"> | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: Prisma.StringNullableFilter<"orders"> | string | null
+  service_type?: Prisma.Enumorders_service_typeFilter<"orders"> | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.BoolNullableFilter<"orders"> | boolean | null
-  express_fee_percent?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.Enumorders_statusNullableFilter<"orders"> | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFilter<"orders"> | $Enums.orders_status
+  is_overdue?: Prisma.BoolNullableFilter<"orders"> | boolean | null
+  needs_weight_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
+  condition_notes?: Prisma.StringNullableFilter<"orders"> | string | null
   notes?: Prisma.StringNullableFilter<"orders"> | string | null
-  pre_condition?: Prisma.StringNullableFilter<"orders"> | string | null
+  estimated_done?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"orders"> | string | null
   created_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFilter<"orders"> | Date | string
-  actual_ready_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
+  updated_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
   picked_up_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  unclaimed_since?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  auction_date?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  auction_price?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
-  customers?: Prisma.XOR<Prisma.CustomersScalarRelationFilter, Prisma.customersWhereInput>
-  services?: Prisma.XOR<Prisma.ServicesScalarRelationFilter, Prisma.servicesWhereInput>
+  order_audit_log?: Prisma.Order_audit_logListRelationFilter
+  customers?: Prisma.XOR<Prisma.CustomersNullableScalarRelationFilter, Prisma.customersWhereInput> | null
   payments?: Prisma.PaymentsListRelationFilter
 }
 
 export type ordersOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   order_code?: Prisma.SortOrder
-  customer_id?: Prisma.SortOrder
-  service_id?: Prisma.SortOrder
+  customer_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  service_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  base_subtotal?: Prisma.SortOrder
   is_express?: Prisma.SortOrderInput | Prisma.SortOrder
-  express_fee_percent?: Prisma.SortOrderInput | Prisma.SortOrder
-  express_fee_amount?: Prisma.SortOrderInput | Prisma.SortOrder
-  discount?: Prisma.SortOrderInput | Prisma.SortOrder
-  total?: Prisma.SortOrder
-  status?: Prisma.SortOrderInput | Prisma.SortOrder
+  base_price?: Prisma.SortOrder
+  express_surcharge?: Prisma.SortOrderInput | Prisma.SortOrder
+  total_price?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  is_overdue?: Prisma.SortOrderInput | Prisma.SortOrder
+  needs_weight_label?: Prisma.SortOrderInput | Prisma.SortOrder
+  condition_notes?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
-  pre_condition?: Prisma.SortOrderInput | Prisma.SortOrder
+  estimated_done?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  expected_ready_at?: Prisma.SortOrder
-  actual_ready_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   picked_up_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  unclaimed_since?: Prisma.SortOrderInput | Prisma.SortOrder
-  auction_date?: Prisma.SortOrderInput | Prisma.SortOrder
-  auction_price?: Prisma.SortOrderInput | Prisma.SortOrder
-  needs_label?: Prisma.SortOrderInput | Prisma.SortOrder
+  order_audit_log?: Prisma.order_audit_logOrderByRelationAggregateInput
   customers?: Prisma.customersOrderByWithRelationInput
-  services?: Prisma.servicesOrderByWithRelationInput
   payments?: Prisma.paymentsOrderByRelationAggregateInput
   _relevance?: Prisma.ordersOrderByRelevanceInput
 }
@@ -412,54 +377,48 @@ export type ordersWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ordersWhereInput | Prisma.ordersWhereInput[]
   OR?: Prisma.ordersWhereInput[]
   NOT?: Prisma.ordersWhereInput | Prisma.ordersWhereInput[]
-  customer_id?: Prisma.StringFilter<"orders"> | string
-  service_id?: Prisma.StringFilter<"orders"> | string
-  quantity?: Prisma.Enumorders_quantityFilter<"orders"> | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: Prisma.StringNullableFilter<"orders"> | string | null
+  service_type?: Prisma.Enumorders_service_typeFilter<"orders"> | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.BoolNullableFilter<"orders"> | boolean | null
-  express_fee_percent?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.Enumorders_statusNullableFilter<"orders"> | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFilter<"orders"> | $Enums.orders_status
+  is_overdue?: Prisma.BoolNullableFilter<"orders"> | boolean | null
+  needs_weight_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
+  condition_notes?: Prisma.StringNullableFilter<"orders"> | string | null
   notes?: Prisma.StringNullableFilter<"orders"> | string | null
-  pre_condition?: Prisma.StringNullableFilter<"orders"> | string | null
+  estimated_done?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"orders"> | string | null
   created_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFilter<"orders"> | Date | string
-  actual_ready_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
+  updated_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
   picked_up_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  unclaimed_since?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  auction_date?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  auction_price?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
-  customers?: Prisma.XOR<Prisma.CustomersScalarRelationFilter, Prisma.customersWhereInput>
-  services?: Prisma.XOR<Prisma.ServicesScalarRelationFilter, Prisma.servicesWhereInput>
+  order_audit_log?: Prisma.Order_audit_logListRelationFilter
+  customers?: Prisma.XOR<Prisma.CustomersNullableScalarRelationFilter, Prisma.customersWhereInput> | null
   payments?: Prisma.PaymentsListRelationFilter
 }, "id" | "order_code">
 
 export type ordersOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   order_code?: Prisma.SortOrder
-  customer_id?: Prisma.SortOrder
-  service_id?: Prisma.SortOrder
+  customer_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  service_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  base_subtotal?: Prisma.SortOrder
   is_express?: Prisma.SortOrderInput | Prisma.SortOrder
-  express_fee_percent?: Prisma.SortOrderInput | Prisma.SortOrder
-  express_fee_amount?: Prisma.SortOrderInput | Prisma.SortOrder
-  discount?: Prisma.SortOrderInput | Prisma.SortOrder
-  total?: Prisma.SortOrder
-  status?: Prisma.SortOrderInput | Prisma.SortOrder
+  base_price?: Prisma.SortOrder
+  express_surcharge?: Prisma.SortOrderInput | Prisma.SortOrder
+  total_price?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  is_overdue?: Prisma.SortOrderInput | Prisma.SortOrder
+  needs_weight_label?: Prisma.SortOrderInput | Prisma.SortOrder
+  condition_notes?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
-  pre_condition?: Prisma.SortOrderInput | Prisma.SortOrder
+  estimated_done?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  expected_ready_at?: Prisma.SortOrder
-  actual_ready_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   picked_up_at?: Prisma.SortOrderInput | Prisma.SortOrder
-  unclaimed_since?: Prisma.SortOrderInput | Prisma.SortOrder
-  auction_date?: Prisma.SortOrderInput | Prisma.SortOrder
-  auction_price?: Prisma.SortOrderInput | Prisma.SortOrder
-  needs_label?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ordersCountOrderByAggregateInput
   _avg?: Prisma.ordersAvgOrderByAggregateInput
   _max?: Prisma.ordersMaxOrderByAggregateInput
@@ -473,203 +432,184 @@ export type ordersScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ordersScalarWhereWithAggregatesInput | Prisma.ordersScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"orders"> | string
   order_code?: Prisma.StringWithAggregatesFilter<"orders"> | string
-  customer_id?: Prisma.StringWithAggregatesFilter<"orders"> | string
-  service_id?: Prisma.StringWithAggregatesFilter<"orders"> | string
-  quantity?: Prisma.Enumorders_quantityWithAggregatesFilter<"orders"> | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: Prisma.StringNullableWithAggregatesFilter<"orders"> | string | null
+  service_type?: Prisma.Enumorders_service_typeWithAggregatesFilter<"orders"> | $Enums.orders_service_type
+  quantity?: Prisma.DecimalWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.BoolNullableWithAggregatesFilter<"orders"> | boolean | null
-  express_fee_percent?: Prisma.DecimalNullableWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.DecimalNullableWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.DecimalNullableWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.Enumorders_statusNullableWithAggregatesFilter<"orders"> | $Enums.orders_status | null
+  base_price?: Prisma.DecimalWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.DecimalNullableWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusWithAggregatesFilter<"orders"> | $Enums.orders_status
+  is_overdue?: Prisma.BoolNullableWithAggregatesFilter<"orders"> | boolean | null
+  needs_weight_label?: Prisma.BoolNullableWithAggregatesFilter<"orders"> | boolean | null
+  condition_notes?: Prisma.StringNullableWithAggregatesFilter<"orders"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"orders"> | string | null
-  pre_condition?: Prisma.StringNullableWithAggregatesFilter<"orders"> | string | null
+  estimated_done?: Prisma.DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
+  created_by?: Prisma.StringNullableWithAggregatesFilter<"orders"> | string | null
   created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
-  expected_ready_at?: Prisma.DateTimeWithAggregatesFilter<"orders"> | Date | string
-  actual_ready_at?: Prisma.DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
+  updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
   picked_up_at?: Prisma.DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
-  unclaimed_since?: Prisma.DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
-  auction_date?: Prisma.DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
-  auction_price?: Prisma.DecimalNullableWithAggregatesFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.BoolNullableWithAggregatesFilter<"orders"> | boolean | null
 }
 
 export type ordersCreateInput = {
   id?: string
   order_code: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
   notes?: string | null
-  pre_condition?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
   created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
+  updated_at?: Date | string | null
   picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
-  customers: Prisma.customersCreateNestedOneWithoutOrdersInput
-  services: Prisma.servicesCreateNestedOneWithoutOrdersInput
+  order_audit_log?: Prisma.order_audit_logCreateNestedManyWithoutOrdersInput
+  customers?: Prisma.customersCreateNestedOneWithoutOrdersInput
   payments?: Prisma.paymentsCreateNestedManyWithoutOrdersInput
 }
 
 export type ordersUncheckedCreateInput = {
   id?: string
   order_code: string
-  customer_id: string
-  service_id: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: string | null
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
   notes?: string | null
-  pre_condition?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
   created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
+  updated_at?: Date | string | null
   picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
+  order_audit_log?: Prisma.order_audit_logUncheckedCreateNestedManyWithoutOrdersInput
   payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutOrdersInput
 }
 
 export type ordersUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  customers?: Prisma.customersUpdateOneRequiredWithoutOrdersNestedInput
-  services?: Prisma.servicesUpdateOneRequiredWithoutOrdersNestedInput
+  order_audit_log?: Prisma.order_audit_logUpdateManyWithoutOrdersNestedInput
+  customers?: Prisma.customersUpdateOneWithoutOrdersNestedInput
   payments?: Prisma.paymentsUpdateManyWithoutOrdersNestedInput
 }
 
 export type ordersUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  customer_id?: Prisma.StringFieldUpdateOperationsInput | string
-  service_id?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  order_audit_log?: Prisma.order_audit_logUncheckedUpdateManyWithoutOrdersNestedInput
   payments?: Prisma.paymentsUncheckedUpdateManyWithoutOrdersNestedInput
 }
 
 export type ordersCreateManyInput = {
   id?: string
   order_code: string
-  customer_id: string
-  service_id: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: string | null
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
   notes?: string | null
-  pre_condition?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
   created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
+  updated_at?: Date | string | null
   picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
 }
 
 export type ordersUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type ordersUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  customer_id?: Prisma.StringFieldUpdateOperationsInput | string
-  service_id?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 export type OrdersListRelationFilter = {
@@ -682,6 +622,11 @@ export type ordersOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type OrdersNullableScalarRelationFilter = {
+  is?: Prisma.ordersWhereInput | null
+  isNot?: Prisma.ordersWhereInput | null
+}
+
 export type ordersOrderByRelevanceInput = {
   fields: Prisma.ordersOrderByRelevanceFieldEnum | Prisma.ordersOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
@@ -692,93 +637,80 @@ export type ordersCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order_code?: Prisma.SortOrder
   customer_id?: Prisma.SortOrder
-  service_id?: Prisma.SortOrder
+  service_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  base_subtotal?: Prisma.SortOrder
   is_express?: Prisma.SortOrder
-  express_fee_percent?: Prisma.SortOrder
-  express_fee_amount?: Prisma.SortOrder
-  discount?: Prisma.SortOrder
-  total?: Prisma.SortOrder
+  base_price?: Prisma.SortOrder
+  express_surcharge?: Prisma.SortOrder
+  total_price?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  is_overdue?: Prisma.SortOrder
+  needs_weight_label?: Prisma.SortOrder
+  condition_notes?: Prisma.SortOrder
   notes?: Prisma.SortOrder
-  pre_condition?: Prisma.SortOrder
+  estimated_done?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  expected_ready_at?: Prisma.SortOrder
-  actual_ready_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   picked_up_at?: Prisma.SortOrder
-  unclaimed_since?: Prisma.SortOrder
-  auction_date?: Prisma.SortOrder
-  auction_price?: Prisma.SortOrder
-  needs_label?: Prisma.SortOrder
 }
 
 export type ordersAvgOrderByAggregateInput = {
-  base_subtotal?: Prisma.SortOrder
-  express_fee_percent?: Prisma.SortOrder
-  express_fee_amount?: Prisma.SortOrder
-  discount?: Prisma.SortOrder
-  total?: Prisma.SortOrder
-  auction_price?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  base_price?: Prisma.SortOrder
+  express_surcharge?: Prisma.SortOrder
+  total_price?: Prisma.SortOrder
 }
 
 export type ordersMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order_code?: Prisma.SortOrder
   customer_id?: Prisma.SortOrder
-  service_id?: Prisma.SortOrder
+  service_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  base_subtotal?: Prisma.SortOrder
   is_express?: Prisma.SortOrder
-  express_fee_percent?: Prisma.SortOrder
-  express_fee_amount?: Prisma.SortOrder
-  discount?: Prisma.SortOrder
-  total?: Prisma.SortOrder
+  base_price?: Prisma.SortOrder
+  express_surcharge?: Prisma.SortOrder
+  total_price?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  is_overdue?: Prisma.SortOrder
+  needs_weight_label?: Prisma.SortOrder
+  condition_notes?: Prisma.SortOrder
   notes?: Prisma.SortOrder
-  pre_condition?: Prisma.SortOrder
+  estimated_done?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  expected_ready_at?: Prisma.SortOrder
-  actual_ready_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   picked_up_at?: Prisma.SortOrder
-  unclaimed_since?: Prisma.SortOrder
-  auction_date?: Prisma.SortOrder
-  auction_price?: Prisma.SortOrder
-  needs_label?: Prisma.SortOrder
 }
 
 export type ordersMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   order_code?: Prisma.SortOrder
   customer_id?: Prisma.SortOrder
-  service_id?: Prisma.SortOrder
+  service_type?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  base_subtotal?: Prisma.SortOrder
   is_express?: Prisma.SortOrder
-  express_fee_percent?: Prisma.SortOrder
-  express_fee_amount?: Prisma.SortOrder
-  discount?: Prisma.SortOrder
-  total?: Prisma.SortOrder
+  base_price?: Prisma.SortOrder
+  express_surcharge?: Prisma.SortOrder
+  total_price?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  is_overdue?: Prisma.SortOrder
+  needs_weight_label?: Prisma.SortOrder
+  condition_notes?: Prisma.SortOrder
   notes?: Prisma.SortOrder
-  pre_condition?: Prisma.SortOrder
+  estimated_done?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  expected_ready_at?: Prisma.SortOrder
-  actual_ready_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
   picked_up_at?: Prisma.SortOrder
-  unclaimed_since?: Prisma.SortOrder
-  auction_date?: Prisma.SortOrder
-  auction_price?: Prisma.SortOrder
-  needs_label?: Prisma.SortOrder
 }
 
 export type ordersSumOrderByAggregateInput = {
-  base_subtotal?: Prisma.SortOrder
-  express_fee_percent?: Prisma.SortOrder
-  express_fee_amount?: Prisma.SortOrder
-  discount?: Prisma.SortOrder
-  total?: Prisma.SortOrder
-  auction_price?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  base_price?: Prisma.SortOrder
+  express_surcharge?: Prisma.SortOrder
+  total_price?: Prisma.SortOrder
 }
 
 export type OrdersScalarRelationFilter = {
@@ -828,8 +760,24 @@ export type ordersUncheckedUpdateManyWithoutCustomersNestedInput = {
   deleteMany?: Prisma.ordersScalarWhereInput | Prisma.ordersScalarWhereInput[]
 }
 
-export type Enumorders_quantityFieldUpdateOperationsInput = {
-  set?: $Enums.orders_quantity
+export type ordersCreateNestedOneWithoutOrder_audit_logInput = {
+  create?: Prisma.XOR<Prisma.ordersCreateWithoutOrder_audit_logInput, Prisma.ordersUncheckedCreateWithoutOrder_audit_logInput>
+  connectOrCreate?: Prisma.ordersCreateOrConnectWithoutOrder_audit_logInput
+  connect?: Prisma.ordersWhereUniqueInput
+}
+
+export type ordersUpdateOneWithoutOrder_audit_logNestedInput = {
+  create?: Prisma.XOR<Prisma.ordersCreateWithoutOrder_audit_logInput, Prisma.ordersUncheckedCreateWithoutOrder_audit_logInput>
+  connectOrCreate?: Prisma.ordersCreateOrConnectWithoutOrder_audit_logInput
+  upsert?: Prisma.ordersUpsertWithoutOrder_audit_logInput
+  disconnect?: Prisma.ordersWhereInput | boolean
+  delete?: Prisma.ordersWhereInput | boolean
+  connect?: Prisma.ordersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ordersUpdateToOneWithWhereWithoutOrder_audit_logInput, Prisma.ordersUpdateWithoutOrder_audit_logInput>, Prisma.ordersUncheckedUpdateWithoutOrder_audit_logInput>
+}
+
+export type Enumorders_service_typeFieldUpdateOperationsInput = {
+  set?: $Enums.orders_service_type
 }
 
 export type DecimalFieldUpdateOperationsInput = {
@@ -852,12 +800,8 @@ export type NullableDecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type NullableEnumorders_statusFieldUpdateOperationsInput = {
-  set?: $Enums.orders_status | null
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type Enumorders_statusFieldUpdateOperationsInput = {
+  set?: $Enums.orders_status
 }
 
 export type ordersCreateNestedOneWithoutPaymentsInput = {
@@ -874,95 +818,49 @@ export type ordersUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ordersUpdateToOneWithWhereWithoutPaymentsInput, Prisma.ordersUpdateWithoutPaymentsInput>, Prisma.ordersUncheckedUpdateWithoutPaymentsInput>
 }
 
-export type ordersCreateNestedManyWithoutServicesInput = {
-  create?: Prisma.XOR<Prisma.ordersCreateWithoutServicesInput, Prisma.ordersUncheckedCreateWithoutServicesInput> | Prisma.ordersCreateWithoutServicesInput[] | Prisma.ordersUncheckedCreateWithoutServicesInput[]
-  connectOrCreate?: Prisma.ordersCreateOrConnectWithoutServicesInput | Prisma.ordersCreateOrConnectWithoutServicesInput[]
-  createMany?: Prisma.ordersCreateManyServicesInputEnvelope
-  connect?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-}
-
-export type ordersUncheckedCreateNestedManyWithoutServicesInput = {
-  create?: Prisma.XOR<Prisma.ordersCreateWithoutServicesInput, Prisma.ordersUncheckedCreateWithoutServicesInput> | Prisma.ordersCreateWithoutServicesInput[] | Prisma.ordersUncheckedCreateWithoutServicesInput[]
-  connectOrCreate?: Prisma.ordersCreateOrConnectWithoutServicesInput | Prisma.ordersCreateOrConnectWithoutServicesInput[]
-  createMany?: Prisma.ordersCreateManyServicesInputEnvelope
-  connect?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-}
-
-export type ordersUpdateManyWithoutServicesNestedInput = {
-  create?: Prisma.XOR<Prisma.ordersCreateWithoutServicesInput, Prisma.ordersUncheckedCreateWithoutServicesInput> | Prisma.ordersCreateWithoutServicesInput[] | Prisma.ordersUncheckedCreateWithoutServicesInput[]
-  connectOrCreate?: Prisma.ordersCreateOrConnectWithoutServicesInput | Prisma.ordersCreateOrConnectWithoutServicesInput[]
-  upsert?: Prisma.ordersUpsertWithWhereUniqueWithoutServicesInput | Prisma.ordersUpsertWithWhereUniqueWithoutServicesInput[]
-  createMany?: Prisma.ordersCreateManyServicesInputEnvelope
-  set?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-  disconnect?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-  delete?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-  connect?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-  update?: Prisma.ordersUpdateWithWhereUniqueWithoutServicesInput | Prisma.ordersUpdateWithWhereUniqueWithoutServicesInput[]
-  updateMany?: Prisma.ordersUpdateManyWithWhereWithoutServicesInput | Prisma.ordersUpdateManyWithWhereWithoutServicesInput[]
-  deleteMany?: Prisma.ordersScalarWhereInput | Prisma.ordersScalarWhereInput[]
-}
-
-export type ordersUncheckedUpdateManyWithoutServicesNestedInput = {
-  create?: Prisma.XOR<Prisma.ordersCreateWithoutServicesInput, Prisma.ordersUncheckedCreateWithoutServicesInput> | Prisma.ordersCreateWithoutServicesInput[] | Prisma.ordersUncheckedCreateWithoutServicesInput[]
-  connectOrCreate?: Prisma.ordersCreateOrConnectWithoutServicesInput | Prisma.ordersCreateOrConnectWithoutServicesInput[]
-  upsert?: Prisma.ordersUpsertWithWhereUniqueWithoutServicesInput | Prisma.ordersUpsertWithWhereUniqueWithoutServicesInput[]
-  createMany?: Prisma.ordersCreateManyServicesInputEnvelope
-  set?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-  disconnect?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-  delete?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-  connect?: Prisma.ordersWhereUniqueInput | Prisma.ordersWhereUniqueInput[]
-  update?: Prisma.ordersUpdateWithWhereUniqueWithoutServicesInput | Prisma.ordersUpdateWithWhereUniqueWithoutServicesInput[]
-  updateMany?: Prisma.ordersUpdateManyWithWhereWithoutServicesInput | Prisma.ordersUpdateManyWithWhereWithoutServicesInput[]
-  deleteMany?: Prisma.ordersScalarWhereInput | Prisma.ordersScalarWhereInput[]
-}
-
 export type ordersCreateWithoutCustomersInput = {
   id?: string
   order_code: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
   notes?: string | null
-  pre_condition?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
   created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
+  updated_at?: Date | string | null
   picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
-  services: Prisma.servicesCreateNestedOneWithoutOrdersInput
+  order_audit_log?: Prisma.order_audit_logCreateNestedManyWithoutOrdersInput
   payments?: Prisma.paymentsCreateNestedManyWithoutOrdersInput
 }
 
 export type ordersUncheckedCreateWithoutCustomersInput = {
   id?: string
   order_code: string
-  service_id: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
   notes?: string | null
-  pre_condition?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
   created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
+  updated_at?: Date | string | null
   picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
+  order_audit_log?: Prisma.order_audit_logUncheckedCreateNestedManyWithoutOrdersInput
   payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutOrdersInput
 }
 
@@ -998,76 +896,177 @@ export type ordersScalarWhereInput = {
   NOT?: Prisma.ordersScalarWhereInput | Prisma.ordersScalarWhereInput[]
   id?: Prisma.StringFilter<"orders"> | string
   order_code?: Prisma.StringFilter<"orders"> | string
-  customer_id?: Prisma.StringFilter<"orders"> | string
-  service_id?: Prisma.StringFilter<"orders"> | string
-  quantity?: Prisma.Enumorders_quantityFilter<"orders"> | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: Prisma.StringNullableFilter<"orders"> | string | null
+  service_type?: Prisma.Enumorders_service_typeFilter<"orders"> | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.BoolNullableFilter<"orders"> | boolean | null
-  express_fee_percent?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.Enumorders_statusNullableFilter<"orders"> | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFilter<"orders"> | $Enums.orders_status
+  is_overdue?: Prisma.BoolNullableFilter<"orders"> | boolean | null
+  needs_weight_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
+  condition_notes?: Prisma.StringNullableFilter<"orders"> | string | null
   notes?: Prisma.StringNullableFilter<"orders"> | string | null
-  pre_condition?: Prisma.StringNullableFilter<"orders"> | string | null
+  estimated_done?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"orders"> | string | null
   created_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFilter<"orders"> | Date | string
-  actual_ready_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
+  updated_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
   picked_up_at?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  unclaimed_since?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  auction_date?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
-  auction_price?: Prisma.DecimalNullableFilter<"orders"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
+}
+
+export type ordersCreateWithoutOrder_audit_logInput = {
+  id?: string
+  order_code: string
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  is_express?: boolean | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
+  notes?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  picked_up_at?: Date | string | null
+  customers?: Prisma.customersCreateNestedOneWithoutOrdersInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutOrdersInput
+}
+
+export type ordersUncheckedCreateWithoutOrder_audit_logInput = {
+  id?: string
+  order_code: string
+  customer_id?: string | null
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  is_express?: boolean | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
+  notes?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  picked_up_at?: Date | string | null
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutOrdersInput
+}
+
+export type ordersCreateOrConnectWithoutOrder_audit_logInput = {
+  where: Prisma.ordersWhereUniqueInput
+  create: Prisma.XOR<Prisma.ordersCreateWithoutOrder_audit_logInput, Prisma.ordersUncheckedCreateWithoutOrder_audit_logInput>
+}
+
+export type ordersUpsertWithoutOrder_audit_logInput = {
+  update: Prisma.XOR<Prisma.ordersUpdateWithoutOrder_audit_logInput, Prisma.ordersUncheckedUpdateWithoutOrder_audit_logInput>
+  create: Prisma.XOR<Prisma.ordersCreateWithoutOrder_audit_logInput, Prisma.ordersUncheckedCreateWithoutOrder_audit_logInput>
+  where?: Prisma.ordersWhereInput
+}
+
+export type ordersUpdateToOneWithWhereWithoutOrder_audit_logInput = {
+  where?: Prisma.ordersWhereInput
+  data: Prisma.XOR<Prisma.ordersUpdateWithoutOrder_audit_logInput, Prisma.ordersUncheckedUpdateWithoutOrder_audit_logInput>
+}
+
+export type ordersUpdateWithoutOrder_audit_logInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  order_code?: Prisma.StringFieldUpdateOperationsInput | string
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customers?: Prisma.customersUpdateOneWithoutOrdersNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutOrdersNestedInput
+}
+
+export type ordersUncheckedUpdateWithoutOrder_audit_logInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  order_code?: Prisma.StringFieldUpdateOperationsInput | string
+  customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutOrdersNestedInput
 }
 
 export type ordersCreateWithoutPaymentsInput = {
   id?: string
   order_code: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
   notes?: string | null
-  pre_condition?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
   created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
+  updated_at?: Date | string | null
   picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
-  customers: Prisma.customersCreateNestedOneWithoutOrdersInput
-  services: Prisma.servicesCreateNestedOneWithoutOrdersInput
+  order_audit_log?: Prisma.order_audit_logCreateNestedManyWithoutOrdersInput
+  customers?: Prisma.customersCreateNestedOneWithoutOrdersInput
 }
 
 export type ordersUncheckedCreateWithoutPaymentsInput = {
   id?: string
   order_code: string
-  customer_id: string
-  service_id: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: string | null
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
   notes?: string | null
-  pre_condition?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
   created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
+  updated_at?: Date | string | null
   picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
+  order_audit_log?: Prisma.order_audit_logUncheckedCreateNestedManyWithoutOrdersInput
 }
 
 export type ordersCreateOrConnectWithoutPaymentsInput = {
@@ -1089,323 +1088,135 @@ export type ordersUpdateToOneWithWhereWithoutPaymentsInput = {
 export type ordersUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  customers?: Prisma.customersUpdateOneRequiredWithoutOrdersNestedInput
-  services?: Prisma.servicesUpdateOneRequiredWithoutOrdersNestedInput
+  order_audit_log?: Prisma.order_audit_logUpdateManyWithoutOrdersNestedInput
+  customers?: Prisma.customersUpdateOneWithoutOrdersNestedInput
 }
 
 export type ordersUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  customer_id?: Prisma.StringFieldUpdateOperationsInput | string
-  service_id?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  customer_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-}
-
-export type ordersCreateWithoutServicesInput = {
-  id?: string
-  order_code: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
-  notes?: string | null
-  pre_condition?: string | null
-  created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
-  picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
-  customers: Prisma.customersCreateNestedOneWithoutOrdersInput
-  payments?: Prisma.paymentsCreateNestedManyWithoutOrdersInput
-}
-
-export type ordersUncheckedCreateWithoutServicesInput = {
-  id?: string
-  order_code: string
-  customer_id: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
-  notes?: string | null
-  pre_condition?: string | null
-  created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
-  picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
-  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutOrdersInput
-}
-
-export type ordersCreateOrConnectWithoutServicesInput = {
-  where: Prisma.ordersWhereUniqueInput
-  create: Prisma.XOR<Prisma.ordersCreateWithoutServicesInput, Prisma.ordersUncheckedCreateWithoutServicesInput>
-}
-
-export type ordersCreateManyServicesInputEnvelope = {
-  data: Prisma.ordersCreateManyServicesInput | Prisma.ordersCreateManyServicesInput[]
-  skipDuplicates?: boolean
-}
-
-export type ordersUpsertWithWhereUniqueWithoutServicesInput = {
-  where: Prisma.ordersWhereUniqueInput
-  update: Prisma.XOR<Prisma.ordersUpdateWithoutServicesInput, Prisma.ordersUncheckedUpdateWithoutServicesInput>
-  create: Prisma.XOR<Prisma.ordersCreateWithoutServicesInput, Prisma.ordersUncheckedCreateWithoutServicesInput>
-}
-
-export type ordersUpdateWithWhereUniqueWithoutServicesInput = {
-  where: Prisma.ordersWhereUniqueInput
-  data: Prisma.XOR<Prisma.ordersUpdateWithoutServicesInput, Prisma.ordersUncheckedUpdateWithoutServicesInput>
-}
-
-export type ordersUpdateManyWithWhereWithoutServicesInput = {
-  where: Prisma.ordersScalarWhereInput
-  data: Prisma.XOR<Prisma.ordersUpdateManyMutationInput, Prisma.ordersUncheckedUpdateManyWithoutServicesInput>
+  order_audit_log?: Prisma.order_audit_logUncheckedUpdateManyWithoutOrdersNestedInput
 }
 
 export type ordersCreateManyCustomersInput = {
   id?: string
   order_code: string
-  service_id: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type: $Enums.orders_service_type
+  quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
+  base_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.orders_status
+  is_overdue?: boolean | null
+  needs_weight_label?: boolean | null
+  condition_notes?: string | null
   notes?: string | null
-  pre_condition?: string | null
+  estimated_done?: Date | string | null
+  created_by?: string | null
   created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
+  updated_at?: Date | string | null
   picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
 }
 
 export type ordersUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  services?: Prisma.servicesUpdateOneRequiredWithoutOrdersNestedInput
+  order_audit_log?: Prisma.order_audit_logUpdateManyWithoutOrdersNestedInput
   payments?: Prisma.paymentsUpdateManyWithoutOrdersNestedInput
 }
 
 export type ordersUncheckedUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  service_id?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  order_audit_log?: Prisma.order_audit_logUncheckedUpdateManyWithoutOrdersNestedInput
   payments?: Prisma.paymentsUncheckedUpdateManyWithoutOrdersNestedInput
 }
 
 export type ordersUncheckedUpdateManyWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  service_id?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  service_type?: Prisma.Enumorders_service_typeFieldUpdateOperationsInput | $Enums.orders_service_type
+  quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
+  base_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  express_surcharge?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  total_price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
+  is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-}
-
-export type ordersCreateManyServicesInput = {
-  id?: string
-  order_code: string
-  customer_id: string
-  quantity: $Enums.orders_quantity
-  base_subtotal: runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_express?: boolean | null
-  express_fee_percent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total: runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: $Enums.orders_status | null
-  notes?: string | null
-  pre_condition?: string | null
-  created_at?: Date | string | null
-  expected_ready_at: Date | string
-  actual_ready_at?: Date | string | null
-  picked_up_at?: Date | string | null
-  unclaimed_since?: Date | string | null
-  auction_date?: Date | string | null
-  auction_price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: boolean | null
-}
-
-export type ordersUpdateWithoutServicesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  customers?: Prisma.customersUpdateOneRequiredWithoutOrdersNestedInput
-  payments?: Prisma.paymentsUpdateManyWithoutOrdersNestedInput
-}
-
-export type ordersUncheckedUpdateWithoutServicesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  customer_id?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  payments?: Prisma.paymentsUncheckedUpdateManyWithoutOrdersNestedInput
-}
-
-export type ordersUncheckedUpdateManyWithoutServicesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  order_code?: Prisma.StringFieldUpdateOperationsInput | string
-  customer_id?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.Enumorders_quantityFieldUpdateOperationsInput | $Enums.orders_quantity
-  base_subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  is_express?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  express_fee_percent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  express_fee_amount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  discount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  status?: Prisma.NullableEnumorders_statusFieldUpdateOperationsInput | $Enums.orders_status | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pre_condition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  expected_ready_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  actual_ready_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  picked_up_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  unclaimed_since?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  auction_price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  needs_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
 }
 
 
@@ -1414,10 +1225,12 @@ export type ordersUncheckedUpdateManyWithoutServicesInput = {
  */
 
 export type OrdersCountOutputType = {
+  order_audit_log: number
   payments: number
 }
 
 export type OrdersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  order_audit_log?: boolean | OrdersCountOutputTypeCountOrder_audit_logArgs
   payments?: boolean | OrdersCountOutputTypeCountPaymentsArgs
 }
 
@@ -1434,6 +1247,13 @@ export type OrdersCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * OrdersCountOutputType without action
  */
+export type OrdersCountOutputTypeCountOrder_audit_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.order_audit_logWhereInput
+}
+
+/**
+ * OrdersCountOutputType without action
+ */
 export type OrdersCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.paymentsWhereInput
 }
@@ -1443,27 +1263,24 @@ export type ordersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   order_code?: boolean
   customer_id?: boolean
-  service_id?: boolean
+  service_type?: boolean
   quantity?: boolean
-  base_subtotal?: boolean
   is_express?: boolean
-  express_fee_percent?: boolean
-  express_fee_amount?: boolean
-  discount?: boolean
-  total?: boolean
+  base_price?: boolean
+  express_surcharge?: boolean
+  total_price?: boolean
   status?: boolean
+  is_overdue?: boolean
+  needs_weight_label?: boolean
+  condition_notes?: boolean
   notes?: boolean
-  pre_condition?: boolean
+  estimated_done?: boolean
+  created_by?: boolean
   created_at?: boolean
-  expected_ready_at?: boolean
-  actual_ready_at?: boolean
+  updated_at?: boolean
   picked_up_at?: boolean
-  unclaimed_since?: boolean
-  auction_date?: boolean
-  auction_price?: boolean
-  needs_label?: boolean
-  customers?: boolean | Prisma.customersDefaultArgs<ExtArgs>
-  services?: boolean | Prisma.servicesDefaultArgs<ExtArgs>
+  order_audit_log?: boolean | Prisma.orders$order_audit_logArgs<ExtArgs>
+  customers?: boolean | Prisma.orders$customersArgs<ExtArgs>
   payments?: boolean | Prisma.orders$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.OrdersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orders"]>
@@ -1474,31 +1291,28 @@ export type ordersSelectScalar = {
   id?: boolean
   order_code?: boolean
   customer_id?: boolean
-  service_id?: boolean
+  service_type?: boolean
   quantity?: boolean
-  base_subtotal?: boolean
   is_express?: boolean
-  express_fee_percent?: boolean
-  express_fee_amount?: boolean
-  discount?: boolean
-  total?: boolean
+  base_price?: boolean
+  express_surcharge?: boolean
+  total_price?: boolean
   status?: boolean
+  is_overdue?: boolean
+  needs_weight_label?: boolean
+  condition_notes?: boolean
   notes?: boolean
-  pre_condition?: boolean
+  estimated_done?: boolean
+  created_by?: boolean
   created_at?: boolean
-  expected_ready_at?: boolean
-  actual_ready_at?: boolean
+  updated_at?: boolean
   picked_up_at?: boolean
-  unclaimed_since?: boolean
-  auction_date?: boolean
-  auction_price?: boolean
-  needs_label?: boolean
 }
 
-export type ordersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order_code" | "customer_id" | "service_id" | "quantity" | "base_subtotal" | "is_express" | "express_fee_percent" | "express_fee_amount" | "discount" | "total" | "status" | "notes" | "pre_condition" | "created_at" | "expected_ready_at" | "actual_ready_at" | "picked_up_at" | "unclaimed_since" | "auction_date" | "auction_price" | "needs_label", ExtArgs["result"]["orders"]>
+export type ordersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order_code" | "customer_id" | "service_type" | "quantity" | "is_express" | "base_price" | "express_surcharge" | "total_price" | "status" | "is_overdue" | "needs_weight_label" | "condition_notes" | "notes" | "estimated_done" | "created_by" | "created_at" | "updated_at" | "picked_up_at", ExtArgs["result"]["orders"]>
 export type ordersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  customers?: boolean | Prisma.customersDefaultArgs<ExtArgs>
-  services?: boolean | Prisma.servicesDefaultArgs<ExtArgs>
+  order_audit_log?: boolean | Prisma.orders$order_audit_logArgs<ExtArgs>
+  customers?: boolean | Prisma.orders$customersArgs<ExtArgs>
   payments?: boolean | Prisma.orders$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.OrdersCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1506,33 +1320,30 @@ export type ordersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type $ordersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "orders"
   objects: {
-    customers: Prisma.$customersPayload<ExtArgs>
-    services: Prisma.$servicesPayload<ExtArgs>
+    order_audit_log: Prisma.$order_audit_logPayload<ExtArgs>[]
+    customers: Prisma.$customersPayload<ExtArgs> | null
     payments: Prisma.$paymentsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     order_code: string
-    customer_id: string
-    service_id: string
-    quantity: $Enums.orders_quantity
-    base_subtotal: runtime.Decimal
+    customer_id: string | null
+    service_type: $Enums.orders_service_type
+    quantity: runtime.Decimal
     is_express: boolean | null
-    express_fee_percent: runtime.Decimal | null
-    express_fee_amount: runtime.Decimal | null
-    discount: runtime.Decimal | null
-    total: runtime.Decimal
-    status: $Enums.orders_status | null
+    base_price: runtime.Decimal
+    express_surcharge: runtime.Decimal | null
+    total_price: runtime.Decimal
+    status: $Enums.orders_status
+    is_overdue: boolean | null
+    needs_weight_label: boolean | null
+    condition_notes: string | null
     notes: string | null
-    pre_condition: string | null
+    estimated_done: Date | null
+    created_by: string | null
     created_at: Date | null
-    expected_ready_at: Date
-    actual_ready_at: Date | null
+    updated_at: Date | null
     picked_up_at: Date | null
-    unclaimed_since: Date | null
-    auction_date: Date | null
-    auction_price: runtime.Decimal | null
-    needs_label: boolean | null
   }, ExtArgs["result"]["orders"]>
   composites: {}
 }
@@ -1873,8 +1684,8 @@ readonly fields: ordersFieldRefs;
  */
 export interface Prisma__ordersClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  customers<T extends Prisma.customersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.customersDefaultArgs<ExtArgs>>): Prisma.Prisma__customersClient<runtime.Types.Result.GetResult<Prisma.$customersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  services<T extends Prisma.servicesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.servicesDefaultArgs<ExtArgs>>): Prisma.Prisma__servicesClient<runtime.Types.Result.GetResult<Prisma.$servicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  order_audit_log<T extends Prisma.orders$order_audit_logArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.orders$order_audit_logArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$order_audit_logPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customers<T extends Prisma.orders$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.orders$customersArgs<ExtArgs>>): Prisma.Prisma__customersClient<runtime.Types.Result.GetResult<Prisma.$customersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   payments<T extends Prisma.orders$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.orders$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1908,25 +1719,22 @@ export interface ordersFieldRefs {
   readonly id: Prisma.FieldRef<"orders", 'String'>
   readonly order_code: Prisma.FieldRef<"orders", 'String'>
   readonly customer_id: Prisma.FieldRef<"orders", 'String'>
-  readonly service_id: Prisma.FieldRef<"orders", 'String'>
-  readonly quantity: Prisma.FieldRef<"orders", 'orders_quantity'>
-  readonly base_subtotal: Prisma.FieldRef<"orders", 'Decimal'>
+  readonly service_type: Prisma.FieldRef<"orders", 'orders_service_type'>
+  readonly quantity: Prisma.FieldRef<"orders", 'Decimal'>
   readonly is_express: Prisma.FieldRef<"orders", 'Boolean'>
-  readonly express_fee_percent: Prisma.FieldRef<"orders", 'Decimal'>
-  readonly express_fee_amount: Prisma.FieldRef<"orders", 'Decimal'>
-  readonly discount: Prisma.FieldRef<"orders", 'Decimal'>
-  readonly total: Prisma.FieldRef<"orders", 'Decimal'>
+  readonly base_price: Prisma.FieldRef<"orders", 'Decimal'>
+  readonly express_surcharge: Prisma.FieldRef<"orders", 'Decimal'>
+  readonly total_price: Prisma.FieldRef<"orders", 'Decimal'>
   readonly status: Prisma.FieldRef<"orders", 'orders_status'>
+  readonly is_overdue: Prisma.FieldRef<"orders", 'Boolean'>
+  readonly needs_weight_label: Prisma.FieldRef<"orders", 'Boolean'>
+  readonly condition_notes: Prisma.FieldRef<"orders", 'String'>
   readonly notes: Prisma.FieldRef<"orders", 'String'>
-  readonly pre_condition: Prisma.FieldRef<"orders", 'String'>
+  readonly estimated_done: Prisma.FieldRef<"orders", 'DateTime'>
+  readonly created_by: Prisma.FieldRef<"orders", 'String'>
   readonly created_at: Prisma.FieldRef<"orders", 'DateTime'>
-  readonly expected_ready_at: Prisma.FieldRef<"orders", 'DateTime'>
-  readonly actual_ready_at: Prisma.FieldRef<"orders", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"orders", 'DateTime'>
   readonly picked_up_at: Prisma.FieldRef<"orders", 'DateTime'>
-  readonly unclaimed_since: Prisma.FieldRef<"orders", 'DateTime'>
-  readonly auction_date: Prisma.FieldRef<"orders", 'DateTime'>
-  readonly auction_price: Prisma.FieldRef<"orders", 'Decimal'>
-  readonly needs_label: Prisma.FieldRef<"orders", 'Boolean'>
 }
     
 
@@ -2272,6 +2080,49 @@ export type ordersDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many orders to delete.
    */
   limit?: number
+}
+
+/**
+ * orders.order_audit_log
+ */
+export type orders$order_audit_logArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the order_audit_log
+   */
+  select?: Prisma.order_audit_logSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the order_audit_log
+   */
+  omit?: Prisma.order_audit_logOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.order_audit_logInclude<ExtArgs> | null
+  where?: Prisma.order_audit_logWhereInput
+  orderBy?: Prisma.order_audit_logOrderByWithRelationInput | Prisma.order_audit_logOrderByWithRelationInput[]
+  cursor?: Prisma.order_audit_logWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Order_audit_logScalarFieldEnum | Prisma.Order_audit_logScalarFieldEnum[]
+}
+
+/**
+ * orders.customers
+ */
+export type orders$customersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the customers
+   */
+  select?: Prisma.customersSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the customers
+   */
+  omit?: Prisma.customersOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.customersInclude<ExtArgs> | null
+  where?: Prisma.customersWhereInput
 }
 
 /**

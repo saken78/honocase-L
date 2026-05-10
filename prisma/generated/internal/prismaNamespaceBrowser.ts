@@ -52,9 +52,10 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   customers: 'customers',
+  order_audit_log: 'order_audit_log',
   orders: 'orders',
   payments: 'payments',
-  services: 'services',
+  service_prices: 'service_prices',
   users: 'users'
 } as const
 
@@ -76,11 +77,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const CustomersScalarFieldEnum = {
   id: 'id',
-  firstname: 'firstname',
-  lastname: 'lastname',
+  name: 'name',
   phone: 'phone',
   address: 'address',
-  total_orders: 'total_orders',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -88,29 +87,39 @@ export const CustomersScalarFieldEnum = {
 export type CustomersScalarFieldEnum = (typeof CustomersScalarFieldEnum)[keyof typeof CustomersScalarFieldEnum]
 
 
+export const Order_audit_logScalarFieldEnum = {
+  id: 'id',
+  order_id: 'order_id',
+  user_id: 'user_id',
+  old_status: 'old_status',
+  new_status: 'new_status',
+  notes: 'notes',
+  created_at: 'created_at'
+} as const
+
+export type Order_audit_logScalarFieldEnum = (typeof Order_audit_logScalarFieldEnum)[keyof typeof Order_audit_logScalarFieldEnum]
+
+
 export const OrdersScalarFieldEnum = {
   id: 'id',
   order_code: 'order_code',
   customer_id: 'customer_id',
-  service_id: 'service_id',
+  service_type: 'service_type',
   quantity: 'quantity',
-  base_subtotal: 'base_subtotal',
   is_express: 'is_express',
-  express_fee_percent: 'express_fee_percent',
-  express_fee_amount: 'express_fee_amount',
-  discount: 'discount',
-  total: 'total',
+  base_price: 'base_price',
+  express_surcharge: 'express_surcharge',
+  total_price: 'total_price',
   status: 'status',
+  is_overdue: 'is_overdue',
+  needs_weight_label: 'needs_weight_label',
+  condition_notes: 'condition_notes',
   notes: 'notes',
-  pre_condition: 'pre_condition',
+  estimated_done: 'estimated_done',
+  created_by: 'created_by',
   created_at: 'created_at',
-  expected_ready_at: 'expected_ready_at',
-  actual_ready_at: 'actual_ready_at',
-  picked_up_at: 'picked_up_at',
-  unclaimed_since: 'unclaimed_since',
-  auction_date: 'auction_date',
-  auction_price: 'auction_price',
-  needs_label: 'needs_label'
+  updated_at: 'updated_at',
+  picked_up_at: 'picked_up_at'
 } as const
 
 export type OrdersScalarFieldEnum = (typeof OrdersScalarFieldEnum)[keyof typeof OrdersScalarFieldEnum]
@@ -129,31 +138,24 @@ export const PaymentsScalarFieldEnum = {
 export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
 
 
-export const ServicesScalarFieldEnum = {
+export const Service_pricesScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  base_price: 'base_price',
-  pricing_type: 'pricing_type',
+  service_type: 'service_type',
+  price_per_unit: 'price_per_unit',
   unit_label: 'unit_label',
-  default_turnaround_hours: 'default_turnaround_hours',
-  is_active: 'is_active',
-  created_at: 'created_at'
+  updated_at: 'updated_at'
 } as const
 
-export type ServicesScalarFieldEnum = (typeof ServicesScalarFieldEnum)[keyof typeof ServicesScalarFieldEnum]
+export type Service_pricesScalarFieldEnum = (typeof Service_pricesScalarFieldEnum)[keyof typeof Service_pricesScalarFieldEnum]
 
 
 export const UsersScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  firstname: 'firstname',
-  lastname: 'lastname',
   password_hash: 'password_hash',
   role: 'role',
   is_active: 'is_active',
-  created_at: 'created_at',
-  updated_at: 'updated_at',
-  deleted_at: 'deleted_at'
+  created_at: 'created_at'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -177,8 +179,7 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 export const customersOrderByRelevanceFieldEnum = {
   id: 'id',
-  firstname: 'firstname',
-  lastname: 'lastname',
+  name: 'name',
   phone: 'phone',
   address: 'address'
 } as const
@@ -186,13 +187,25 @@ export const customersOrderByRelevanceFieldEnum = {
 export type customersOrderByRelevanceFieldEnum = (typeof customersOrderByRelevanceFieldEnum)[keyof typeof customersOrderByRelevanceFieldEnum]
 
 
+export const order_audit_logOrderByRelevanceFieldEnum = {
+  id: 'id',
+  order_id: 'order_id',
+  user_id: 'user_id',
+  old_status: 'old_status',
+  new_status: 'new_status',
+  notes: 'notes'
+} as const
+
+export type order_audit_logOrderByRelevanceFieldEnum = (typeof order_audit_logOrderByRelevanceFieldEnum)[keyof typeof order_audit_logOrderByRelevanceFieldEnum]
+
+
 export const ordersOrderByRelevanceFieldEnum = {
   id: 'id',
   order_code: 'order_code',
   customer_id: 'customer_id',
-  service_id: 'service_id',
+  condition_notes: 'condition_notes',
   notes: 'notes',
-  pre_condition: 'pre_condition'
+  created_by: 'created_by'
 } as const
 
 export type ordersOrderByRelevanceFieldEnum = (typeof ordersOrderByRelevanceFieldEnum)[keyof typeof ordersOrderByRelevanceFieldEnum]
@@ -208,19 +221,17 @@ export const paymentsOrderByRelevanceFieldEnum = {
 export type paymentsOrderByRelevanceFieldEnum = (typeof paymentsOrderByRelevanceFieldEnum)[keyof typeof paymentsOrderByRelevanceFieldEnum]
 
 
-export const servicesOrderByRelevanceFieldEnum = {
+export const service_pricesOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name'
+  unit_label: 'unit_label'
 } as const
 
-export type servicesOrderByRelevanceFieldEnum = (typeof servicesOrderByRelevanceFieldEnum)[keyof typeof servicesOrderByRelevanceFieldEnum]
+export type service_pricesOrderByRelevanceFieldEnum = (typeof service_pricesOrderByRelevanceFieldEnum)[keyof typeof service_pricesOrderByRelevanceFieldEnum]
 
 
 export const usersOrderByRelevanceFieldEnum = {
   id: 'id',
   email: 'email',
-  firstname: 'firstname',
-  lastname: 'lastname',
   password_hash: 'password_hash'
 } as const
 

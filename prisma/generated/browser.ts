@@ -23,6 +23,11 @@ export * from './enums.ts';
  */
 export type customers = Prisma.customersModel
 /**
+ * Model order_audit_log
+ * 
+ */
+export type order_audit_log = Prisma.order_audit_logModel
+/**
  * Model orders
  * 
  */
@@ -33,10 +38,10 @@ export type orders = Prisma.ordersModel
  */
 export type payments = Prisma.paymentsModel
 /**
- * Model services
+ * Model service_prices
  * 
  */
-export type services = Prisma.servicesModel
+export type service_prices = Prisma.service_pricesModel
 /**
  * Model users
  * 
