@@ -16,7 +16,7 @@ import { sign } from "hono/jwt";
 import { SECRET } from "../lib/secret";
 import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
 import type { Context } from "hono";
-import type { users_role } from "../../prisma/generated/enums";
+import { users_role } from "../../prisma/generated/enums";
 
 export const authService = {
   async register(req: RegisterUserRequest): Promise<AuthResponse> {
@@ -28,19 +28,25 @@ export const authService = {
       timeCost: 3,
     });
 
+    if (
+      request.role !== users_role.karyawan &&
+      request.role !== users_role.owner
+    ) {
+      throw new HTTPException(HttpStatus.BAD_REQUEST, {
+        message: "Role not found",
+      });
+    }
+
     const user = await prisma.users.create({
       data: {
         email: request.email,
         password_hash: password,
-        firstname: request.firstname,
-        lastname: request.lastname ?? null,
-        role: request.role as users_role,
+        role: request.role,
       },
     });
 
     return {
       email: user.email,
-      firstname: user.firstname,
       role: user.role,
     };
   },
@@ -57,7 +63,6 @@ export const authService = {
       where: { email: request.email },
       select: {
         id: true,
-        firstname: true,
         email: true,
         password_hash: true,
         role: true,
@@ -94,7 +99,6 @@ export const authService = {
     await setSignedCookie(c, "refresh_token", token, SECRET);
     return {
       email: result.email,
-      firstname: result.firstname,
       role: result.role,
     };
   },
@@ -126,14 +130,14 @@ export const authService = {
     });
   },
   async deleteAccount(email: string): Promise<void> {
-    const validatet_email = DELETE_SCHEMA.parse(email);
-    if (!validatet_email.email) {
+    const validated_email = DELETE_SCHEMA.parse(email);
+    if (!validated_email.email) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
         message: "Unauthorized",
       });
     }
     await prisma.users.delete({
-      where: { email: validatet_email.email },
+      where: { email: validated_email.email },
     });
   },
 };

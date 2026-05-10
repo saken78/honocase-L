@@ -3,7 +3,6 @@ import { authService } from "./auth.service";
 import {
   type AuthResponse,
   type GetMeUser,
-  type JWT_PAYLOAD,
   type JWT_RESPONSE,
   type LoginUserRequest,
   type LoginUserResponse,
