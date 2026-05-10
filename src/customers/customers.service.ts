@@ -4,6 +4,7 @@ import {
   UPDATE_CUSTOMER_SCHEMA,
   type CreateCustomerRequest,
   type CreateCustomerResponse,
+  type DeleteCustomerResponse,
   type GetAllCustomers,
   type GetCustomerById,
   type UpdateCustomerRequest,
@@ -44,14 +45,36 @@ export const CustomerService = {
     return data;
   },
   async updateCustomerById(id: string, cust_data: UpdateCustomerRequest) {
-    const valid_include_undefined = UPDATE_CUSTOMER_SCHEMA.parse(cust_data);
+    const check = await prisma.customers.findUnique({
+      where: { id: id },
+    });
+    if (!check) {
+      throw new HTTPException(HttpStatus.NOT_FOUND, {
+        message: `Customer with ${id} not found`,
+      });
+    }
+    let parsed = UPDATE_CUSTOMER_SCHEMA.parse(cust_data);
     const valid = Object.fromEntries(
-      Object.entries(valid_include_undefined).filter((_, v) => v !== undefined),
+      Object.entries(parsed).filter(([, valid]) => valid !== undefined),
     );
-    console.log(valid);
     const data = await prisma.customers.update({
       where: { id: id },
-      data: valid,
+      data: {
+        ...valid,
+      },
+    });
+    return data;
+  },
+  async deleteCustomerById(id: string): Promise<DeleteCustomerResponse> {
+    const valid = await prisma.customers.findUnique({ where: { id: id } });
+    if (!valid) {
+      throw new HTTPException(HttpStatus.NOT_FOUND, {
+        message: "Account not found",
+      });
+    }
+    const data = await prisma.customers.delete({
+      where: { id: id },
+      select: { id: true },
     });
     return data;
   },

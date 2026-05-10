@@ -18,6 +18,12 @@ export type CreateCustomerRequest = {
   address?: string | undefined;
 };
 
+export type UpdateCustomerRequest = {
+  name?: string;
+  phone?: string;
+  address?: string;
+};
+
 export type CreateCustomerResponse = {
   id: string;
   name: string;
@@ -26,10 +32,8 @@ export type CreateCustomerResponse = {
   created_at: Date | null;
 };
 
-export type UpdateCustomerRequest = {
-  name?: string;
-  phone?: string;
-  address?: string;
+export type DeleteCustomerResponse = {
+  id: string;
 };
 
 export type GetAllCustomers = {
