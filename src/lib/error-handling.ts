@@ -37,7 +37,14 @@ const GlobalError = async (err: unknown, c: Context) => {
   c.status(500);
 
   return c.json({
-    errors: err instanceof Error ? err.message : "Internal Server Error",
+    errors:
+      err instanceof Error
+        ? {
+            error: err.name,
+            message: err.message,
+            cause: err.cause,
+          }
+        : "Internal Server Error",
   });
 };
 
