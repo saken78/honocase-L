@@ -53,3 +53,9 @@ export type GetCustomerById = {
   created_at: Date | null;
   updated_at: Date | null;
 };
+
+export type Pagination<T> = {
+  data: T;
+  take: number;
+  total: number;
+};
