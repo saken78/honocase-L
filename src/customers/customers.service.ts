@@ -7,6 +7,7 @@ import {
   type DeleteCustomerResponse,
   type GetAllCustomers,
   type GetCustomerById,
+  type Pagination,
   type UpdateCustomerRequest,
 } from "./customers.model";
 import { HTTPException } from "hono/http-exception";
@@ -26,12 +27,16 @@ export const CustomerService = {
     });
     return data;
   },
-  async getAllCustomer(): Promise<GetAllCustomers[]> {
+  async getAllCustomer(): Promise<Pagination<GetAllCustomers[]>> {
     const data = await prisma.customers.findMany({
       take: 10,
       orderBy: { name: "asc" },
     });
-    return data;
+    return {
+      data: data,
+      take: 10,
+      total: await prisma.customers.count(),
+    };
   },
   async getCustomerById(id: string): Promise<GetCustomerById> {
     const data = await prisma.customers.findUnique({
