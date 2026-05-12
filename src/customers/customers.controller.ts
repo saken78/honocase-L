@@ -22,10 +22,7 @@ CustomersController.post("/", async (c: Context) => {
 
 CustomersController.get("/", async (c: Context) => {
   const data = await CustomerService.getAllCustomer();
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(data);
 });
 
 CustomersController.get("/:id", async (c: Context) => {
