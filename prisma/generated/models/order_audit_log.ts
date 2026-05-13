@@ -161,8 +161,8 @@ export type order_audit_logGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 
 export type Order_audit_logGroupByOutputType = {
   id: string
-  order_id: string | null
-  user_id: string | null
+  order_id: string
+  user_id: string
   old_status: string | null
   new_status: string
   notes: string | null
@@ -192,20 +192,20 @@ export type order_audit_logWhereInput = {
   OR?: Prisma.order_audit_logWhereInput[]
   NOT?: Prisma.order_audit_logWhereInput | Prisma.order_audit_logWhereInput[]
   id?: Prisma.StringFilter<"order_audit_log"> | string
-  order_id?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
-  user_id?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
+  order_id?: Prisma.StringFilter<"order_audit_log"> | string
+  user_id?: Prisma.StringFilter<"order_audit_log"> | string
   old_status?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
   new_status?: Prisma.StringFilter<"order_audit_log"> | string
   notes?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
   created_at?: Prisma.DateTimeNullableFilter<"order_audit_log"> | Date | string | null
-  orders?: Prisma.XOR<Prisma.OrdersNullableScalarRelationFilter, Prisma.ordersWhereInput> | null
-  users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
+  orders?: Prisma.XOR<Prisma.OrdersScalarRelationFilter, Prisma.ordersWhereInput>
+  users?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
 }
 
 export type order_audit_logOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  order_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  user_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  order_id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   old_status?: Prisma.SortOrderInput | Prisma.SortOrder
   new_status?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -220,20 +220,20 @@ export type order_audit_logWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.order_audit_logWhereInput | Prisma.order_audit_logWhereInput[]
   OR?: Prisma.order_audit_logWhereInput[]
   NOT?: Prisma.order_audit_logWhereInput | Prisma.order_audit_logWhereInput[]
-  order_id?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
-  user_id?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
+  order_id?: Prisma.StringFilter<"order_audit_log"> | string
+  user_id?: Prisma.StringFilter<"order_audit_log"> | string
   old_status?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
   new_status?: Prisma.StringFilter<"order_audit_log"> | string
   notes?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
   created_at?: Prisma.DateTimeNullableFilter<"order_audit_log"> | Date | string | null
-  orders?: Prisma.XOR<Prisma.OrdersNullableScalarRelationFilter, Prisma.ordersWhereInput> | null
-  users?: Prisma.XOR<Prisma.UsersNullableScalarRelationFilter, Prisma.usersWhereInput> | null
+  orders?: Prisma.XOR<Prisma.OrdersScalarRelationFilter, Prisma.ordersWhereInput>
+  users?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.usersWhereInput>
 }, "id">
 
 export type order_audit_logOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  order_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  user_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  order_id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   old_status?: Prisma.SortOrderInput | Prisma.SortOrder
   new_status?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -248,8 +248,8 @@ export type order_audit_logScalarWhereWithAggregatesInput = {
   OR?: Prisma.order_audit_logScalarWhereWithAggregatesInput[]
   NOT?: Prisma.order_audit_logScalarWhereWithAggregatesInput | Prisma.order_audit_logScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"order_audit_log"> | string
-  order_id?: Prisma.StringNullableWithAggregatesFilter<"order_audit_log"> | string | null
-  user_id?: Prisma.StringNullableWithAggregatesFilter<"order_audit_log"> | string | null
+  order_id?: Prisma.StringWithAggregatesFilter<"order_audit_log"> | string
+  user_id?: Prisma.StringWithAggregatesFilter<"order_audit_log"> | string
   old_status?: Prisma.StringNullableWithAggregatesFilter<"order_audit_log"> | string | null
   new_status?: Prisma.StringWithAggregatesFilter<"order_audit_log"> | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"order_audit_log"> | string | null
@@ -262,14 +262,14 @@ export type order_audit_logCreateInput = {
   new_status: string
   notes?: string | null
   created_at?: Date | string | null
-  orders?: Prisma.ordersCreateNestedOneWithoutOrder_audit_logInput
-  users?: Prisma.usersCreateNestedOneWithoutOrder_audit_logInput
+  orders: Prisma.ordersCreateNestedOneWithoutOrder_audit_logInput
+  users: Prisma.usersCreateNestedOneWithoutOrder_audit_logInput
 }
 
 export type order_audit_logUncheckedCreateInput = {
   id?: string
-  order_id?: string | null
-  user_id?: string | null
+  order_id: string
+  user_id: string
   old_status?: string | null
   new_status: string
   notes?: string | null
@@ -282,14 +282,14 @@ export type order_audit_logUpdateInput = {
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  orders?: Prisma.ordersUpdateOneWithoutOrder_audit_logNestedInput
-  users?: Prisma.usersUpdateOneWithoutOrder_audit_logNestedInput
+  orders?: Prisma.ordersUpdateOneRequiredWithoutOrder_audit_logNestedInput
+  users?: Prisma.usersUpdateOneRequiredWithoutOrder_audit_logNestedInput
 }
 
 export type order_audit_logUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order_id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
   old_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -298,8 +298,8 @@ export type order_audit_logUncheckedUpdateInput = {
 
 export type order_audit_logCreateManyInput = {
   id?: string
-  order_id?: string | null
-  user_id?: string | null
+  order_id: string
+  user_id: string
   old_status?: string | null
   new_status: string
   notes?: string | null
@@ -316,8 +316,8 @@ export type order_audit_logUpdateManyMutationInput = {
 
 export type order_audit_logUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order_id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
   old_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -460,12 +460,12 @@ export type order_audit_logCreateWithoutOrdersInput = {
   new_status: string
   notes?: string | null
   created_at?: Date | string | null
-  users?: Prisma.usersCreateNestedOneWithoutOrder_audit_logInput
+  users: Prisma.usersCreateNestedOneWithoutOrder_audit_logInput
 }
 
 export type order_audit_logUncheckedCreateWithoutOrdersInput = {
   id?: string
-  user_id?: string | null
+  user_id: string
   old_status?: string | null
   new_status: string
   notes?: string | null
@@ -503,8 +503,8 @@ export type order_audit_logScalarWhereInput = {
   OR?: Prisma.order_audit_logScalarWhereInput[]
   NOT?: Prisma.order_audit_logScalarWhereInput | Prisma.order_audit_logScalarWhereInput[]
   id?: Prisma.StringFilter<"order_audit_log"> | string
-  order_id?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
-  user_id?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
+  order_id?: Prisma.StringFilter<"order_audit_log"> | string
+  user_id?: Prisma.StringFilter<"order_audit_log"> | string
   old_status?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
   new_status?: Prisma.StringFilter<"order_audit_log"> | string
   notes?: Prisma.StringNullableFilter<"order_audit_log"> | string | null
@@ -517,12 +517,12 @@ export type order_audit_logCreateWithoutUsersInput = {
   new_status: string
   notes?: string | null
   created_at?: Date | string | null
-  orders?: Prisma.ordersCreateNestedOneWithoutOrder_audit_logInput
+  orders: Prisma.ordersCreateNestedOneWithoutOrder_audit_logInput
 }
 
 export type order_audit_logUncheckedCreateWithoutUsersInput = {
   id?: string
-  order_id?: string | null
+  order_id: string
   old_status?: string | null
   new_status: string
   notes?: string | null
@@ -557,7 +557,7 @@ export type order_audit_logUpdateManyWithWhereWithoutUsersInput = {
 
 export type order_audit_logCreateManyOrdersInput = {
   id?: string
-  user_id?: string | null
+  user_id: string
   old_status?: string | null
   new_status: string
   notes?: string | null
@@ -570,12 +570,12 @@ export type order_audit_logUpdateWithoutOrdersInput = {
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  users?: Prisma.usersUpdateOneWithoutOrder_audit_logNestedInput
+  users?: Prisma.usersUpdateOneRequiredWithoutOrder_audit_logNestedInput
 }
 
 export type order_audit_logUncheckedUpdateWithoutOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
   old_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -584,7 +584,7 @@ export type order_audit_logUncheckedUpdateWithoutOrdersInput = {
 
 export type order_audit_logUncheckedUpdateManyWithoutOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  user_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
   old_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -593,7 +593,7 @@ export type order_audit_logUncheckedUpdateManyWithoutOrdersInput = {
 
 export type order_audit_logCreateManyUsersInput = {
   id?: string
-  order_id?: string | null
+  order_id: string
   old_status?: string | null
   new_status: string
   notes?: string | null
@@ -606,12 +606,12 @@ export type order_audit_logUpdateWithoutUsersInput = {
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  orders?: Prisma.ordersUpdateOneWithoutOrder_audit_logNestedInput
+  orders?: Prisma.ordersUpdateOneRequiredWithoutOrder_audit_logNestedInput
 }
 
 export type order_audit_logUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order_id?: Prisma.StringFieldUpdateOperationsInput | string
   old_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -620,7 +620,7 @@ export type order_audit_logUncheckedUpdateWithoutUsersInput = {
 
 export type order_audit_logUncheckedUpdateManyWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order_id?: Prisma.StringFieldUpdateOperationsInput | string
   old_status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   new_status?: Prisma.StringFieldUpdateOperationsInput | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -637,8 +637,8 @@ export type order_audit_logSelect<ExtArgs extends runtime.Types.Extensions.Inter
   new_status?: boolean
   notes?: boolean
   created_at?: boolean
-  orders?: boolean | Prisma.order_audit_log$ordersArgs<ExtArgs>
-  users?: boolean | Prisma.order_audit_log$usersArgs<ExtArgs>
+  orders?: boolean | Prisma.ordersDefaultArgs<ExtArgs>
+  users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order_audit_log"]>
 
 
@@ -655,20 +655,20 @@ export type order_audit_logSelectScalar = {
 
 export type order_audit_logOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order_id" | "user_id" | "old_status" | "new_status" | "notes" | "created_at", ExtArgs["result"]["order_audit_log"]>
 export type order_audit_logInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  orders?: boolean | Prisma.order_audit_log$ordersArgs<ExtArgs>
-  users?: boolean | Prisma.order_audit_log$usersArgs<ExtArgs>
+  orders?: boolean | Prisma.ordersDefaultArgs<ExtArgs>
+  users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
 }
 
 export type $order_audit_logPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "order_audit_log"
   objects: {
-    orders: Prisma.$ordersPayload<ExtArgs> | null
-    users: Prisma.$usersPayload<ExtArgs> | null
+    orders: Prisma.$ordersPayload<ExtArgs>
+    users: Prisma.$usersPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    order_id: string | null
-    user_id: string | null
+    order_id: string
+    user_id: string
     old_status: string | null
     new_status: string
     notes: string | null
@@ -1013,8 +1013,8 @@ readonly fields: order_audit_logFieldRefs;
  */
 export interface Prisma__order_audit_logClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  orders<T extends Prisma.order_audit_log$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.order_audit_log$ordersArgs<ExtArgs>>): Prisma.Prisma__ordersClient<runtime.Types.Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  users<T extends Prisma.order_audit_log$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.order_audit_log$usersArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  orders<T extends Prisma.ordersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ordersDefaultArgs<ExtArgs>>): Prisma.Prisma__ordersClient<runtime.Types.Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  users<T extends Prisma.usersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usersDefaultArgs<ExtArgs>>): Prisma.Prisma__usersClient<runtime.Types.Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1396,44 +1396,6 @@ export type order_audit_logDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many order_audit_logs to delete.
    */
   limit?: number
-}
-
-/**
- * order_audit_log.orders
- */
-export type order_audit_log$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the orders
-   */
-  select?: Prisma.ordersSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the orders
-   */
-  omit?: Prisma.ordersOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ordersInclude<ExtArgs> | null
-  where?: Prisma.ordersWhereInput
-}
-
-/**
- * order_audit_log.users
- */
-export type order_audit_log$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the users
-   */
-  select?: Prisma.usersSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the users
-   */
-  omit?: Prisma.usersOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.usersInclude<ExtArgs> | null
-  where?: Prisma.usersWhereInput
 }
 
 /**
