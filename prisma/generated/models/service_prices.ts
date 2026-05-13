@@ -27,68 +27,106 @@ export type AggregateService_prices = {
 }
 
 export type Service_pricesAvgAggregateOutputType = {
-  price_per_unit: runtime.Decimal | null
+  price_min: runtime.Decimal | null
+  price_max: runtime.Decimal | null
+  default_turnaround_hours: number | null
 }
 
 export type Service_pricesSumAggregateOutputType = {
-  price_per_unit: runtime.Decimal | null
+  price_min: runtime.Decimal | null
+  price_max: runtime.Decimal | null
+  default_turnaround_hours: number | null
 }
 
 export type Service_pricesMinAggregateOutputType = {
   id: string | null
-  service_type: $Enums.service_prices_service_type | null
-  price_per_unit: runtime.Decimal | null
+  name: string | null
+  category: $Enums.service_prices_category | null
+  pricing_type: $Enums.service_prices_pricing_type | null
+  price_min: runtime.Decimal | null
+  price_max: runtime.Decimal | null
   unit_label: string | null
+  default_turnaround_hours: number | null
+  is_active: boolean | null
   updated_at: Date | null
 }
 
 export type Service_pricesMaxAggregateOutputType = {
   id: string | null
-  service_type: $Enums.service_prices_service_type | null
-  price_per_unit: runtime.Decimal | null
+  name: string | null
+  category: $Enums.service_prices_category | null
+  pricing_type: $Enums.service_prices_pricing_type | null
+  price_min: runtime.Decimal | null
+  price_max: runtime.Decimal | null
   unit_label: string | null
+  default_turnaround_hours: number | null
+  is_active: boolean | null
   updated_at: Date | null
 }
 
 export type Service_pricesCountAggregateOutputType = {
   id: number
-  service_type: number
-  price_per_unit: number
+  name: number
+  category: number
+  pricing_type: number
+  price_min: number
+  price_max: number
   unit_label: number
+  default_turnaround_hours: number
+  is_active: number
   updated_at: number
   _all: number
 }
 
 
 export type Service_pricesAvgAggregateInputType = {
-  price_per_unit?: true
+  price_min?: true
+  price_max?: true
+  default_turnaround_hours?: true
 }
 
 export type Service_pricesSumAggregateInputType = {
-  price_per_unit?: true
+  price_min?: true
+  price_max?: true
+  default_turnaround_hours?: true
 }
 
 export type Service_pricesMinAggregateInputType = {
   id?: true
-  service_type?: true
-  price_per_unit?: true
+  name?: true
+  category?: true
+  pricing_type?: true
+  price_min?: true
+  price_max?: true
   unit_label?: true
+  default_turnaround_hours?: true
+  is_active?: true
   updated_at?: true
 }
 
 export type Service_pricesMaxAggregateInputType = {
   id?: true
-  service_type?: true
-  price_per_unit?: true
+  name?: true
+  category?: true
+  pricing_type?: true
+  price_min?: true
+  price_max?: true
   unit_label?: true
+  default_turnaround_hours?: true
+  is_active?: true
   updated_at?: true
 }
 
 export type Service_pricesCountAggregateInputType = {
   id?: true
-  service_type?: true
-  price_per_unit?: true
+  name?: true
+  category?: true
+  pricing_type?: true
+  price_min?: true
+  price_max?: true
   unit_label?: true
+  default_turnaround_hours?: true
+  is_active?: true
   updated_at?: true
   _all?: true
 }
@@ -181,9 +219,14 @@ export type service_pricesGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 
 export type Service_pricesGroupByOutputType = {
   id: string
-  service_type: $Enums.service_prices_service_type
-  price_per_unit: runtime.Decimal
+  name: string
+  category: $Enums.service_prices_category
+  pricing_type: $Enums.service_prices_pricing_type
+  price_min: runtime.Decimal
+  price_max: runtime.Decimal | null
   unit_label: string
+  default_turnaround_hours: number | null
+  is_active: boolean | null
   updated_at: Date | null
   _count: Service_pricesCountAggregateOutputType | null
   _avg: Service_pricesAvgAggregateOutputType | null
@@ -212,37 +255,60 @@ export type service_pricesWhereInput = {
   OR?: Prisma.service_pricesWhereInput[]
   NOT?: Prisma.service_pricesWhereInput | Prisma.service_pricesWhereInput[]
   id?: Prisma.StringFilter<"service_prices"> | string
-  service_type?: Prisma.Enumservice_prices_service_typeFilter<"service_prices"> | $Enums.service_prices_service_type
-  price_per_unit?: Prisma.DecimalFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  name?: Prisma.StringFilter<"service_prices"> | string
+  category?: Prisma.Enumservice_prices_categoryFilter<"service_prices"> | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeFilter<"service_prices"> | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.DecimalNullableFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: Prisma.StringFilter<"service_prices"> | string
+  default_turnaround_hours?: Prisma.IntNullableFilter<"service_prices"> | number | null
+  is_active?: Prisma.BoolNullableFilter<"service_prices"> | boolean | null
   updated_at?: Prisma.DateTimeNullableFilter<"service_prices"> | Date | string | null
+  orders?: Prisma.OrdersListRelationFilter
 }
 
 export type service_pricesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  service_type?: Prisma.SortOrder
-  price_per_unit?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  pricing_type?: Prisma.SortOrder
+  price_min?: Prisma.SortOrder
+  price_max?: Prisma.SortOrderInput | Prisma.SortOrder
   unit_label?: Prisma.SortOrder
+  default_turnaround_hours?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_active?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  orders?: Prisma.ordersOrderByRelationAggregateInput
   _relevance?: Prisma.service_pricesOrderByRelevanceInput
 }
 
 export type service_pricesWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  service_type?: $Enums.service_prices_service_type
   AND?: Prisma.service_pricesWhereInput | Prisma.service_pricesWhereInput[]
   OR?: Prisma.service_pricesWhereInput[]
   NOT?: Prisma.service_pricesWhereInput | Prisma.service_pricesWhereInput[]
-  price_per_unit?: Prisma.DecimalFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  name?: Prisma.StringFilter<"service_prices"> | string
+  category?: Prisma.Enumservice_prices_categoryFilter<"service_prices"> | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeFilter<"service_prices"> | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.DecimalNullableFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: Prisma.StringFilter<"service_prices"> | string
+  default_turnaround_hours?: Prisma.IntNullableFilter<"service_prices"> | number | null
+  is_active?: Prisma.BoolNullableFilter<"service_prices"> | boolean | null
   updated_at?: Prisma.DateTimeNullableFilter<"service_prices"> | Date | string | null
-}, "id" | "service_type">
+  orders?: Prisma.OrdersListRelationFilter
+}, "id">
 
 export type service_pricesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  service_type?: Prisma.SortOrder
-  price_per_unit?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  pricing_type?: Prisma.SortOrder
+  price_min?: Prisma.SortOrder
+  price_max?: Prisma.SortOrderInput | Prisma.SortOrder
   unit_label?: Prisma.SortOrder
+  default_turnaround_hours?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_active?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.service_pricesCountOrderByAggregateInput
   _avg?: Prisma.service_pricesAvgOrderByAggregateInput
@@ -256,66 +322,115 @@ export type service_pricesScalarWhereWithAggregatesInput = {
   OR?: Prisma.service_pricesScalarWhereWithAggregatesInput[]
   NOT?: Prisma.service_pricesScalarWhereWithAggregatesInput | Prisma.service_pricesScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"service_prices"> | string
-  service_type?: Prisma.Enumservice_prices_service_typeWithAggregatesFilter<"service_prices"> | $Enums.service_prices_service_type
-  price_per_unit?: Prisma.DecimalWithAggregatesFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  name?: Prisma.StringWithAggregatesFilter<"service_prices"> | string
+  category?: Prisma.Enumservice_prices_categoryWithAggregatesFilter<"service_prices"> | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeWithAggregatesFilter<"service_prices"> | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalWithAggregatesFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.DecimalNullableWithAggregatesFilter<"service_prices"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: Prisma.StringWithAggregatesFilter<"service_prices"> | string
+  default_turnaround_hours?: Prisma.IntNullableWithAggregatesFilter<"service_prices"> | number | null
+  is_active?: Prisma.BoolNullableWithAggregatesFilter<"service_prices"> | boolean | null
   updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"service_prices"> | Date | string | null
 }
 
 export type service_pricesCreateInput = {
   id?: string
-  service_type: $Enums.service_prices_service_type
-  price_per_unit?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  name: string
+  category: $Enums.service_prices_category
+  pricing_type: $Enums.service_prices_pricing_type
+  price_min: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: string
+  default_turnaround_hours?: number | null
+  is_active?: boolean | null
   updated_at?: Date | string | null
+  orders?: Prisma.ordersCreateNestedManyWithoutService_pricesInput
 }
 
 export type service_pricesUncheckedCreateInput = {
   id?: string
-  service_type: $Enums.service_prices_service_type
-  price_per_unit?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  name: string
+  category: $Enums.service_prices_category
+  pricing_type: $Enums.service_prices_pricing_type
+  price_min: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: string
+  default_turnaround_hours?: number | null
+  is_active?: boolean | null
   updated_at?: Date | string | null
+  orders?: Prisma.ordersUncheckedCreateNestedManyWithoutService_pricesInput
 }
 
 export type service_pricesUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  service_type?: Prisma.Enumservice_prices_service_typeFieldUpdateOperationsInput | $Enums.service_prices_service_type
-  price_per_unit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumservice_prices_categoryFieldUpdateOperationsInput | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeFieldUpdateOperationsInput | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: Prisma.StringFieldUpdateOperationsInput | string
+  default_turnaround_hours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orders?: Prisma.ordersUpdateManyWithoutService_pricesNestedInput
 }
 
 export type service_pricesUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  service_type?: Prisma.Enumservice_prices_service_typeFieldUpdateOperationsInput | $Enums.service_prices_service_type
-  price_per_unit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumservice_prices_categoryFieldUpdateOperationsInput | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeFieldUpdateOperationsInput | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: Prisma.StringFieldUpdateOperationsInput | string
+  default_turnaround_hours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  orders?: Prisma.ordersUncheckedUpdateManyWithoutService_pricesNestedInput
 }
 
 export type service_pricesCreateManyInput = {
   id?: string
-  service_type: $Enums.service_prices_service_type
-  price_per_unit?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  name: string
+  category: $Enums.service_prices_category
+  pricing_type: $Enums.service_prices_pricing_type
+  price_min: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: string
+  default_turnaround_hours?: number | null
+  is_active?: boolean | null
   updated_at?: Date | string | null
 }
 
 export type service_pricesUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  service_type?: Prisma.Enumservice_prices_service_typeFieldUpdateOperationsInput | $Enums.service_prices_service_type
-  price_per_unit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumservice_prices_categoryFieldUpdateOperationsInput | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeFieldUpdateOperationsInput | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: Prisma.StringFieldUpdateOperationsInput | string
+  default_turnaround_hours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type service_pricesUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  service_type?: Prisma.Enumservice_prices_service_typeFieldUpdateOperationsInput | $Enums.service_prices_service_type
-  price_per_unit?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumservice_prices_categoryFieldUpdateOperationsInput | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeFieldUpdateOperationsInput | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   unit_label?: Prisma.StringFieldUpdateOperationsInput | string
+  default_turnaround_hours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type Service_pricesScalarRelationFilter = {
+  is?: Prisma.service_pricesWhereInput
+  isNot?: Prisma.service_pricesWhereInput
 }
 
 export type service_pricesOrderByRelevanceInput = {
@@ -326,70 +441,235 @@ export type service_pricesOrderByRelevanceInput = {
 
 export type service_pricesCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  service_type?: Prisma.SortOrder
-  price_per_unit?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  pricing_type?: Prisma.SortOrder
+  price_min?: Prisma.SortOrder
+  price_max?: Prisma.SortOrder
   unit_label?: Prisma.SortOrder
+  default_turnaround_hours?: Prisma.SortOrder
+  is_active?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type service_pricesAvgOrderByAggregateInput = {
-  price_per_unit?: Prisma.SortOrder
+  price_min?: Prisma.SortOrder
+  price_max?: Prisma.SortOrder
+  default_turnaround_hours?: Prisma.SortOrder
 }
 
 export type service_pricesMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  service_type?: Prisma.SortOrder
-  price_per_unit?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  pricing_type?: Prisma.SortOrder
+  price_min?: Prisma.SortOrder
+  price_max?: Prisma.SortOrder
   unit_label?: Prisma.SortOrder
+  default_turnaround_hours?: Prisma.SortOrder
+  is_active?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type service_pricesMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  service_type?: Prisma.SortOrder
-  price_per_unit?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  pricing_type?: Prisma.SortOrder
+  price_min?: Prisma.SortOrder
+  price_max?: Prisma.SortOrder
   unit_label?: Prisma.SortOrder
+  default_turnaround_hours?: Prisma.SortOrder
+  is_active?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
 
 export type service_pricesSumOrderByAggregateInput = {
-  price_per_unit?: Prisma.SortOrder
+  price_min?: Prisma.SortOrder
+  price_max?: Prisma.SortOrder
+  default_turnaround_hours?: Prisma.SortOrder
 }
 
-export type Enumservice_prices_service_typeFieldUpdateOperationsInput = {
-  set?: $Enums.service_prices_service_type
+export type service_pricesCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.service_pricesCreateWithoutOrdersInput, Prisma.service_pricesUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.service_pricesCreateOrConnectWithoutOrdersInput
+  connect?: Prisma.service_pricesWhereUniqueInput
 }
 
+export type service_pricesUpdateOneRequiredWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.service_pricesCreateWithoutOrdersInput, Prisma.service_pricesUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.service_pricesCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.service_pricesUpsertWithoutOrdersInput
+  connect?: Prisma.service_pricesWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.service_pricesUpdateToOneWithWhereWithoutOrdersInput, Prisma.service_pricesUpdateWithoutOrdersInput>, Prisma.service_pricesUncheckedUpdateWithoutOrdersInput>
+}
+
+export type Enumservice_prices_categoryFieldUpdateOperationsInput = {
+  set?: $Enums.service_prices_category
+}
+
+export type Enumservice_prices_pricing_typeFieldUpdateOperationsInput = {
+  set?: $Enums.service_prices_pricing_type
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type service_pricesCreateWithoutOrdersInput = {
+  id?: string
+  name: string
+  category: $Enums.service_prices_category
+  pricing_type: $Enums.service_prices_pricing_type
+  price_min: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unit_label?: string
+  default_turnaround_hours?: number | null
+  is_active?: boolean | null
+  updated_at?: Date | string | null
+}
+
+export type service_pricesUncheckedCreateWithoutOrdersInput = {
+  id?: string
+  name: string
+  category: $Enums.service_prices_category
+  pricing_type: $Enums.service_prices_pricing_type
+  price_min: runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unit_label?: string
+  default_turnaround_hours?: number | null
+  is_active?: boolean | null
+  updated_at?: Date | string | null
+}
+
+export type service_pricesCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.service_pricesWhereUniqueInput
+  create: Prisma.XOR<Prisma.service_pricesCreateWithoutOrdersInput, Prisma.service_pricesUncheckedCreateWithoutOrdersInput>
+}
+
+export type service_pricesUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.service_pricesUpdateWithoutOrdersInput, Prisma.service_pricesUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.service_pricesCreateWithoutOrdersInput, Prisma.service_pricesUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.service_pricesWhereInput
+}
+
+export type service_pricesUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.service_pricesWhereInput
+  data: Prisma.XOR<Prisma.service_pricesUpdateWithoutOrdersInput, Prisma.service_pricesUncheckedUpdateWithoutOrdersInput>
+}
+
+export type service_pricesUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumservice_prices_categoryFieldUpdateOperationsInput | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeFieldUpdateOperationsInput | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unit_label?: Prisma.StringFieldUpdateOperationsInput | string
+  default_turnaround_hours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type service_pricesUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.Enumservice_prices_categoryFieldUpdateOperationsInput | $Enums.service_prices_category
+  pricing_type?: Prisma.Enumservice_prices_pricing_typeFieldUpdateOperationsInput | $Enums.service_prices_pricing_type
+  price_min?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  price_max?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unit_label?: Prisma.StringFieldUpdateOperationsInput | string
+  default_turnaround_hours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  is_active?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+
+/**
+ * Count Type Service_pricesCountOutputType
+ */
+
+export type Service_pricesCountOutputType = {
+  orders: number
+}
+
+export type Service_pricesCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  orders?: boolean | Service_pricesCountOutputTypeCountOrdersArgs
+}
+
+/**
+ * Service_pricesCountOutputType without action
+ */
+export type Service_pricesCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Service_pricesCountOutputType
+   */
+  select?: Prisma.Service_pricesCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * Service_pricesCountOutputType without action
+ */
+export type Service_pricesCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ordersWhereInput
+}
 
 
 export type service_pricesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  service_type?: boolean
-  price_per_unit?: boolean
+  name?: boolean
+  category?: boolean
+  pricing_type?: boolean
+  price_min?: boolean
+  price_max?: boolean
   unit_label?: boolean
+  default_turnaround_hours?: boolean
+  is_active?: boolean
   updated_at?: boolean
+  orders?: boolean | Prisma.service_prices$ordersArgs<ExtArgs>
+  _count?: boolean | Prisma.Service_pricesCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["service_prices"]>
 
 
 
 export type service_pricesSelectScalar = {
   id?: boolean
-  service_type?: boolean
-  price_per_unit?: boolean
+  name?: boolean
+  category?: boolean
+  pricing_type?: boolean
+  price_min?: boolean
+  price_max?: boolean
   unit_label?: boolean
+  default_turnaround_hours?: boolean
+  is_active?: boolean
   updated_at?: boolean
 }
 
-export type service_pricesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "service_type" | "price_per_unit" | "unit_label" | "updated_at", ExtArgs["result"]["service_prices"]>
+export type service_pricesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "category" | "pricing_type" | "price_min" | "price_max" | "unit_label" | "default_turnaround_hours" | "is_active" | "updated_at", ExtArgs["result"]["service_prices"]>
+export type service_pricesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  orders?: boolean | Prisma.service_prices$ordersArgs<ExtArgs>
+  _count?: boolean | Prisma.Service_pricesCountOutputTypeDefaultArgs<ExtArgs>
+}
 
 export type $service_pricesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "service_prices"
-  objects: {}
+  objects: {
+    orders: Prisma.$ordersPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    service_type: $Enums.service_prices_service_type
-    price_per_unit: runtime.Decimal
+    name: string
+    category: $Enums.service_prices_category
+    pricing_type: $Enums.service_prices_pricing_type
+    price_min: runtime.Decimal
+    price_max: runtime.Decimal | null
     unit_label: string
+    default_turnaround_hours: number | null
+    is_active: boolean | null
     updated_at: Date | null
   }, ExtArgs["result"]["service_prices"]>
   composites: {}
@@ -731,6 +1011,7 @@ readonly fields: service_pricesFieldRefs;
  */
 export interface Prisma__service_pricesClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  orders<T extends Prisma.service_prices$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.service_prices$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ordersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -761,9 +1042,14 @@ export interface Prisma__service_pricesClient<T, Null = never, ExtArgs extends r
  */
 export interface service_pricesFieldRefs {
   readonly id: Prisma.FieldRef<"service_prices", 'String'>
-  readonly service_type: Prisma.FieldRef<"service_prices", 'service_prices_service_type'>
-  readonly price_per_unit: Prisma.FieldRef<"service_prices", 'Decimal'>
+  readonly name: Prisma.FieldRef<"service_prices", 'String'>
+  readonly category: Prisma.FieldRef<"service_prices", 'service_prices_category'>
+  readonly pricing_type: Prisma.FieldRef<"service_prices", 'service_prices_pricing_type'>
+  readonly price_min: Prisma.FieldRef<"service_prices", 'Decimal'>
+  readonly price_max: Prisma.FieldRef<"service_prices", 'Decimal'>
   readonly unit_label: Prisma.FieldRef<"service_prices", 'String'>
+  readonly default_turnaround_hours: Prisma.FieldRef<"service_prices", 'Int'>
+  readonly is_active: Prisma.FieldRef<"service_prices", 'Boolean'>
   readonly updated_at: Prisma.FieldRef<"service_prices", 'DateTime'>
 }
     
@@ -781,6 +1067,10 @@ export type service_pricesFindUniqueArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the service_prices
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
   /**
    * Filter, which service_prices to fetch.
    */
@@ -800,6 +1090,10 @@ export type service_pricesFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Ex
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
+  /**
    * Filter, which service_prices to fetch.
    */
   where: Prisma.service_pricesWhereUniqueInput
@@ -817,6 +1111,10 @@ export type service_pricesFindFirstArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the service_prices
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
   /**
    * Filter, which service_prices to fetch.
    */
@@ -866,6 +1164,10 @@ export type service_pricesFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Ext
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
+  /**
    * Filter, which service_prices to fetch.
    */
   where?: Prisma.service_pricesWhereInput
@@ -913,6 +1215,10 @@ export type service_pricesFindManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the service_prices
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
   /**
    * Filter, which service_prices to fetch.
    */
@@ -962,6 +1268,10 @@ export type service_pricesCreateArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
+  /**
    * The data needed to create a service_prices.
    */
   data: Prisma.XOR<Prisma.service_pricesCreateInput, Prisma.service_pricesUncheckedCreateInput>
@@ -990,6 +1300,10 @@ export type service_pricesUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
    * Omit specific fields from the service_prices
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
   /**
    * The data needed to update a service_prices.
    */
@@ -1031,6 +1345,10 @@ export type service_pricesUpsertArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
+  /**
    * The filter to search for the service_prices to update in case it exists.
    */
   where: Prisma.service_pricesWhereUniqueInput
@@ -1057,6 +1375,10 @@ export type service_pricesDeleteArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
+  /**
    * Filter which service_prices to delete.
    */
   where: Prisma.service_pricesWhereUniqueInput
@@ -1077,6 +1399,30 @@ export type service_pricesDeleteManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
+ * service_prices.orders
+ */
+export type service_prices$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the orders
+   */
+  select?: Prisma.ordersSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the orders
+   */
+  omit?: Prisma.ordersOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ordersInclude<ExtArgs> | null
+  where?: Prisma.ordersWhereInput
+  orderBy?: Prisma.ordersOrderByWithRelationInput | Prisma.ordersOrderByWithRelationInput[]
+  cursor?: Prisma.ordersWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrdersScalarFieldEnum | Prisma.OrdersScalarFieldEnum[]
+}
+
+/**
  * service_prices without action
  */
 export type service_pricesDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1088,4 +1434,8 @@ export type service_pricesDefaultArgs<ExtArgs extends runtime.Types.Extensions.I
    * Omit specific fields from the service_prices
    */
   omit?: Prisma.service_pricesOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.service_pricesInclude<ExtArgs> | null
 }
