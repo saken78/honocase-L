@@ -9,19 +9,21 @@
 * 🟢 You can import this file directly.
 */
 
-export const service_prices_service_type = {
-  kiloan: 'kiloan',
-  satuan: 'satuan',
-  meter: 'meter'
+export const service_prices_category = {
+  basic_wash: 'basic_wash',
+  full_service: 'full_service',
+  ironing: 'ironing',
+  item_based: 'item_based'
 } as const
 
-export type service_prices_service_type = (typeof service_prices_service_type)[keyof typeof service_prices_service_type]
+export type service_prices_category = (typeof service_prices_category)[keyof typeof service_prices_category]
 
 
 export const payments_method = {
   cash: 'cash',
   transfer: 'transfer',
-  qris: 'qris'
+  qris: 'qris',
+  ewallet: 'ewallet'
 } as const
 
 export type payments_method = (typeof payments_method)[keyof typeof payments_method]
@@ -35,21 +37,33 @@ export const users_role = {
 export type users_role = (typeof users_role)[keyof typeof users_role]
 
 
-export const orders_service_type = {
-  kiloan: 'kiloan',
-  satuan: 'satuan',
-  express: 'express',
-  meter: 'meter'
+export const service_prices_pricing_type = {
+  per_kg: 'per_kg',
+  per_pcs: 'per_pcs',
+  fixed: 'fixed',
+  range: 'range'
 } as const
 
-export type orders_service_type = (typeof orders_service_type)[keyof typeof orders_service_type]
+export type service_prices_pricing_type = (typeof service_prices_pricing_type)[keyof typeof service_prices_pricing_type]
 
 
 export const orders_status = {
   received: 'received',
-  washing: 'washing',
+  proses: 'proses',
+  cuci: 'cuci',
+  jemur: 'jemur',
+  setrika: 'setrika',
   ready: 'ready',
   picked_up: 'picked_up'
 } as const
 
 export type orders_status = (typeof orders_status)[keyof typeof orders_status]
+
+
+export const orders_payment_status = {
+  pending: 'pending',
+  lunas: 'lunas',
+  cicilan: 'cicilan'
+} as const
+
+export type orders_payment_status = (typeof orders_payment_status)[keyof typeof orders_payment_status]
