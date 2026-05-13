@@ -873,13 +873,14 @@ export const OrdersScalarFieldEnum = {
   id: 'id',
   order_code: 'order_code',
   customer_id: 'customer_id',
-  service_type: 'service_type',
+  service_price_id: 'service_price_id',
   quantity: 'quantity',
   is_express: 'is_express',
   base_price: 'base_price',
   express_surcharge: 'express_surcharge',
   total_price: 'total_price',
   status: 'status',
+  payment_status: 'payment_status',
   is_overdue: 'is_overdue',
   needs_weight_label: 'needs_weight_label',
   condition_notes: 'condition_notes',
@@ -909,9 +910,14 @@ export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typ
 
 export const Service_pricesScalarFieldEnum = {
   id: 'id',
-  service_type: 'service_type',
-  price_per_unit: 'price_per_unit',
+  name: 'name',
+  category: 'category',
+  pricing_type: 'pricing_type',
+  price_min: 'price_min',
+  price_max: 'price_max',
   unit_label: 'unit_label',
+  default_turnaround_hours: 'default_turnaround_hours',
+  is_active: 'is_active',
   updated_at: 'updated_at'
 } as const
 
@@ -972,6 +978,7 @@ export const ordersOrderByRelevanceFieldEnum = {
   id: 'id',
   order_code: 'order_code',
   customer_id: 'customer_id',
+  service_price_id: 'service_price_id',
   condition_notes: 'condition_notes',
   notes: 'notes',
   created_by: 'created_by'
@@ -992,6 +999,7 @@ export type paymentsOrderByRelevanceFieldEnum = (typeof paymentsOrderByRelevance
 
 export const service_pricesOrderByRelevanceFieldEnum = {
   id: 'id',
+  name: 'name',
   unit_label: 'unit_label'
 } as const
 
@@ -1028,13 +1036,6 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 
 
 /**
- * Reference to a field of type 'orders_service_type'
- */
-export type Enumorders_service_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'orders_service_type'>
-    
-
-
-/**
  * Reference to a field of type 'Decimal'
  */
 export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -1056,6 +1057,13 @@ export type Enumorders_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
+ * Reference to a field of type 'orders_payment_status'
+ */
+export type Enumorders_payment_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'orders_payment_status'>
+    
+
+
+/**
  * Reference to a field of type 'payments_method'
  */
 export type Enumpayments_methodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'payments_method'>
@@ -1063,9 +1071,23 @@ export type Enumpayments_methodFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
- * Reference to a field of type 'service_prices_service_type'
+ * Reference to a field of type 'service_prices_category'
  */
-export type Enumservice_prices_service_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_prices_service_type'>
+export type Enumservice_prices_categoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_prices_category'>
+    
+
+
+/**
+ * Reference to a field of type 'service_prices_pricing_type'
+ */
+export type Enumservice_prices_pricing_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_prices_pricing_type'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
@@ -1077,9 +1099,9 @@ export type Enumusers_roleFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'Float'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 /**

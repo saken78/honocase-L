@@ -104,13 +104,14 @@ export const OrdersScalarFieldEnum = {
   id: 'id',
   order_code: 'order_code',
   customer_id: 'customer_id',
-  service_type: 'service_type',
+  service_price_id: 'service_price_id',
   quantity: 'quantity',
   is_express: 'is_express',
   base_price: 'base_price',
   express_surcharge: 'express_surcharge',
   total_price: 'total_price',
   status: 'status',
+  payment_status: 'payment_status',
   is_overdue: 'is_overdue',
   needs_weight_label: 'needs_weight_label',
   condition_notes: 'condition_notes',
@@ -140,9 +141,14 @@ export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typ
 
 export const Service_pricesScalarFieldEnum = {
   id: 'id',
-  service_type: 'service_type',
-  price_per_unit: 'price_per_unit',
+  name: 'name',
+  category: 'category',
+  pricing_type: 'pricing_type',
+  price_min: 'price_min',
+  price_max: 'price_max',
   unit_label: 'unit_label',
+  default_turnaround_hours: 'default_turnaround_hours',
+  is_active: 'is_active',
   updated_at: 'updated_at'
 } as const
 
@@ -203,6 +209,7 @@ export const ordersOrderByRelevanceFieldEnum = {
   id: 'id',
   order_code: 'order_code',
   customer_id: 'customer_id',
+  service_price_id: 'service_price_id',
   condition_notes: 'condition_notes',
   notes: 'notes',
   created_by: 'created_by'
@@ -223,6 +230,7 @@ export type paymentsOrderByRelevanceFieldEnum = (typeof paymentsOrderByRelevance
 
 export const service_pricesOrderByRelevanceFieldEnum = {
   id: 'id',
+  name: 'name',
   unit_label: 'unit_label'
 } as const
 
