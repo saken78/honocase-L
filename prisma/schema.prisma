@@ -8,7 +8,7 @@ datasource db {
 }
 
 model customers {
-  id         String    @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
+  id         String    @id @default("uuid()") @db.Char(70)
   name       String    @db.VarChar(100)
   phone      String    @db.VarChar(20)
   address    String?   @default("") @db.Text
@@ -20,46 +20,52 @@ model customers {
 }
 
 model order_audit_log {
-  id         String    @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
-  order_id   String?   @db.VarChar(36)
-  user_id    String?   @db.VarChar(36)
+  id         String    @id @default(dbgenerated("(uuid())")) @db.Char(70)
+  order_id   String    @db.Char(70)
+  user_id    String    @db.Char(70)
   old_status String?   @db.VarChar(20)
   new_status String    @db.VarChar(20)
   notes      String?   @default("") @db.Text
   created_at DateTime? @default(now()) @db.Timestamp(0)
-  orders     orders?   @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "idx_order_id")
-  users      users?    @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "idx_user_id")
+  orders     orders    @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_order_id")
+  users      users     @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "fk_user_id")
 
+  @@index([user_id], map: "fk_user_id")
   @@index([order_id], map: "idx_audit_order")
-  @@index([user_id], map: "idx_user_id")
 }
 
 model orders {
-  id                 String              @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
-  order_code         String              @unique(map: "order_code") @db.VarChar(50)
-  customer_id        String?             @db.VarChar(36)
-  service_type       orders_service_type
-  quantity           Decimal             @default(0.00) @db.Decimal(10, 2)
-  is_express         Boolean?            @default(false)
-  base_price         Decimal             @default(0.00) @db.Decimal(10, 2)
-  express_surcharge  Decimal?            @default(0.00) @db.Decimal(10, 2)
-  total_price        Decimal             @default(0.00) @db.Decimal(10, 2)
-  status             orders_status       @default(received)
-  is_overdue         Boolean?            @default(false)
-  needs_weight_label Boolean?            @default(false)
-  condition_notes    String?             @default("") @db.Text
-  notes              String?             @default("") @db.Text
-  estimated_done     DateTime?           @db.Timestamp(0)
-  created_by         String?             @db.VarChar(36)
-  created_at         DateTime?           @default(now()) @db.Timestamp(0)
-  updated_at         DateTime?           @default(now()) @db.Timestamp(0)
-  picked_up_at       DateTime?           @db.Timestamp(0)
+  id                 String                @id @default(dbgenerated("(uuid())")) @db.Char(70)
+  order_code         String                @unique(map: "order_code") @db.VarChar(50)
+  customer_id        String                @db.Char(70)
+  service_price_id   String                @db.Char(70)
+  quantity           Decimal               @db.Decimal(10, 2)
+  is_express         Boolean?              @default(false)
+  base_price         Decimal               @db.Decimal(10, 2)
+  express_surcharge  Decimal?              @default(0.00) @db.Decimal(10, 2)
+  total_price        Decimal               @db.Decimal(10, 2)
+  status             orders_status         @default(received)
+  payment_status     orders_payment_status @default(pending)
+  is_overdue         Boolean?              @default(false)
+  needs_weight_label Boolean?              @default(false)
+  condition_notes    String?               @default("") @db.Text
+  notes              String?               @default("") @db.Text
+  estimated_done     DateTime?             @db.Timestamp(0)
+  created_by         String                @db.Char(70)
+  created_at         DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at         DateTime?             @default(now()) @db.Timestamp(0)
+  picked_up_at       DateTime?             @db.Timestamp(0)
   order_audit_log    order_audit_log[]
-  customers          customers?          @relation(fields: [customer_id], references: [id], onUpdate: Restrict, map: "fk_customer_id")
+  users              users                 @relation(fields: [created_by], references: [id], onUpdate: Restrict, map: "fk_created_by")
+  customers          customers             @relation(fields: [customer_id], references: [id], onUpdate: Restrict, map: "fk_customer_id")
+  service_prices     service_prices        @relation(fields: [service_price_id], references: [id], onUpdate: Restrict, map: "fk_service_id")
   payments           payments[]
 
-  @@index([created_at], map: "idx_orders_created_at")
+  @@index([created_by], map: "fk_created_by")
+  @@index([service_price_id], map: "fk_service_id")
+  @@index([created_at], map: "idx_orders_created")
   @@index([customer_id], map: "idx_orders_customer")
+  @@index([payment_status], map: "idx_orders_payment")
   @@index([status], map: "idx_orders_status")
 }
 
@@ -67,21 +73,29 @@ model payments {
   id       String          @id @default(dbgenerated("(uuid())")) @db.Char(70)
   order_id String          @db.Char(70)
   method   payments_method
-  amount   Decimal         @db.Decimal(12, 0)
-  paid_by  String?         @db.VarChar(100)
-  paid_at  DateTime?       @default(now()) @db.DateTime(0)
-  notes    String?         @db.VarChar(100)
-  orders   orders          @relation(fields: [order_id], references: [id], onUpdate: Restrict, map: "fk_order_id")
+  amount   Decimal         @db.Decimal(10, 2)
+  paid_by  String?         @default("") @db.VarChar(100)
+  paid_at  DateTime?       @default(now()) @db.Timestamp(0)
+  notes    String?         @default("") @db.Text
+  orders   orders          @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_payment_order_id")
 
-  @@index([order_id], map: "fk_order_id")
+  @@index([order_id], map: "idx_payments_order")
 }
 
 model service_prices {
-  id             String                      @id @default(dbgenerated("(uuid())")) @db.VarChar(36)
-  service_type   service_prices_service_type @unique(map: "service_type")
-  price_per_unit Decimal                     @default(0.00) @db.Decimal(10, 2)
-  unit_label     String                      @default("") @db.VarChar(20)
-  updated_at     DateTime?                   @default(now()) @db.Timestamp(0)
+  id                       String                      @id @default(dbgenerated("(uuid())")) @db.Char(70)
+  name                     String                      @db.VarChar(100)
+  category                 service_prices_category
+  pricing_type             service_prices_pricing_type
+  price_min                Decimal                     @db.Decimal(10, 2)
+  price_max                Decimal?                    @db.Decimal(10, 2)
+  unit_label               String                      @default("pcs") @db.VarChar(20)
+  default_turnaround_hours Int?                        @default(48)
+  is_active                Boolean?                    @default(true)
+  updated_at               DateTime?                   @default(now()) @db.Timestamp(0)
+  orders                   orders[]
+
+  @@index([is_active], map: "idx_service_active")
 }
 
 model users {
@@ -92,18 +106,21 @@ model users {
   is_active       Boolean?          @default(true)
   created_at      DateTime?         @default(now()) @db.DateTime(0)
   order_audit_log order_audit_log[]
+  orders          orders[]
 }
 
-enum service_prices_service_type {
-  kiloan
-  satuan
-  meter
+enum service_prices_category {
+  basic_wash
+  full_service
+  ironing
+  item_based
 }
 
 enum payments_method {
   cash
   transfer
   qris
+  ewallet
 }
 
 enum users_role {
@@ -111,16 +128,25 @@ enum users_role {
   karyawan
 }
 
-enum orders_service_type {
-  kiloan
-  satuan
-  express
-  meter
+enum service_prices_pricing_type {
+  per_kg
+  per_pcs
+  fixed
+  range
 }
 
 enum orders_status {
   received
-  washing
+  proses
+  cuci
+  jemur
+  setrika
   ready
   picked_up
+}
+
+enum orders_payment_status {
+  pending
+  lunas
+  cicilan
 }
