@@ -46,6 +46,7 @@ export const authService = {
     });
 
     return {
+      id: user.id,
       email: user.email,
       role: user.role,
     };
@@ -98,6 +99,7 @@ export const authService = {
     const token = await sign(pay, SECRET);
     await setSignedCookie(c, "refresh_token", token, SECRET);
     return {
+      id: result.id,
       email: result.email,
       role: result.role,
     };

@@ -73,7 +73,7 @@ AuthController.patch("/current", async (c: Context) => {
   const body: ResetPasswordRequest = await c.req.json();
   await authService.resetPassword(body.password, user.email);
   return c.json({
-    message: "Password changed succesfully",
+    data: "Password changed succesfully",
     status_code: HttpStatus.OK,
   });
 });

@@ -36,6 +36,7 @@ export const DELETE_SCHEMA = z.object({
 });
 
 export type AuthResponse = {
+  id: string;
   email: string;
   role: string;
 };
