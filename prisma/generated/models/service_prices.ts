@@ -512,14 +512,6 @@ export type Enumservice_prices_pricing_typeFieldUpdateOperationsInput = {
   set?: $Enums.service_prices_pricing_type
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type service_pricesCreateWithoutOrdersInput = {
   id?: string
   name: string
