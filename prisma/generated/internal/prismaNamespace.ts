@@ -849,6 +849,7 @@ export const CustomersScalarFieldEnum = {
   name: 'name',
   phone: 'phone',
   address: 'address',
+  total_orders: 'total_orders',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -1029,6 +1030,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1081,13 +1089,6 @@ export type Enumservice_prices_categoryFieldRefInput<$PrismaModel> = FieldRefInp
  * Reference to a field of type 'service_prices_pricing_type'
  */
 export type Enumservice_prices_pricing_typeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'service_prices_pricing_type'>
-    
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
