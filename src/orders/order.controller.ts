@@ -12,7 +12,7 @@ OrderController.get("/", async (c: Context) => {
   });
 });
 
-OrderController.post("/:id", async (c: Context) => {
+OrderController.get("/:id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
@@ -23,6 +23,16 @@ OrderController.post("/:id", async (c: Context) => {
   return c.json({
     data: data,
     status_code: HttpStatus.OK,
+  });
+});
+
+OrderController.post("/", async (c: Context) => {
+  const body = await c.req.json();
+  console.log(body);
+  const data = await OrderService.postOrder(body);
+  return c.json({
+    data: data,
+    status_code: HttpStatus.CREATED,
   });
 });
 
