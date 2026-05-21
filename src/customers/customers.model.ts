@@ -24,6 +24,16 @@ export type UpdateCustomerRequest = {
   address?: string;
 };
 
+export type UpdateCustomerResponse = {
+  id: string;
+  name: string;
+  phone: string;
+  address: string | null;
+  total_orders: number | null;
+  created_at: Date | null;
+  updated_at: Date | null;
+};
+
 export type CreateCustomerResponse = {
   id: string;
   name: string;

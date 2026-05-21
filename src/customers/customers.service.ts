@@ -9,6 +9,7 @@ import {
   type GetCustomerById,
   type Pagination,
   type UpdateCustomerRequest,
+  type UpdateCustomerResponse,
 } from "./customers.model";
 import { HTTPException } from "hono/http-exception";
 import { HttpStatus } from "@/lib/status_code";
@@ -49,7 +50,10 @@ export const CustomerService = {
     }
     return data;
   },
-  async updateCustomerById(id: string, cust_data: UpdateCustomerRequest) {
+  async updateCustomerById(
+    id: string,
+    cust_data: UpdateCustomerRequest,
+  ): Promise<UpdateCustomerResponse> {
     const check = await prisma.customers.findUnique({
       where: { id: id },
     });

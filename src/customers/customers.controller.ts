@@ -5,6 +5,7 @@ import { CustomerService } from "./customers.service";
 import { HTTPException } from "hono/http-exception";
 import { AuthMiddleware } from "@/middleware/auth.middleware";
 import type { JWT_RESPONSE } from "@/auth/auth.model";
+import type { UpdateCustomerRequest } from "./customers.model";
 
 const CustomersController = new Hono();
 CustomersController.use(AuthMiddleware);
@@ -47,7 +48,8 @@ CustomersController.put("/:id", async (c: Context) => {
     });
   }
 
-  const body = await c.req.json();
+  const body: UpdateCustomerRequest = await c.req.json();
+
   if (!body) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
       message: "Body undefined",
