@@ -6,6 +6,9 @@ import type {
 } from "./order.model";
 import { HTTPException } from "hono/http-exception";
 import { HttpStatus } from "@/lib/status_code";
+import type { Decimal } from "@prisma/client/runtime/index-browser";
+import { Prisma } from "../../prisma/generated/client";
+import type { JWT_PAYLOAD, JWT_RESPONSE } from "@/auth/auth.model";
 
 const OrderService = {
   async getAllOrders(): Promise<GetAllOrdersResponse[]> {
@@ -17,10 +20,83 @@ const OrderService = {
     }
     return data;
   },
-  async postOrder(req: PostOrderRequest) {
-    const data = await prisma.orders.create({
-      data: req,
+  async postOrder(req: PostOrderRequest, user: JWT_RESPONSE) {
+    const service = await prisma.service_prices.findUnique({
+      where: { id: req.service_price_id },
     });
+
+    if (!service) {
+      throw new HTTPException(HttpStatus.NOT_FOUND, {
+        message: "Service not found",
+      });
+    }
+
+    if (!user.id) {
+      throw new HTTPException(HttpStatus.UNAUTHORIZED, {
+        message: "UNAUTHORIZED",
+      });
+    }
+
+    const min: Decimal = service.price_min;
+    const max: Decimal | null = service.price_max;
+    let harga_satuan = min;
+    if (max) {
+      harga_satuan = min.plus(max).div(2);
+
+      if (service.pricing_type === "range" && service.price_max) {
+        harga_satuan = min.plus(max).div(2);
+      }
+    }
+
+    const qty = new Prisma.Decimal(req.quantity);
+    const base_price = harga_satuan.mul(qty);
+    const express_surcharge = req.is_express ? base_price.mul(0.5) : 0;
+    const total_price = base_price.plus(express_surcharge);
+
+    const today = new Date();
+    const yearMonth = today.toISOString().slice(0, 7).replace("-", ""); // "202605"
+
+    const lastOrder = await prisma.orders.findFirst({
+      select: { order_code: true },
+      orderBy: { id: "desc" },
+    });
+
+    if (!lastOrder || !lastOrder.order_code) {
+      throw new HTTPException(HttpStatus.NOT_FOUND, {
+        message: "order not found",
+      });
+    }
+
+    let sequence = 1;
+    const lastSeq = parseInt(lastOrder.order_code.split("-")[2]);
+    sequence = lastSeq + 1;
+
+    const order_code = `ORD-${yearMonth}-${String(sequence).padStart(4, "0")}`;
+
+    const estimated_done = new Date();
+    const turnaround_hours = req.is_express
+      ? 8
+      : service.default_turnaround_hours || 48;
+
+    estimated_done.setHours(estimated_done.getHours() + turnaround_hours);
+
+    const data = await prisma.orders.create({
+      data: {
+        order_code: order_code,
+        customer_id: req.customer_id,
+        service_price_id: service.id,
+        quantity: req.quantity,
+        is_express: req.is_express ?? null,
+        base_price: base_price,
+        express_surcharge: express_surcharge,
+        total_price: total_price,
+        condition_notes: req.condition_notes ?? null,
+        notes: req.notes ?? null,
+        estimated_done: estimated_done,
+        created_by: user.id,
+      },
+    });
+
     return data;
   },
   async getOrderById(id: string): Promise<GetOrderByIdResponse> {
