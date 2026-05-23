@@ -1,14 +1,15 @@
+import type { JWT_RESPONSE } from "@/auth/auth.model";
 import { prisma } from "@/db";
+import { HttpStatus } from "@/lib/status_code";
+import type { Decimal } from "@prisma/client/runtime/index-browser";
+import { HTTPException } from "hono/http-exception";
+import { Prisma } from "../../prisma/generated/client";
 import type {
   GetAllOrdersResponse,
   GetOrderByIdResponse,
   PostOrderRequest,
+  PostOrderResponse,
 } from "./order.model";
-import { HTTPException } from "hono/http-exception";
-import { HttpStatus } from "@/lib/status_code";
-import type { Decimal } from "@prisma/client/runtime/index-browser";
-import { Prisma } from "../../prisma/generated/client";
-import type { JWT_PAYLOAD, JWT_RESPONSE } from "@/auth/auth.model";
 
 const OrderService = {
   async getAllOrders(): Promise<GetAllOrdersResponse[]> {
@@ -20,7 +21,10 @@ const OrderService = {
     }
     return data;
   },
-  async postOrder(req: PostOrderRequest, user: JWT_RESPONSE) {
+  async postOrder(
+    req: PostOrderRequest,
+    user: JWT_RESPONSE,
+  ): Promise<PostOrderResponse> {
     const service = await prisma.service_prices.findUnique({
       where: { id: req.service_price_id },
     });
@@ -42,7 +46,6 @@ const OrderService = {
     let harga_satuan = min;
     if (max) {
       harga_satuan = min.plus(max).div(2);
-
       if (service.pricing_type === "range" && service.price_max) {
         harga_satuan = min.plus(max).div(2);
       }
@@ -61,14 +64,18 @@ const OrderService = {
       orderBy: { id: "desc" },
     });
 
-    if (!lastOrder || !lastOrder.order_code) {
+    if (!lastOrder) {
       throw new HTTPException(HttpStatus.NOT_FOUND, {
         message: "order not found",
       });
     }
 
     let sequence = 1;
-    const lastSeq = parseInt(lastOrder.order_code.split("-")[2]);
+    const parts = lastOrder.order_code.split("-");
+    if (parts.length < 3) {
+      throw new Error("Invalid order code format");
+    }
+    const lastSeq = parseInt(parts[2]!);
     sequence = lastSeq + 1;
 
     const order_code = `ORD-${yearMonth}-${String(sequence).padStart(4, "0")}`;
