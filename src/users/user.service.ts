@@ -8,7 +8,6 @@ export const UserService = {
       select: {
         id: true,
         email: true,
-        firstname: true,
         role: true,
       },
     });
@@ -20,7 +19,6 @@ export const UserService = {
       select: {
         id: true,
         email: true,
-        firstname: true,
         role: true,
       },
     });
