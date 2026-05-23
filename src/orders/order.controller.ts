@@ -1,9 +1,9 @@
-import { Hono, type Context } from "hono";
-import OrderService from "./order.service";
-import { HttpStatus } from "@/lib/status_code";
-import { HTTPException } from "hono/http-exception";
 import type { JWT_RESPONSE } from "@/auth/auth.model";
+import { HttpStatus } from "@/lib/status_code";
 import { AuthMiddleware } from "@/middleware/auth.middleware";
+import { Hono, type Context } from "hono";
+import { HTTPException } from "hono/http-exception";
+import OrderService from "./order.service";
 
 const OrderController = new Hono();
 OrderController.use(AuthMiddleware);
@@ -18,8 +18,6 @@ OrderController.get("/", async (c: Context) => {
 OrderController.post("/", async (c: Context) => {
   const body = await c.req.json();
   const user: JWT_RESPONSE = c.get("user");
-  console.log(body);
-  console.log(user);
   const data = await OrderService.postOrder(body, user);
   return c.json({
     data: data,
