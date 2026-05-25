@@ -3,12 +3,13 @@ import { prisma } from "@/db";
 import { HttpStatus } from "@/lib/status_code";
 import type { Decimal } from "@prisma/client/runtime/index-browser";
 import { HTTPException } from "hono/http-exception";
-import { Prisma } from "../../prisma/generated/client";
+import { orders_status, Prisma } from "../../prisma/generated/client";
 import type {
   GetAllOrdersResponse,
   GetOrderByIdResponse,
   PostOrderRequest,
   PostOrderResponse,
+  UpdateOrderResponse,
 } from "./order.model";
 
 const OrderService = {
@@ -44,8 +45,8 @@ const OrderService = {
     const min: Decimal = service.price_min;
     const max: Decimal | null = service.price_max;
     let harga_satuan = min;
+
     if (max) {
-      harga_satuan = min.plus(max).div(2);
       if (service.pricing_type === "range" && service.price_max) {
         harga_satuan = min.plus(max).div(2);
       }
@@ -57,7 +58,7 @@ const OrderService = {
     const total_price = base_price.plus(express_surcharge);
 
     const today = new Date();
-    const yearMonth = today.toISOString().slice(0, 7).replace("-", ""); // "202605"
+    const yearMonth = today.toISOString().slice(0, 7).replace("-", "");
 
     const lastOrder = await prisma.orders.findFirst({
       select: { order_code: true },
@@ -115,6 +116,19 @@ const OrderService = {
         message: "order not found",
       });
     }
+    return data;
+  },
+  async updateStatusOrder(
+    id: string,
+    status: orders_status,
+  ): Promise<UpdateOrderResponse> {
+    const data = await prisma.orders.update({
+      where: { id: id },
+      data: {
+        status: status,
+      },
+    });
+    console.log(data);
     return data;
   },
 };

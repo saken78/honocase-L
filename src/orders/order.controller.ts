@@ -39,4 +39,20 @@ OrderController.get("/:id", async (c: Context) => {
   });
 });
 
+OrderController.put("/:id", async (c: Context) => {
+  const id = c.req.param("id");
+  const body = await c.req.json();
+  console.log(body.status);
+  if (!id) {
+    throw new HTTPException(HttpStatus.BAD_REQUEST, {
+      message: "param id undefined",
+    });
+  }
+  const data = await OrderService.updateStatusOrder(id, body.status);
+  return c.json({
+    data: data,
+    status_code: HttpStatus.OK,
+  });
+});
+
 export default OrderController;
