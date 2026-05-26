@@ -1,5 +1,5 @@
 import type { JSONRespondReturn } from "@/lib/json";
-import type { HttpStatus } from "@/lib/status_code";
+import { HttpStatus } from "@/lib/status_code";
 import { AuthMiddleware } from "@/middleware/auth.middleware";
 import { Hono, type Context } from "hono";
 import { HTTPException } from "hono/http-exception";
@@ -19,7 +19,7 @@ UserController.get(
       {
         data: user,
       },
-      200,
+      HttpStatus.OK,
     );
   },
 );
@@ -40,7 +40,7 @@ UserController.get(
       {
         data: user,
       },
-      200,
+      HttpStatus.OK,
     );
   },
 );
