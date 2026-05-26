@@ -39,7 +39,9 @@ export type CreateCustomerResponse = {
   name: string;
   phone: string;
   address?: string | null;
+  total_orders: number | null;
   created_at: Date | null;
+  updated_at: Date | null;
 };
 
 export type DeleteCustomerResponse = {
