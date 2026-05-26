@@ -128,7 +128,6 @@ const OrderService = {
         status: status,
       },
     });
-    console.log(data);
     return data;
   },
 };
