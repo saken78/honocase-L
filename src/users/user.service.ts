@@ -1,3 +1,4 @@
+import { HttpStatus } from "@/lib/status_code";
 import { HTTPException } from "hono/http-exception";
 import { prisma } from "../db/index";
 import type { UserResponse } from "./user.model";
@@ -23,8 +24,10 @@ export const UserService = {
       },
     });
 
-    if (!user || null) {
-      throw new HTTPException(404, { message: "User not found" });
+    if (!user) {
+      throw new HTTPException(HttpStatus.NOT_FOUND, {
+        message: "User not found",
+      });
     }
 
     return user;
