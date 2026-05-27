@@ -132,7 +132,7 @@ export const authService = {
     });
   },
   async deleteAccount(email: string): Promise<void> {
-    const validated_email = DELETE_SCHEMA.parse(email);
+    const validated_email = DELETE_SCHEMA.parse({ email });
     if (!validated_email.email) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
         message: "Unauthorized",
