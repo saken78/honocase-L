@@ -31,7 +31,7 @@ UserController.get(
   ): Promise<JSONRespondReturn<GetUserById<UserResponse>, HttpStatus.OK>> => {
     const param: string | undefined = c.req.param("id");
 
-    if (!param || undefined) {
+    if (!param) {
       throw new HTTPException(403, { message: "param not found" });
     }
 
