@@ -1,7 +1,6 @@
 import type { JWT_RESPONSE } from "@/auth/auth.model";
 import { prisma } from "@/db";
 import { HttpStatus } from "@/lib/status_code";
-import type { Decimal } from "@prisma/client/runtime/index-browser";
 import { HTTPException } from "hono/http-exception";
 import { orders_status, Prisma } from "../../prisma/generated/client";
 import type {
@@ -42,8 +41,8 @@ const OrderService = {
       });
     }
 
-    const min: Decimal = service.price_min;
-    const max: Decimal | null = service.price_max;
+    const min = service.price_min;
+    const max = service.price_max;
     let harga_satuan = min;
 
     if (max) {
