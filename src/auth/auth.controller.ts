@@ -73,14 +73,14 @@ AuthController.patch("/current", async (c: Context) => {
   const body: ResetPasswordRequest = await c.req.json();
   await authService.resetPassword(body.password, user.email);
   return c.json({
-    data: "Password changed succesfully",
+    data: "Password changed successfully",
     status_code: HttpStatus.OK,
   });
 });
 AuthController.delete("/current", async (c: Context) => {
   await authService.logout(c);
   return c.json({
-    message: "Cookies cleared succesfully",
+    message: "Cookies cleared successfully",
     status_code: HttpStatus.OK,
   });
 });
