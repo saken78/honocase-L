@@ -3,6 +3,16 @@ import type {
   orders_payment_status,
   orders_status,
 } from "../../prisma/generated/enums";
+import z from "zod";
+
+export const CREATE_ORDER_SCHEMA = z.object({
+  customer_id: z.string().min(1),
+  service_price_id: z.string().min(1),
+  quantity: z.coerce.number().positive(),
+  is_express: z.boolean().optional(),
+  condition_notes: z.string().max(500).optional(),
+  notes: z.string().max(500).optional(),
+});
 
 export type PostOrderRequest = {
   // order_code: string;

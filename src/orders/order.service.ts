@@ -3,12 +3,13 @@ import { prisma } from "@/db";
 import { HttpStatus } from "@/lib/status_code";
 import { HTTPException } from "hono/http-exception";
 import { orders_status, Prisma } from "../../prisma/generated/client";
-import type {
-  GetAllOrdersResponse,
-  GetOrderByIdResponse,
-  PostOrderRequest,
-  PostOrderResponse,
-  UpdateOrderResponse,
+import {
+  CREATE_ORDER_SCHEMA,
+  type GetAllOrdersResponse,
+  type GetOrderByIdResponse,
+  type PostOrderRequest,
+  type PostOrderResponse,
+  type UpdateOrderResponse,
 } from "./order.model";
 
 const OrderService = {
@@ -25,8 +26,9 @@ const OrderService = {
     req: PostOrderRequest,
     user: JWT_RESPONSE,
   ): Promise<PostOrderResponse> {
+    const valid = CREATE_ORDER_SCHEMA.parse(req);
     const service = await prisma.service_prices.findUnique({
-      where: { id: req.service_price_id },
+      where: { id: valid.service_price_id },
     });
 
     if (!service) {
@@ -51,9 +53,9 @@ const OrderService = {
       }
     }
 
-    const qty = new Prisma.Decimal(req.quantity);
+    const qty = new Prisma.Decimal(valid.quantity);
     const base_price = harga_satuan.mul(qty);
-    const express_surcharge = req.is_express ? base_price.mul(0.5) : 0;
+    const express_surcharge = valid.is_express ? base_price.mul(0.5) : 0;
     const total_price = base_price.plus(express_surcharge);
 
     const today = new Date();
@@ -81,7 +83,7 @@ const OrderService = {
     const order_code = `ORD-${yearMonth}-${String(sequence).padStart(4, "0")}`;
 
     const estimated_done = new Date();
-    const turnaround_hours = req.is_express
+    const turnaround_hours = valid.is_express
       ? 8
       : service.default_turnaround_hours || 48;
 
@@ -90,15 +92,15 @@ const OrderService = {
     const data = await prisma.orders.create({
       data: {
         order_code: order_code,
-        customer_id: req.customer_id,
+        customer_id: valid.customer_id,
         service_price_id: service.id,
-        quantity: req.quantity,
-        is_express: req.is_express ?? null,
+        quantity: valid.quantity,
+        is_express: valid.is_express ?? null,
         base_price: base_price,
         express_surcharge: express_surcharge,
         total_price: total_price,
-        condition_notes: req.condition_notes ?? null,
-        notes: req.notes ?? null,
+        condition_notes: valid.condition_notes ?? null,
+        notes: valid.notes ?? null,
         estimated_done: estimated_done,
         created_by: user.id,
       },
