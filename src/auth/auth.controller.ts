@@ -88,7 +88,7 @@ AuthController.delete("/delete_account", async (c: Context) => {
   const user: JWT_RESPONSE = c.get("user");
   await authService.deleteAccount(user.email);
   return c.json({
-    message: "Account deleted succesfully",
+    message: "Account deleted successfully",
     status_code: HttpStatus.OK,
   });
 });
