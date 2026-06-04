@@ -66,14 +66,10 @@ const OrderService = {
       orderBy: { id: "desc" },
     });
 
-    if (!lastOrder) {
-      throw new HTTPException(HttpStatus.NOT_FOUND, {
-        message: "order not found",
-      });
-    }
+    const db_order_code = lastOrder?.order_code || "ORD-202605-0001";
 
     let sequence = 1;
-    const parts = lastOrder.order_code.split("-");
+    const parts = db_order_code.split("-");
     if (parts.length < 3) {
       throw new Error("Invalid order code format");
     }
