@@ -125,6 +125,11 @@ const OrderService = {
         status: status,
       },
     });
+    if (!data) {
+      throw new HTTPException(HttpStatus.NOT_FOUND, {
+        message: "Order not found",
+      });
+    }
     return data;
   },
 };
