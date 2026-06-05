@@ -114,7 +114,6 @@ export const OrdersScalarFieldEnum = {
   status: 'status',
   payment_status: 'payment_status',
   is_overdue: 'is_overdue',
-  needs_weight_label: 'needs_weight_label',
   condition_notes: 'condition_notes',
   notes: 'notes',
   estimated_done: 'estimated_done',
@@ -162,7 +161,9 @@ export const UsersScalarFieldEnum = {
   password_hash: 'password_hash',
   role: 'role',
   is_active: 'is_active',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  rt_hash: 'rt_hash',
+  expires_at: 'expires_at'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -241,7 +242,8 @@ export type service_pricesOrderByRelevanceFieldEnum = (typeof service_pricesOrde
 export const usersOrderByRelevanceFieldEnum = {
   id: 'id',
   email: 'email',
-  password_hash: 'password_hash'
+  password_hash: 'password_hash',
+  rt_hash: 'rt_hash'
 } as const
 
 export type usersOrderByRelevanceFieldEnum = (typeof usersOrderByRelevanceFieldEnum)[keyof typeof usersOrderByRelevanceFieldEnum]

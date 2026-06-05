@@ -53,7 +53,6 @@ export type OrdersMinAggregateOutputType = {
   status: $Enums.orders_status | null
   payment_status: $Enums.orders_payment_status | null
   is_overdue: boolean | null
-  needs_weight_label: boolean | null
   condition_notes: string | null
   notes: string | null
   estimated_done: Date | null
@@ -76,7 +75,6 @@ export type OrdersMaxAggregateOutputType = {
   status: $Enums.orders_status | null
   payment_status: $Enums.orders_payment_status | null
   is_overdue: boolean | null
-  needs_weight_label: boolean | null
   condition_notes: string | null
   notes: string | null
   estimated_done: Date | null
@@ -99,7 +97,6 @@ export type OrdersCountAggregateOutputType = {
   status: number
   payment_status: number
   is_overdue: number
-  needs_weight_label: number
   condition_notes: number
   notes: number
   estimated_done: number
@@ -138,7 +135,6 @@ export type OrdersMinAggregateInputType = {
   status?: true
   payment_status?: true
   is_overdue?: true
-  needs_weight_label?: true
   condition_notes?: true
   notes?: true
   estimated_done?: true
@@ -161,7 +157,6 @@ export type OrdersMaxAggregateInputType = {
   status?: true
   payment_status?: true
   is_overdue?: true
-  needs_weight_label?: true
   condition_notes?: true
   notes?: true
   estimated_done?: true
@@ -184,7 +179,6 @@ export type OrdersCountAggregateInputType = {
   status?: true
   payment_status?: true
   is_overdue?: true
-  needs_weight_label?: true
   condition_notes?: true
   notes?: true
   estimated_done?: true
@@ -294,7 +288,6 @@ export type OrdersGroupByOutputType = {
   status: $Enums.orders_status
   payment_status: $Enums.orders_payment_status
   is_overdue: boolean | null
-  needs_weight_label: boolean | null
   condition_notes: string | null
   notes: string | null
   estimated_done: Date | null
@@ -340,7 +333,6 @@ export type ordersWhereInput = {
   status?: Prisma.Enumorders_statusFilter<"orders"> | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFilter<"orders"> | $Enums.orders_payment_status
   is_overdue?: Prisma.BoolNullableFilter<"orders"> | boolean | null
-  needs_weight_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
   condition_notes?: Prisma.StringNullableFilter<"orders"> | string | null
   notes?: Prisma.StringNullableFilter<"orders"> | string | null
   estimated_done?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
@@ -368,7 +360,6 @@ export type ordersOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   payment_status?: Prisma.SortOrder
   is_overdue?: Prisma.SortOrderInput | Prisma.SortOrder
-  needs_weight_label?: Prisma.SortOrderInput | Prisma.SortOrder
   condition_notes?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   estimated_done?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -400,7 +391,6 @@ export type ordersWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.Enumorders_statusFilter<"orders"> | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFilter<"orders"> | $Enums.orders_payment_status
   is_overdue?: Prisma.BoolNullableFilter<"orders"> | boolean | null
-  needs_weight_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
   condition_notes?: Prisma.StringNullableFilter<"orders"> | string | null
   notes?: Prisma.StringNullableFilter<"orders"> | string | null
   estimated_done?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
@@ -428,7 +418,6 @@ export type ordersOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   payment_status?: Prisma.SortOrder
   is_overdue?: Prisma.SortOrderInput | Prisma.SortOrder
-  needs_weight_label?: Prisma.SortOrderInput | Prisma.SortOrder
   condition_notes?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   estimated_done?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -459,7 +448,6 @@ export type ordersScalarWhereWithAggregatesInput = {
   status?: Prisma.Enumorders_statusWithAggregatesFilter<"orders"> | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusWithAggregatesFilter<"orders"> | $Enums.orders_payment_status
   is_overdue?: Prisma.BoolNullableWithAggregatesFilter<"orders"> | boolean | null
-  needs_weight_label?: Prisma.BoolNullableWithAggregatesFilter<"orders"> | boolean | null
   condition_notes?: Prisma.StringNullableWithAggregatesFilter<"orders"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"orders"> | string | null
   estimated_done?: Prisma.DateTimeNullableWithAggregatesFilter<"orders"> | Date | string | null
@@ -480,7 +468,6 @@ export type ordersCreateInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -507,7 +494,6 @@ export type ordersUncheckedCreateInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -530,7 +516,6 @@ export type ordersUpdateInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -557,7 +542,6 @@ export type ordersUncheckedUpdateInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -582,7 +566,6 @@ export type ordersCreateManyInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -603,7 +586,6 @@ export type ordersUpdateManyMutationInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -625,7 +607,6 @@ export type ordersUncheckedUpdateManyInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -669,7 +650,6 @@ export type ordersCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   payment_status?: Prisma.SortOrder
   is_overdue?: Prisma.SortOrder
-  needs_weight_label?: Prisma.SortOrder
   condition_notes?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   estimated_done?: Prisma.SortOrder
@@ -699,7 +679,6 @@ export type ordersMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   payment_status?: Prisma.SortOrder
   is_overdue?: Prisma.SortOrder
-  needs_weight_label?: Prisma.SortOrder
   condition_notes?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   estimated_done?: Prisma.SortOrder
@@ -722,7 +701,6 @@ export type ordersMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   payment_status?: Prisma.SortOrder
   is_overdue?: Prisma.SortOrder
-  needs_weight_label?: Prisma.SortOrder
   condition_notes?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   estimated_done?: Prisma.SortOrder
@@ -932,7 +910,6 @@ export type ordersCreateWithoutCustomersInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -957,7 +934,6 @@ export type ordersUncheckedCreateWithoutCustomersInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1011,7 +987,6 @@ export type ordersScalarWhereInput = {
   status?: Prisma.Enumorders_statusFilter<"orders"> | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFilter<"orders"> | $Enums.orders_payment_status
   is_overdue?: Prisma.BoolNullableFilter<"orders"> | boolean | null
-  needs_weight_label?: Prisma.BoolNullableFilter<"orders"> | boolean | null
   condition_notes?: Prisma.StringNullableFilter<"orders"> | string | null
   notes?: Prisma.StringNullableFilter<"orders"> | string | null
   estimated_done?: Prisma.DateTimeNullableFilter<"orders"> | Date | string | null
@@ -1032,7 +1007,6 @@ export type ordersCreateWithoutOrder_audit_logInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1058,7 +1032,6 @@ export type ordersUncheckedCreateWithoutOrder_audit_logInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1096,7 +1069,6 @@ export type ordersUpdateWithoutOrder_audit_logInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1122,7 +1094,6 @@ export type ordersUncheckedUpdateWithoutOrder_audit_logInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1144,7 +1115,6 @@ export type ordersCreateWithoutPaymentsInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1170,7 +1140,6 @@ export type ordersUncheckedCreateWithoutPaymentsInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1208,7 +1177,6 @@ export type ordersUpdateWithoutPaymentsInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1234,7 +1202,6 @@ export type ordersUncheckedUpdateWithoutPaymentsInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1256,7 +1223,6 @@ export type ordersCreateWithoutService_pricesInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1281,7 +1247,6 @@ export type ordersUncheckedCreateWithoutService_pricesInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1330,7 +1295,6 @@ export type ordersCreateWithoutUsersInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1356,7 +1320,6 @@ export type ordersUncheckedCreateWithoutUsersInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1405,7 +1368,6 @@ export type ordersCreateManyCustomersInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1426,7 +1388,6 @@ export type ordersUpdateWithoutCustomersInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1451,7 +1412,6 @@ export type ordersUncheckedUpdateWithoutCustomersInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1475,7 +1435,6 @@ export type ordersUncheckedUpdateManyWithoutCustomersInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1497,7 +1456,6 @@ export type ordersCreateManyService_pricesInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1518,7 +1476,6 @@ export type ordersUpdateWithoutService_pricesInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1543,7 +1500,6 @@ export type ordersUncheckedUpdateWithoutService_pricesInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1567,7 +1523,6 @@ export type ordersUncheckedUpdateManyWithoutService_pricesInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1590,7 +1545,6 @@ export type ordersCreateManyUsersInput = {
   status?: $Enums.orders_status
   payment_status?: $Enums.orders_payment_status
   is_overdue?: boolean | null
-  needs_weight_label?: boolean | null
   condition_notes?: string | null
   notes?: string | null
   estimated_done?: Date | string | null
@@ -1610,7 +1564,6 @@ export type ordersUpdateWithoutUsersInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1636,7 +1589,6 @@ export type ordersUncheckedUpdateWithoutUsersInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1660,7 +1612,6 @@ export type ordersUncheckedUpdateManyWithoutUsersInput = {
   status?: Prisma.Enumorders_statusFieldUpdateOperationsInput | $Enums.orders_status
   payment_status?: Prisma.Enumorders_payment_statusFieldUpdateOperationsInput | $Enums.orders_payment_status
   is_overdue?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  needs_weight_label?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   condition_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estimated_done?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1722,7 +1673,6 @@ export type ordersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   status?: boolean
   payment_status?: boolean
   is_overdue?: boolean
-  needs_weight_label?: boolean
   condition_notes?: boolean
   notes?: boolean
   estimated_done?: boolean
@@ -1753,7 +1703,6 @@ export type ordersSelectScalar = {
   status?: boolean
   payment_status?: boolean
   is_overdue?: boolean
-  needs_weight_label?: boolean
   condition_notes?: boolean
   notes?: boolean
   estimated_done?: boolean
@@ -1763,7 +1712,7 @@ export type ordersSelectScalar = {
   picked_up_at?: boolean
 }
 
-export type ordersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order_code" | "customer_id" | "service_price_id" | "quantity" | "is_express" | "base_price" | "express_surcharge" | "total_price" | "status" | "payment_status" | "is_overdue" | "needs_weight_label" | "condition_notes" | "notes" | "estimated_done" | "created_by" | "created_at" | "updated_at" | "picked_up_at", ExtArgs["result"]["orders"]>
+export type ordersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "order_code" | "customer_id" | "service_price_id" | "quantity" | "is_express" | "base_price" | "express_surcharge" | "total_price" | "status" | "payment_status" | "is_overdue" | "condition_notes" | "notes" | "estimated_done" | "created_by" | "created_at" | "updated_at" | "picked_up_at", ExtArgs["result"]["orders"]>
 export type ordersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order_audit_log?: boolean | Prisma.orders$order_audit_logArgs<ExtArgs>
   users?: boolean | Prisma.usersDefaultArgs<ExtArgs>
@@ -1795,7 +1744,6 @@ export type $ordersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     status: $Enums.orders_status
     payment_status: $Enums.orders_payment_status
     is_overdue: boolean | null
-    needs_weight_label: boolean | null
     condition_notes: string | null
     notes: string | null
     estimated_done: Date | null
@@ -2189,7 +2137,6 @@ export interface ordersFieldRefs {
   readonly status: Prisma.FieldRef<"orders", 'orders_status'>
   readonly payment_status: Prisma.FieldRef<"orders", 'orders_payment_status'>
   readonly is_overdue: Prisma.FieldRef<"orders", 'Boolean'>
-  readonly needs_weight_label: Prisma.FieldRef<"orders", 'Boolean'>
   readonly condition_notes: Prisma.FieldRef<"orders", 'String'>
   readonly notes: Prisma.FieldRef<"orders", 'String'>
   readonly estimated_done: Prisma.FieldRef<"orders", 'DateTime'>

@@ -34,31 +34,30 @@ model order_audit_log {
 }
 
 model orders {
-  id                 String                @id @default(dbgenerated("(uuid())")) @db.Char(70)
-  order_code         String                @unique(map: "order_code") @db.VarChar(50)
-  customer_id        String                @db.Char(70)
-  service_price_id   String                @db.Char(70)
-  quantity           Decimal               @db.Decimal(10, 2)
-  is_express         Boolean?              @default(false)
-  base_price         Decimal               @db.Decimal(10, 2)
-  express_surcharge  Decimal?              @default(0.00) @db.Decimal(10, 2)
-  total_price        Decimal               @db.Decimal(10, 2)
-  status             orders_status         @default(received)
-  payment_status     orders_payment_status @default(pending)
-  is_overdue         Boolean?              @default(false)
-  needs_weight_label Boolean?              @default(false)
-  condition_notes    String?               @default("") @db.Text
-  notes              String?               @default("") @db.Text
-  estimated_done     DateTime?             @db.Timestamp(0)
-  created_by         String                @db.Char(70)
-  created_at         DateTime?             @default(now()) @db.Timestamp(0)
-  updated_at         DateTime?             @default(now()) @db.Timestamp(0)
-  picked_up_at       DateTime?             @db.Timestamp(0)
-  order_audit_log    order_audit_log[]
-  users              users                 @relation(fields: [created_by], references: [id], onUpdate: Restrict, map: "fk_created_by")
-  customers          customers             @relation(fields: [customer_id], references: [id], onUpdate: Restrict, map: "fk_customer_id")
-  service_prices     service_prices        @relation(fields: [service_price_id], references: [id], onUpdate: Restrict, map: "fk_service_id")
-  payments           payments[]
+  id                String                @id @default(dbgenerated("(uuid())")) @db.Char(70)
+  order_code        String                @unique(map: "order_code") @db.VarChar(50)
+  customer_id       String                @db.Char(70)
+  service_price_id  String                @db.Char(70)
+  quantity          Decimal               @db.Decimal(10, 2)
+  is_express        Boolean?              @default(false)
+  base_price        Decimal               @db.Decimal(10, 2)
+  express_surcharge Decimal?              @default(0.00) @db.Decimal(10, 2)
+  total_price       Decimal               @db.Decimal(10, 2)
+  status            orders_status         @default(received)
+  payment_status    orders_payment_status @default(pending)
+  is_overdue        Boolean?              @default(false)
+  condition_notes   String?               @default("") @db.Text
+  notes             String?               @default("") @db.Text
+  estimated_done    DateTime?             @db.Timestamp(0)
+  created_by        String                @db.Char(70)
+  created_at        DateTime?             @default(now()) @db.Timestamp(0)
+  updated_at        DateTime?             @default(now()) @db.Timestamp(0)
+  picked_up_at      DateTime?             @db.Timestamp(0)
+  order_audit_log   order_audit_log[]
+  users             users                 @relation(fields: [created_by], references: [id], onUpdate: Restrict, map: "fk_created_by")
+  customers         customers             @relation(fields: [customer_id], references: [id], onUpdate: Restrict, map: "fk_customer_id")
+  service_prices    service_prices        @relation(fields: [service_price_id], references: [id], onUpdate: Restrict, map: "fk_service_id")
+  payments          payments[]
 
   @@index([created_by], map: "fk_created_by")
   @@index([service_price_id], map: "fk_service_id")
@@ -104,6 +103,8 @@ model users {
   role            users_role        @default(karyawan)
   is_active       Boolean?          @default(true)
   created_at      DateTime?         @default(now()) @db.DateTime(0)
+  rt_hash         String?           @db.VarChar(255)
+  expires_at      DateTime?         @db.DateTime(0)
   order_audit_log order_audit_log[]
   orders          orders[]
 }
