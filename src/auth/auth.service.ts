@@ -17,6 +17,7 @@ import { SECRET } from "../lib/secret";
 import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
 import type { Context } from "hono";
 import { users_role } from "../../prisma/generated/enums";
+import crypto from "crypto";
 
 export const authService = {
   async register(req: RegisterUserRequest): Promise<AuthResponse> {
@@ -88,16 +89,31 @@ export const authService = {
     }
     const user_role: string = result.role;
 
-    const pay: JWT_PAYLOAD = {
+    const ac_payload: JWT_PAYLOAD = {
       sub: result.id,
       email: result.email,
       role: user_role,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      exp: Math.floor(Date.now() / 1000) + 60 * 15,
       iat: Math.floor(Date.now() / 1000),
     };
 
-    const token = await sign(pay, SECRET);
-    await setSignedCookie(c, "refresh_token", token, SECRET);
+    await sign(ac_payload, SECRET);
+
+    const refresh_token = crypto.randomBytes(32).toString("hex");
+    const token_hash = await Bun.password.hash(refresh_token);
+    const date = new Date();
+    const expires_at = date.setDate(date.getDate() + 7);
+
+    await setSignedCookie(c, "refresh_token", refresh_token, SECRET, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+
+    await prisma.$executeRaw`UPDATE users set rt_hash = ${token_hash} AND expires_at = ${expires_at} where id = ${result.id}`;
+
     return {
       id: result.id,
       email: result.email,
