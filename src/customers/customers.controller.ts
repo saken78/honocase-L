@@ -6,6 +6,7 @@ import { HTTPException } from "hono/http-exception";
 import { AuthMiddleware } from "@/middleware/auth.middleware";
 import type { JWT_RESPONSE } from "@/auth/auth.model";
 import type { UpdateCustomerRequest } from "./customers.model";
+import { OwnerMiddleware } from "@/middleware/owner.middleware";
 
 const CustomersController = new Hono();
 CustomersController.use(AuthMiddleware);
@@ -65,15 +66,8 @@ CustomersController.put("/:id", async (c: Context) => {
     status_code: HttpStatus.OK,
   });
 });
-
+CustomersController.use(OwnerMiddleware);
 CustomersController.delete("/:id", async (c: Context) => {
-  const user: JWT_RESPONSE = await c.get("user");
-  if (user.role !== "owner") {
-    throw new HTTPException(HttpStatus.FORBIDDEN, {
-      message: "Only Owner role can delete customers",
-    });
-  }
-
   const id = c.req.param("id");
   if (!id) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
