@@ -104,7 +104,7 @@ model users {
   is_active       Boolean?          @default(true)
   created_at      DateTime?         @default(now()) @db.DateTime(0)
   rt_hash         String?           @db.VarChar(255)
-  expires_at      DateTime?         @db.DateTime(0)
+  expires_at      DateTime?         @db.Timestamp(0)
   order_audit_log order_audit_log[]
   orders          orders[]
 }
