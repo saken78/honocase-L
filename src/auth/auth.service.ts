@@ -97,12 +97,18 @@ export const authService = {
       iat: Math.floor(Date.now() / 1000),
     };
 
-    await sign(ac_payload, SECRET);
+    const access_token = await sign(ac_payload, SECRET, "HS256");
+    await setSignedCookie(c, "access_token", access_token, SECRET, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 15,
+    });
 
     const refresh_token = crypto.randomBytes(32).toString("hex");
     const token_hash = await Bun.password.hash(refresh_token);
-    const date = new Date();
-    const expires_at = date.setDate(date.getDate() + 7);
+    const expires_at = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
     await setSignedCookie(c, "refresh_token", refresh_token, SECRET, {
       httpOnly: true,
@@ -112,7 +118,7 @@ export const authService = {
       maxAge: 60 * 60 * 24 * 7,
     });
 
-    await prisma.$executeRaw`UPDATE users set rt_hash = ${token_hash} AND expires_at = ${expires_at} where id = ${result.id}`;
+    await prisma.$executeRaw`UPDATE users set rt_hash = ${token_hash}, expires_at = ${expires_at} where id = ${result.id}`;
 
     return {
       id: result.id,
@@ -122,6 +128,7 @@ export const authService = {
   },
   async me(c: Context): Promise<JWT_RESPONSE> {
     const result = c.get("user");
+    console.log(result);
     return result;
   },
   async logout(c: Context): Promise<void> {
