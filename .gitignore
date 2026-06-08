@@ -2,5 +2,7 @@
 node_modules/
 .folder
 .env
+.env.test
 
 /src/generated/prisma
+docs/
