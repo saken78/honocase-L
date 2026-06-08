@@ -1,4 +1,4 @@
-import { prisma } from "@/db";
+import { prisma } from "../db";
 import {
   CREATE_CUSTOMERS_SCHEMA,
   UPDATE_CUSTOMER_SCHEMA,
@@ -12,7 +12,7 @@ import {
   type UpdateCustomerResponse,
 } from "./customers.model";
 import { HTTPException } from "hono/http-exception";
-import { HttpStatus } from "@/lib/status_code";
+import { HttpStatus } from "../lib/status_code";
 
 export const CustomerService = {
   async registerCustomer(

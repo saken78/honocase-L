@@ -1,6 +1,6 @@
-import type { JWT_RESPONSE } from "@/auth/auth.model";
-import { prisma } from "@/db";
-import { HttpStatus } from "@/lib/status_code";
+import type { JWT_RESPONSE } from "../auth/auth.model";
+import { prisma } from "../db";
+import { HttpStatus } from "../lib/status_code";
 import { HTTPException } from "hono/http-exception";
 import { orders_status, Prisma } from "../../prisma/generated/client";
 import {

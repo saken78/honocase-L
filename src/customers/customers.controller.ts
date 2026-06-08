@@ -1,12 +1,11 @@
-import { HttpStatus } from "@/lib/status_code";
+import { HttpStatus } from "../lib/status_code";
 import type { Context } from "hono";
 import { Hono } from "hono";
 import { CustomerService } from "./customers.service";
 import { HTTPException } from "hono/http-exception";
-import { AuthMiddleware } from "@/middleware/auth.middleware";
-import type { JWT_RESPONSE } from "@/auth/auth.model";
+import { AuthMiddleware } from "../middleware/auth.middleware";
 import type { UpdateCustomerRequest } from "./customers.model";
-import { OwnerMiddleware } from "@/middleware/owner.middleware";
+import { OwnerMiddleware } from "../middleware/owner.middleware";
 
 const CustomersController = new Hono();
 CustomersController.use(AuthMiddleware);

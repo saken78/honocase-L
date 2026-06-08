@@ -1,6 +1,6 @@
 import { Hono, type Context } from "hono";
 import { ServiceService } from "./service.services";
-import { HttpStatus } from "@/lib/status_code";
+import { HttpStatus } from "../lib/status_code";
 
 const ServiceController = new Hono();
 ServiceController.get("/", async (c: Context) => {

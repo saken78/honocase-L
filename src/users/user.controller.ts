@@ -1,5 +1,5 @@
-import { HttpStatus } from "@/lib/status_code";
-import { AuthMiddleware } from "@/middleware/auth.middleware";
+import { HttpStatus } from "../lib/status_code";
+import { AuthMiddleware } from "../middleware/auth.middleware";
 import { Hono, type Context } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { UserService } from "./user.service";
