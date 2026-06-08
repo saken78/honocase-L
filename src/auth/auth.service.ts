@@ -106,6 +106,7 @@ export const authService = {
       maxAge: 60 * 15,
     });
 
+    await getSignedCookie(c, SECRET, "access_token");
     const refresh_token = crypto.randomBytes(32).toString("hex");
     const token_hash = await Bun.password.hash(refresh_token);
     const expires_at = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
