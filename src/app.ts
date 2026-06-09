@@ -8,6 +8,7 @@ import { winstonlogger } from "./lib/winston-logger";
 import OrderController from "./orders/order.controller";
 import ServiceController from "./services/service.controller";
 import UserController from "./users/user.controller";
+import TokenController from "./tokens/token.controller";
 
 const app = new Hono();
 app.use("/*", logger());
@@ -18,7 +19,8 @@ app
   .route("/users", UserController)
   .route("/customers", CustomersController)
   .route("/services", ServiceController)
-  .route("/orders", OrderController);
+  .route("/orders", OrderController)
+  .route("/refresh", TokenController);
 app.onError(GlobalError);
 
 for (let i = 0; i < app.routes.length; i++) {

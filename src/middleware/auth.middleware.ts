@@ -23,7 +23,6 @@ export const AuthMiddleware: MiddlewareHandler = async (
       message: "UNAUTHORIZED",
     });
   }
-  console.log(token);
   let user: JWT_PAYLOAD;
   try {
     user = await verify(token, SECRET, "HS256");

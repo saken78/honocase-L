@@ -18,6 +18,7 @@ import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
 import type { Context } from "hono";
 import { users_role } from "../../prisma/generated/enums";
 import crypto from "crypto";
+import { email } from "zod";
 
 export const authService = {
   async register(req: RegisterUserRequest): Promise<AuthResponse> {
@@ -89,6 +90,7 @@ export const authService = {
     }
     const user_role: string = result.role;
 
+    // ==================== access_token ======================== //
     const ac_payload: JWT_PAYLOAD = {
       sub: result.id,
       email: result.email,
@@ -105,10 +107,28 @@ export const authService = {
       path: "/",
       maxAge: 60 * 15,
     });
+    // ==================== access_token ======================== //
 
-    await getSignedCookie(c, SECRET, "access_token");
-    const refresh_token = crypto.randomBytes(32).toString("hex");
-    const token_hash = await Bun.password.hash(refresh_token);
+    // ==================== refresh_token ======================== //
+    const rt_payload: JWT_PAYLOAD = {
+      sub: result.id,
+      email: result.email,
+      role: user_role,
+      exp: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60,
+      iat: Math.floor(Date.now() / 1000),
+    };
+    const refresh_token = await sign(rt_payload, SECRET, "HS256");
+    const token_hash = await Bun.password.hash(refresh_token, {
+      algorithm: "argon2id",
+      memoryCost: 4,
+      timeCost: 3,
+    });
+    console.log("TOKEN HASH");
+    console.log(token_hash);
+
+    console.log("TOKEN");
+    console.log(refresh_token);
+
     const expires_at = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
     await setSignedCookie(c, "refresh_token", refresh_token, SECRET, {
@@ -118,6 +138,7 @@ export const authService = {
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
+    // ==================== refresh_token ======================== //
 
     await prisma.$executeRaw`UPDATE users set rt_hash = ${token_hash}, expires_at = ${expires_at} where id = ${result.id}`;
 
