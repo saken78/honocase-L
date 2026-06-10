@@ -104,6 +104,15 @@ const OrderService = {
 
     return data;
   },
+  async getAllOrdersJoin() {
+    const data = await prisma.orders.findMany({
+      include: {
+        customers: true,
+        service_prices: true,
+      },
+    });
+    return data;
+  },
   async getOrderById(id: string): Promise<GetOrderByIdResponse> {
     const data = await prisma.orders.findUnique({
       where: { id: id },

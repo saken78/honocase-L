@@ -7,6 +7,7 @@ import OrderService from "./order.service";
 
 const OrderController = new Hono();
 OrderController.use(AuthMiddleware);
+
 OrderController.get("/", async (c: Context) => {
   const data = await OrderService.getAllOrders();
   return c.json({
@@ -22,6 +23,13 @@ OrderController.post("/", async (c: Context) => {
   return c.json({
     data: data,
     status_code: HttpStatus.CREATED,
+  });
+});
+
+OrderController.get("/all", async (c: Context) => {
+  const data = await OrderService.getAllOrdersJoin();
+  return c.json({
+    data: data,
   });
 });
 
