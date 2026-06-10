@@ -1,24 +1,22 @@
-import { prisma } from "../db/index";
-import {
-  type JWT_PAYLOAD,
-  type LoginUserRequest,
-  type RegisterUserRequest,
-  type AuthResponse,
-  REGISTER_SCHEMA,
-  LOGIN_SCHEMA,
-  RESET_PASSWORD_SCHEMA,
-  DELETE_SCHEMA,
-  type JWT_RESPONSE,
-} from "./auth.model";
-import { HttpStatus } from "../lib/status_code";
+import type { Context } from "hono";
+import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
 import { HTTPException } from "hono/http-exception";
 import { sign } from "hono/jwt";
-import { SECRET } from "../lib/secret";
-import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
-import type { Context } from "hono";
 import { users_role } from "../../prisma/generated/enums";
-import crypto from "crypto";
-import { email } from "zod";
+import { prisma } from "../db/index";
+import { SECRET } from "../lib/secret";
+import { HttpStatus } from "../lib/status_code";
+import {
+  type AuthResponse,
+  DELETE_SCHEMA,
+  type JWT_PAYLOAD,
+  type JWT_RESPONSE,
+  LOGIN_SCHEMA,
+  type LoginUserRequest,
+  REGISTER_SCHEMA,
+  type RegisterUserRequest,
+  RESET_PASSWORD_SCHEMA,
+} from "./auth.model";
 
 export const authService = {
   async register(req: RegisterUserRequest): Promise<AuthResponse> {
