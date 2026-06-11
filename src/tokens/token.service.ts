@@ -60,7 +60,6 @@ export const TokenService = {
       exp: Math.floor(Date.now() / 1000) + 60 * 15,
       iat: Math.floor(Date.now() / 1000),
     };
-
     const access_token = await sign(ac_payload, SECRET, "HS256");
     await setSignedCookie(c, "access_token", access_token, SECRET, {
       httpOnly: true,

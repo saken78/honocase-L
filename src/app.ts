@@ -9,6 +9,7 @@ import OrderController from "./orders/order.controller";
 import ServiceController from "./services/service.controller";
 import UserController from "./users/user.controller";
 import TokenController from "./tokens/token.controller";
+import DashboardController from "./dashboard/dashboard.controller";
 
 const app = new Hono();
 app.use("/*", logger());
@@ -20,7 +21,8 @@ app
   .route("/customers", CustomersController)
   .route("/services", ServiceController)
   .route("/orders", OrderController)
-  .route("/refresh", TokenController);
+  .route("/refresh", TokenController)
+  .route("/dashboard", DashboardController);
 app.onError(GlobalError);
 
 for (let i = 0; i < app.routes.length; i++) {

@@ -5,13 +5,11 @@ import { getSignedCookie } from "hono/cookie";
 import { HTTPException } from "hono/http-exception";
 import { HttpStatus } from "../lib/status_code";
 import type { JWT_PAYLOAD } from "../auth/auth.model";
-// import { winstonlogger } from "../lib/winston-logger";
 
 export const AuthMiddleware: MiddlewareHandler = async (
   c: Context,
   next: Next,
 ): Promise<void> => {
-  // winstonlogger.debug("MIDDLEWARE EXECUTE: ");
   if (!SECRET || SECRET === undefined) {
     throw new HTTPException(HttpStatus.UNAUTHORIZED, {
       message: "SECRET NOT FOUND",
