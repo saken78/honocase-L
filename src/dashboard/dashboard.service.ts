@@ -1,5 +1,5 @@
 import { prisma } from "@/db";
-import type { Stats } from "./dashboard.model";
+import type { avgDay, income, Stats } from "./dashboard.model";
 
 export const DashboardService = {
   async stats(): Promise<Stats> {
@@ -49,5 +49,30 @@ export const DashboardService = {
       },
       recentOrders: recentOrders,
     };
+  },
+  async income(day: number) {
+    const { ...raw } = await prisma.$queryRaw<income>`
+    select sum(o.total_price) as income
+    from orders as o
+    where
+    created_at >= NOW() - INTERVAL ${day} DAY;`;
+    const data =
+      raw[0]?.income === null || raw[0]?.income === undefined
+        ? 0
+        : raw[0]?.income;
+    return data;
+  },
+  async avgDay(day: number) {
+    const { ...raw } = await prisma.$queryRaw<avgDay>`
+    select sum(o.total_price) as avg_day from orders as o`;
+    console.log(raw);
+    const total =
+      raw[0]?.avg_day === null || raw[0]?.avg_day === undefined
+        ? 0
+        : raw[0]?.avg_day;
+    const raw_avg = total / day;
+    const avg_day = raw_avg < 0 ? 0 : raw_avg;
+    console.log(avg_day);
+    return avg_day;
   },
 };

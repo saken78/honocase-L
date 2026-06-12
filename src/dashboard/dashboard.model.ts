@@ -41,3 +41,15 @@ export type Stats = {
     };
   }[];
 };
+
+export type income = {
+  [key: string]: {
+    income: number;
+  };
+};
+
+export type avgDay = {
+  [key: string]: {
+    avg_day: number;
+  };
+};

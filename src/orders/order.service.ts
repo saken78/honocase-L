@@ -55,7 +55,7 @@ const OrderService = {
 
     const qty = new Prisma.Decimal(valid.quantity);
     const base_price = harga_satuan.mul(qty);
-    const express_surcharge = valid.is_express ? base_price.mul(0.5) : 0;
+    const express_surcharge = valid.is_express ? base_price.mul(1) : 0;
     const total_price = base_price.plus(express_surcharge);
 
     const today = new Date();
