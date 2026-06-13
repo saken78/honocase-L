@@ -152,13 +152,15 @@ export const authService = {
     return result;
   },
   async logout(c: Context): Promise<void> {
-    const cookie = await getSignedCookie(c, SECRET, "refresh_token");
-    if (!cookie) {
+    const refresh_token = await getSignedCookie(c, SECRET, "refresh_token");
+    if (!refresh_token) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
         message: "Cookie Already Cleared",
       });
     }
+
     deleteCookie(c, "refresh_token");
+    deleteCookie(c, "access_token");
   },
   async resetPassword(password: string, email: string): Promise<void> {
     const request = RESET_PASSWORD_SCHEMA.parse(password);
