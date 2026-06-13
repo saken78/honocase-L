@@ -53,3 +53,10 @@ export type avgDay = {
     avg_day: number;
   };
 };
+
+export type incomeService = {
+  id: string;
+  service_name: string;
+  total_order: number;
+  total_revenue: number;
+}[];

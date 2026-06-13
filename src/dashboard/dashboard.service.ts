@@ -1,5 +1,5 @@
 import { prisma } from "@/db";
-import type { avgDay, income, Stats } from "./dashboard.model";
+import type { avgDay, income, incomeService, Stats } from "./dashboard.model";
 
 export const DashboardService = {
   async stats(): Promise<Stats> {
@@ -74,5 +74,29 @@ export const DashboardService = {
     const avg_day = raw_avg < 0 ? 0 : raw_avg;
     console.log(avg_day);
     return avg_day;
+  },
+  async incomeService() {
+    const raw = await prisma.$queryRaw<incomeService>`
+    SELECT
+        sp.id as id,
+        sp.name as service_name,
+        COUNT(*) as total_order,
+        SUM(o.total_price) as total_revenue
+    FROM orders as o
+        join service_prices as sp on sp.id = o.service_price_id
+    GROUP BY
+        sp.id,
+        sp.name
+    ORDER BY total_revenue DESC`;
+    const data = raw.map((c) => {
+      return {
+        id: c.id,
+        service_name: c.service_name,
+        total_order: Number(c.total_order),
+        total_revenue: c.total_revenue,
+      };
+    });
+    console.log(data.length);
+    return data;
   },
 };

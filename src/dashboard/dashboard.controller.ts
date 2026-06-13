@@ -10,13 +10,15 @@ DashboardController.use(AuthMiddleware);
 DashboardController.get("/stats", async (c: Context) => {
   const data = await DashboardService.stats();
   return c.json({
-    stats: {
-      todayOrders: data.stats.todayOrders,
-      todayRevenue: data.stats.todayRevenue,
-      pendingPickup: data.stats.pendingPickup,
-      overdueOrders: data.stats.overdueOrders,
+    data: {
+      stats: {
+        todayOrders: data.stats.todayOrders,
+        todayRevenue: data.stats.todayRevenue,
+        pendingPickup: data.stats.pendingPickup,
+        overdueOrders: data.stats.overdueOrders,
+      },
+      recentOrders: data.recentOrders,
     },
-    recentOrders: data.recentOrders,
   });
 });
 
@@ -51,6 +53,13 @@ DashboardController.get("/avgday", async (c: Context) => {
       avg_day: data,
     },
     status_code: HttpStatus.OK,
+  });
+});
+
+DashboardController.get("/incomeservice", async (c: Context) => {
+  const data = await DashboardService.incomeService();
+  return c.json({
+    data: data,
   });
 });
 
