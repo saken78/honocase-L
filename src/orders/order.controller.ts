@@ -6,7 +6,7 @@ import { HTTPException } from "hono/http-exception";
 import OrderService from "./order.service";
 
 const OrderController = new Hono();
-OrderController.use(AuthMiddleware);
+// OrderController.use(AuthMiddleware);
 
 OrderController.get("/", async (c: Context) => {
   const data = await OrderService.getAllOrders();
