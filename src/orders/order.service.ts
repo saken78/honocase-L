@@ -116,19 +116,56 @@ const OrderService = {
     return data;
   },
   async getAllOrdersJoinStatus(
-    queryparam: string,
-  ): Promise<Pagination<GetAllJoinOrdersResponse[]>> {
-    const query = queryparam as orders_status;
-    const data = await prisma.orders.findMany({
-      where: {
-        status: query,
-      },
-      include: {
-        customers: true,
-        service_prices: true,
-      },
-    });
-    const total = data.length;
+    query_status: string,
+    query_day: number,
+  ): Promise<Pagination<GetAllJoinOrdersResponse[] | undefined>> {
+    const status = query_status as orders_status;
+
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - query_day);
+
+    let data;
+    let total = 0;
+    if (query_status !== "all" && query_day !== 9999) {
+      data = await prisma.orders.findMany({
+        where: {
+          status: status,
+          created_at: {
+            gte: startDate,
+          },
+        },
+        include: {
+          customers: true,
+          service_prices: true,
+        },
+      });
+      total = data.length;
+    } else if (query_status === "all" && query_day !== 9999) {
+      data = await prisma.orders.findMany({
+        where: {
+          created_at: {
+            gte: startDate,
+          },
+        },
+        include: {
+          customers: true,
+          service_prices: true,
+        },
+      });
+      total = data.length;
+    } else if (query_status !== "all" && query_day === 9999) {
+      data = await prisma.orders.findMany({
+        where: {
+          status: status,
+        },
+        include: {
+          customers: true,
+          service_prices: true,
+        },
+      });
+      total = data.length;
+    }
+    console.log(data);
     return {
       data: data,
       total: total,

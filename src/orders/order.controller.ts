@@ -35,14 +35,17 @@ OrderController.get("/all", async (c: Context) => {
 });
 
 OrderController.get("/status", async (c: Context) => {
-  const query = c.req.query("status");
-  if (!query) {
-    throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "Query param undefined",
-    });
+  let query_status = c.req.query("status");
+  let query_day = c.req.query("day");
+  if (!query_status) {
+    query_status = "all";
   }
-  const status: string = query;
-  const data = await OrderService.getAllOrdersJoinStatus(status);
+  if (!query_day) {
+    query_day = "9999";
+  }
+  const status: string = query_status;
+  const day: number = Number(query_day);
+  const data = await OrderService.getAllOrdersJoinStatus(status, day);
   return c.json({
     ...data,
     status_code: HttpStatus.OK,
