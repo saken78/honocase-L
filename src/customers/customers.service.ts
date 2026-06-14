@@ -30,12 +30,10 @@ export const CustomerService = {
   },
   async getAllCustomer(): Promise<Pagination<GetAllCustomers[]>> {
     const data = await prisma.customers.findMany({
-      take: 10,
       orderBy: { name: "asc" },
     });
     return {
       data: data,
-      take: 10,
       total: await prisma.customers.count(),
     };
   },

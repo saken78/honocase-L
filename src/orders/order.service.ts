@@ -5,8 +5,10 @@ import { HTTPException } from "hono/http-exception";
 import { orders_status, Prisma } from "../../prisma/generated/client";
 import {
   CREATE_ORDER_SCHEMA,
+  type GetAllJoinOrdersResponse,
   type GetAllOrdersResponse,
   type GetOrderByIdResponse,
+  type Pagination,
   type PostOrderRequest,
   type PostOrderResponse,
   type UpdateOrderResponse,
@@ -113,9 +115,10 @@ const OrderService = {
     });
     return data;
   },
-  async getAllOrdersJoinStatus(queryparam: string) {
+  async getAllOrdersJoinStatus(
+    queryparam: string,
+  ): Promise<Pagination<GetAllJoinOrdersResponse[]>> {
     const query = queryparam as orders_status;
-    console.log(query);
     const data = await prisma.orders.findMany({
       where: {
         status: query,
@@ -125,7 +128,11 @@ const OrderService = {
         service_prices: true,
       },
     });
-    return data;
+    const total = data.length;
+    return {
+      data: data,
+      total: total,
+    };
   },
 
   async getOrderById(id: string): Promise<GetOrderByIdResponse> {

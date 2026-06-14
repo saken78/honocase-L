@@ -36,7 +36,6 @@ OrderController.get("/all", async (c: Context) => {
 
 OrderController.get("/status", async (c: Context) => {
   const query = c.req.query("status");
-  console.log(query);
   if (!query) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
       message: "Query param undefined",
@@ -45,7 +44,8 @@ OrderController.get("/status", async (c: Context) => {
   const status: string = query;
   const data = await OrderService.getAllOrdersJoinStatus(status);
   return c.json({
-    data: data,
+    ...data,
+    status_code: HttpStatus.OK,
   });
 });
 
