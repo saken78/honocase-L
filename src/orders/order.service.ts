@@ -113,6 +113,21 @@ const OrderService = {
     });
     return data;
   },
+  async getAllOrdersJoinStatus(queryparam: string) {
+    const query = queryparam as orders_status;
+    console.log(query);
+    const data = await prisma.orders.findMany({
+      where: {
+        status: query,
+      },
+      include: {
+        customers: true,
+        service_prices: true,
+      },
+    });
+    return data;
+  },
+
   async getOrderById(id: string): Promise<GetOrderByIdResponse> {
     const data = await prisma.orders.findUnique({
       where: { id: id },

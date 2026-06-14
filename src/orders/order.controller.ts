@@ -4,6 +4,7 @@ import { AuthMiddleware } from "../middleware/auth.middleware";
 import { Hono, type Context } from "hono";
 import { HTTPException } from "hono/http-exception";
 import OrderService from "./order.service";
+import type { orders_status } from "../../prisma/generated/enums";
 
 const OrderController = new Hono();
 // OrderController.use(AuthMiddleware);
@@ -28,6 +29,21 @@ OrderController.post("/", async (c: Context) => {
 
 OrderController.get("/all", async (c: Context) => {
   const data = await OrderService.getAllOrdersJoin();
+  return c.json({
+    data: data,
+  });
+});
+
+OrderController.get("/status", async (c: Context) => {
+  const query = c.req.query("status");
+  console.log(query);
+  if (!query) {
+    throw new HTTPException(HttpStatus.BAD_REQUEST, {
+      message: "Query param undefined",
+    });
+  }
+  const status: string = query;
+  const data = await OrderService.getAllOrdersJoinStatus(status);
   return c.json({
     data: data,
   });
