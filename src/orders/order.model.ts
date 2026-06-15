@@ -179,3 +179,7 @@ export type Pagination<T> = {
   take?: number;
   total?: number;
 };
+
+export type OrderCodeQueryResponse = {
+  order_code: string;
+};

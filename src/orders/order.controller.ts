@@ -7,7 +7,7 @@ import OrderService from "./order.service";
 import type { orders_status } from "../../prisma/generated/enums";
 
 const OrderController = new Hono();
-// OrderController.use(AuthMiddleware);
+OrderController.use(AuthMiddleware);
 
 OrderController.get("/", async (c: Context) => {
   const data = await OrderService.getAllOrders();
@@ -20,6 +20,8 @@ OrderController.get("/", async (c: Context) => {
 OrderController.post("/", async (c: Context) => {
   const body = await c.req.json();
   const user: JWT_RESPONSE = c.get("user");
+  console.log(body);
+  console.log(user);
   const data = await OrderService.postOrder(body, user);
   return c.json({
     data: data,

@@ -8,6 +8,7 @@ import {
   type GetAllJoinOrdersResponse,
   type GetAllOrdersResponse,
   type GetOrderByIdResponse,
+  type OrderCodeQueryResponse,
   type Pagination,
   type PostOrderRequest,
   type PostOrderResponse,
@@ -63,12 +64,13 @@ const OrderService = {
     const today = new Date();
     const yearMonth = today.toISOString().slice(0, 7).replace("-", "");
 
-    const lastOrder = await prisma.orders.findFirst({
-      select: { order_code: true },
-      orderBy: { id: "desc" },
-    });
+    const lastOrder = await prisma.$queryRaw<
+      OrderCodeQueryResponse[]
+    >`select order_code from orders ORDER BY order_code DESC limit 1;`;
 
-    const db_order_code = lastOrder?.order_code || "ORD-202605-0001";
+    const db_order_code = lastOrder[0]?.order_code || "ORD-202605-0001";
+
+    console.log(db_order_code);
 
     let sequence = 1;
     const parts = db_order_code.split("-");
