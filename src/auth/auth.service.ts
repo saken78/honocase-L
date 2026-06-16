@@ -121,11 +121,6 @@ export const authService = {
       memoryCost: 4,
       timeCost: 3,
     });
-    console.log("TOKEN HASH");
-    console.log(token_hash);
-
-    console.log("TOKEN");
-    console.log(refresh_token);
 
     const expires_at = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
