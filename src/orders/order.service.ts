@@ -5,11 +5,13 @@ import { HTTPException } from "hono/http-exception";
 import { orders_status, Prisma } from "../../prisma/generated/client";
 import {
   CREATE_ORDER_SCHEMA,
+  type CountOrdersQuery,
   type GetAllJoinOrdersResponse,
   type GetAllOrdersResponse,
   type GetOrderByIdResponse,
   type OrderCodeQueryResponse,
   type Pagination,
+  type PercentageDiffQuery,
   type PostOrderRequest,
   type PostOrderResponse,
   type UpdateOrderResponse,
@@ -172,6 +174,51 @@ const OrderService = {
       data: data,
       total: total,
     };
+  },
+
+  async percentageDiffTotal(): Promise<number> {
+    const [data] = await prisma.$queryRaw<PercentageDiffQuery[]>`
+select sum(
+        case
+            when date(created_at) = CURDATE() - interval 1 day then total_price
+            else 0
+        end
+    ) as yesterday, sum(
+        case
+            when date(created_at) = curdate() then total_price
+            else 0
+        end
+    ) as today, (
+        sum(
+            case
+                when date(created_at) = CURDATE() - interval 1 day then total_price
+                else 0
+            end
+        ) - sum(
+            case
+                when date(created_at) = curdate() then total_price
+                else 0
+            end
+        )
+    ) as diff
+from orders`;
+    if (!data) {
+      return 0;
+    }
+    const diff = ((data.today - data.yesterday) / data.yesterday) * 100;
+    return diff;
+  },
+
+  async countOrdersYesterday(): Promise<number> {
+    const [data] = await prisma.$queryRaw<CountOrdersQuery[]>`
+select count(*) as jumlah_order
+from orders
+where
+    date(created_at) = CURDATE() - interval 1 day`;
+    if (!data) {
+      return 0;
+    }
+    return Number(data.jumlah_order);
   },
 
   async getOrderById(id: string): Promise<GetOrderByIdResponse> {

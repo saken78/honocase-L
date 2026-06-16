@@ -54,6 +54,16 @@ OrderController.get("/status", async (c: Context) => {
   });
 });
 
+OrderController.get("percentage", async (c) => {
+  const data = await OrderService.percentageDiffTotal();
+  return c.json(data);
+});
+
+OrderController.get("countorders", async (c) => {
+  const data = await OrderService.countOrdersYesterday();
+  return c.json(data);
+});
+
 OrderController.get("/:id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id) {

@@ -183,3 +183,13 @@ export type Pagination<T> = {
 export type OrderCodeQueryResponse = {
   order_code: string;
 };
+
+export type PercentageDiffQuery = {
+  yesterday: number;
+  today: number;
+  diff: number;
+};
+
+export type CountOrdersQuery = {
+  jumlah_order: number;
+};
