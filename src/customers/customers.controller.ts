@@ -22,7 +22,13 @@ CustomersController.post("/", async (c: Context) => {
 });
 
 CustomersController.get("/", async (c: Context) => {
-  const data = await CustomerService.getAllCustomer();
+  let take: number = Number(c.req.query("take"));
+  let page: number = Number(c.req.query("page"));
+
+  page = isNaN(page) ? 1 : page;
+  take = isNaN(take) ? 10 : take;
+
+  const data = await CustomerService.getAllCustomer(take, page);
   return c.json({
     ...data,
     status_code: HttpStatus.OK,

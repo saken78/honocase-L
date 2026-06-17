@@ -69,5 +69,8 @@ export type GetCustomerById = {
 export type Pagination<T> = {
   data: T;
   take?: number;
+  page?: number;
   total?: number;
 };
+
+// offset = (page - 1) * take

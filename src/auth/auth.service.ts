@@ -143,7 +143,6 @@ export const authService = {
   },
   async me(c: Context): Promise<JWT_RESPONSE> {
     const result = c.get("user");
-    console.log(result);
     return result;
   },
   async logout(c: Context): Promise<void> {

@@ -28,16 +28,24 @@ export const CustomerService = {
     });
     return data;
   },
-  async getAllCustomer(): Promise<Pagination<GetAllCustomers[]>> {
+  async getAllCustomer(
+    many: number,
+    page: number,
+  ): Promise<Pagination<GetAllCustomers[]>> {
+    const ofs: number = (page - 1) * many;
     const data = await prisma.customers.findMany({
       orderBy: { name: "asc" },
+      take: many,
+      skip: ofs,
     });
     return {
       data: data,
+      page: page,
+      take: many,
       total: await prisma.customers.count(),
     };
   },
-  async getCustomerById(id: string): Promise<GetCustomerById> {
+  async getCustomerById(id: string): Promise<Pagination<GetCustomerById>> {
     const data = await prisma.customers.findUnique({
       where: { id: id },
     });
@@ -46,7 +54,11 @@ export const CustomerService = {
         message: `customer with ${id} not found`,
       });
     }
-    return data;
+    return {
+      data: data,
+      take: 1,
+      total: 1,
+    };
   },
   async updateCustomerById(
     id: string,
