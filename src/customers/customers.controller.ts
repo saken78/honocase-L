@@ -28,6 +28,14 @@ CustomersController.get("/", async (c: Context) => {
   page = isNaN(page) ? 1 : page;
   take = isNaN(take) ? 10 : take;
 
+  if (page === undefined) {
+    page = isNaN(page) ? 1 : page;
+  }
+
+  if (take === undefined) {
+    take = isNaN(take) ? 10 : take;
+  }
+
   const data = await CustomerService.getAllCustomer(take, page);
   return c.json({
     ...data,
