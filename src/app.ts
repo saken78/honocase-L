@@ -12,9 +12,8 @@ import TokenController from "./tokens/token.controller";
 import DashboardController from "./dashboard/dashboard.controller";
 
 const app = new Hono();
-app.use("/*", logger());
 app.use("/*", cors({ origin: "http://localhost:5173", credentials: true }));
-app.use("/*", cors({ origin: "http://localhost:5174", credentials: true }));
+app.use("/*", logger());
 app
   .basePath("/api")
   .route("/auth", AuthController)
@@ -22,7 +21,7 @@ app
   .route("/customers", CustomersController)
   .route("/services", ServiceController)
   .route("/orders", OrderController)
-  .route("/refresh", TokenController)
+  .route("/token/refresh", TokenController)
   .route("/dashboard", DashboardController);
 app.onError(GlobalError);
 
