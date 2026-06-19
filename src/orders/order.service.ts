@@ -176,7 +176,7 @@ const OrderService = {
     };
   },
 
-  async percentageDiffTotal(): Promise<number> {
+  async percentageDiffTotal() {
     const [data] = await prisma.$queryRaw<PercentageDiffQuery[]>`
 select sum(
         case
@@ -191,22 +191,37 @@ select sum(
     ) as today, (
         sum(
             case
-                when date(created_at) = CURDATE() - interval 1 day then total_price
+                when date(created_at) = CURDATE() then total_price
                 else 0
             end
         ) - sum(
             case
-                when date(created_at) = curdate() then total_price
+                when date(created_at) = curdate() - interval 1 day then total_price
                 else 0
             end
         )
     ) as diff
 from orders`;
     if (!data) {
-      return 0;
+      return {
+        percentage_diff: 0,
+      };
     }
-    const diff = ((data.today - data.yesterday) / data.yesterday) * 100;
-    return diff;
+
+    const data_diff = Number(data.diff);
+    const data_today = Number(data.today);
+    const data_yesterday = Number(data.yesterday);
+
+    if (data_today === 0 && data_yesterday === 0) {
+      return {
+        percentage_diff: 0,
+      };
+    }
+
+    const diff = (data_diff / data_yesterday) * 100;
+    return {
+      percentage_diff: diff,
+    };
   },
 
   async countOrdersYesterday(): Promise<number> {
