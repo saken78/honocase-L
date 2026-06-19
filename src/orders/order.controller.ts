@@ -1,10 +1,10 @@
+import { Hono, type Context } from "hono";
+import { HTTPException } from "hono/http-exception";
 import type { JWT_RESPONSE } from "../auth/auth.model";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
-import { Hono, type Context } from "hono";
-import { HTTPException } from "hono/http-exception";
 import OrderService from "./order.service";
-import type { orders_status } from "../../prisma/generated/enums";
+import { da } from "zod/v4/locales";
 
 const OrderController = new Hono();
 OrderController.use(AuthMiddleware);
@@ -20,8 +20,6 @@ OrderController.get("/", async (c: Context) => {
 OrderController.post("/", async (c: Context) => {
   const body = await c.req.json();
   const user: JWT_RESPONSE = c.get("user");
-  console.log(body);
-  console.log(user);
   const data = await OrderService.postOrder(body, user);
   return c.json({
     data: data,
@@ -54,14 +52,20 @@ OrderController.get("/status", async (c: Context) => {
   });
 });
 
-OrderController.get("percentage", async (c) => {
+OrderController.get("percentage", async (c: Context) => {
   const data = await OrderService.percentageDiffTotal();
-  return c.json(data);
+  console.log("percentage: ", data);
+  return c.json({
+    data: data,
+  });
 });
 
-OrderController.get("countorders", async (c) => {
+OrderController.get("countorders", async (c: Context) => {
   const data = await OrderService.countOrdersYesterday();
-  return c.json(data);
+  console.log("count orders: ", data);
+  return c.json({
+    data: data,
+  });
 });
 
 OrderController.get("/:id", async (c: Context) => {

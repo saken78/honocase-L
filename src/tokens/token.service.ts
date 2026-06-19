@@ -9,7 +9,6 @@ import { HttpStatus } from "../lib/status_code";
 
 export const TokenService = {
   async refreshToken(c: Context): Promise<void> {
-    console.log("exc1");
     const rt_token = await getSignedCookie(c, SECRET, "refresh_token");
     if (!rt_token) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
@@ -24,7 +23,6 @@ export const TokenService = {
         message: "Email not found from user",
       });
     }
-    console.log(payload);
 
     const user = await prisma.users.findUnique({
       where: {
