@@ -60,3 +60,13 @@ export type incomeService = {
   total_order: number;
   total_revenue: number;
 }[];
+
+export type ordersWeek = {
+  date_: Date;
+  order_count: number;
+}[];
+
+export type serviceCounts = {
+  service_name: string;
+  jumlah: number;
+}[];

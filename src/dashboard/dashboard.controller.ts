@@ -63,4 +63,18 @@ DashboardController.get("/incomeservice", async (c: Context) => {
   });
 });
 
+DashboardController.get("/orderweek", async (c: Context) => {
+  const data = await DashboardService.order7days();
+  return c.json({
+    data: data,
+  });
+});
+
+DashboardController.get("/servicecount", async (c: Context) => {
+  const data = await DashboardService.orderPerService();
+  return c.json({
+    data: data,
+  });
+});
+
 export default DashboardController;

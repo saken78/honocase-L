@@ -1,5 +1,12 @@
 import { prisma } from "@/db";
-import type { avgDay, income, incomeService, Stats } from "./dashboard.model";
+import type {
+  avgDay,
+  income,
+  incomeService,
+  ordersWeek,
+  serviceCounts,
+  Stats,
+} from "./dashboard.model";
 
 export const DashboardService = {
   async stats(): Promise<Stats> {
@@ -97,6 +104,38 @@ export const DashboardService = {
       };
     });
     console.log(data.length);
+    return data;
+  },
+  async order7days() {
+    const raw = await prisma.$queryRaw<ordersWeek>`
+select date(o.created_at) as date_, count(*) as order_count
+from orders as o
+where
+    date(o.created_at) >= CURDATE() - interval 7 day
+GROUP BY
+    date(o.created_at);`;
+    const data = raw.map((ord) => {
+      return {
+        date: new Date(ord.date_).toISOString().split("T")[0],
+        count: Number(ord.order_count),
+      };
+    });
+    return data;
+  },
+  async orderPerService() {
+    const raw = await prisma.$queryRaw<serviceCounts>`
+select sp.name as service_name, count(*) as jumlah
+from orders as o
+    join service_prices as sp on sp.id = o.service_price_id
+group by
+    sp.id,
+    sp.name; `;
+    const data = raw.map((ord) => {
+      return {
+        service_name: ord.service_name,
+        jumlah: Number(ord.jumlah),
+      };
+    });
     return data;
   },
 };
