@@ -127,6 +127,23 @@ export type GetAllJoinOrdersResponse = {
     updated_at: Date | null;
   };
 };
+export type GetAllOrderJoinCleanResponse = {
+  order_code: string;
+  customers: {
+    name: string;
+    phone: string;
+  };
+  service_prices: {
+    name: string;
+    unit_label: string;
+  };
+  is_express: boolean | null;
+  quantity: Decimal;
+  total_price: Decimal;
+  status: string;
+  payment_status: string;
+  estimated_done: Date | null;
+};
 
 export type GetOrderByIdResponse = {
   id: string;
@@ -177,6 +194,7 @@ export type UpdateOrderResponse = {
 export type Pagination<T> = {
   data: T;
   take?: number;
+  page?: number;
   total?: number;
 };
 
@@ -192,4 +210,13 @@ export type PercentageDiffQuery = {
 
 export type CountOrdersQuery = {
   jumlah_order: number;
+};
+
+export type StatusCount = {
+  status_name: string;
+  status_count: number;
+};
+
+export type TotalOrders = {
+  total: number;
 };

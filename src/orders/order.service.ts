@@ -1,12 +1,12 @@
+import { HTTPException } from "hono/http-exception";
+import { orders_status, Prisma } from "../../prisma/generated/client";
 import type { JWT_RESPONSE } from "../auth/auth.model";
 import { prisma } from "../db";
 import { HttpStatus } from "../lib/status_code";
-import { HTTPException } from "hono/http-exception";
-import { orders_status, Prisma } from "../../prisma/generated/client";
 import {
   CREATE_ORDER_SCHEMA,
   type CountOrdersQuery,
-  type GetAllJoinOrdersResponse,
+  type GetAllOrderJoinCleanResponse,
   type GetAllOrdersResponse,
   type GetOrderByIdResponse,
   type OrderCodeQueryResponse,
@@ -14,6 +14,8 @@ import {
   type PercentageDiffQuery,
   type PostOrderRequest,
   type PostOrderResponse,
+  type StatusCount,
+  type TotalOrders,
   type UpdateOrderResponse,
 } from "./order.model";
 
@@ -110,40 +112,111 @@ const OrderService = {
 
     return data;
   },
-  async getAllOrdersJoin() {
+  async getAllOrdersJoin(
+    many: number,
+    page: number,
+  ): Promise<Pagination<GetAllOrderJoinCleanResponse[]>> {
+    const ofs: number = (page - 1) * many;
+    console.log(many);
+    console.log(ofs);
+    const [raw_total] = await prisma.$queryRaw<TotalOrders[]>`
+select count(*) as total from orders;
+`;
+    const total = Number(raw_total?.total);
+
     const data = await prisma.orders.findMany({
-      include: {
-        customers: true,
-        service_prices: true,
+      select: {
+        order_code: true,
+        customers: {
+          select: {
+            id: true,
+            name: true,
+            phone: true,
+          },
+        },
+        service_prices: {
+          select: {
+            id: true,
+            name: true,
+            pricing_type: true,
+            price_min: true,
+            price_max: true,
+            unit_label: true,
+          },
+        },
+        is_express: true,
+        quantity: true,
+        total_price: true,
+        status: true,
+        payment_status: true,
+        estimated_done: true,
       },
+      take: many,
+      skip: ofs,
     });
-    return data;
+    return {
+      data: data,
+      page: page,
+      take: many,
+      total: total,
+    };
   },
   async getAllOrdersJoinStatus(
     query_status: string,
     query_day: number,
-  ): Promise<Pagination<GetAllJoinOrdersResponse[] | undefined>> {
+    many: number,
+    page: number,
+  ): Promise<Pagination<GetAllOrderJoinCleanResponse[] | undefined>> {
     const status = query_status as orders_status;
+    const ofs: number = (page - 1) * many;
 
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - query_day);
 
     let data;
-    let total = 0;
+    const [raw_total] = await prisma.$queryRaw<StatusCount[]>`
+select o.status as status_name, count(*) as status_count
+from orders as o
+where o.status = ${status};`;
+    const total = Number(raw_total?.status_count);
+
     if (query_status !== "all" && query_day !== 9999) {
       data = await prisma.orders.findMany({
+        select: {
+          order_code: true,
+          customers: {
+            select: {
+              id: true,
+              name: true,
+              phone: true,
+            },
+          },
+          service_prices: {
+            select: {
+              id: true,
+              name: true,
+              pricing_type: true,
+              price_min: true,
+              price_max: true,
+              unit_label: true,
+            },
+          },
+          is_express: true,
+          quantity: true,
+          total_price: true,
+          status: true,
+          payment_status: true,
+          estimated_done: true,
+        },
+        take: many,
+        skip: ofs,
         where: {
           status: status,
           created_at: {
             gte: startDate,
           },
         },
-        include: {
-          customers: true,
-          service_prices: true,
-        },
       });
-      total = data.length;
     } else if (query_status === "all" && query_day !== 9999) {
       data = await prisma.orders.findMany({
         where: {
@@ -151,27 +224,74 @@ const OrderService = {
             gte: startDate,
           },
         },
-        include: {
-          customers: true,
-          service_prices: true,
+        select: {
+          order_code: true,
+          customers: {
+            select: {
+              id: true,
+              name: true,
+              phone: true,
+            },
+          },
+          service_prices: {
+            select: {
+              id: true,
+              name: true,
+              pricing_type: true,
+              price_min: true,
+              price_max: true,
+              unit_label: true,
+            },
+          },
+          is_express: true,
+          quantity: true,
+          total_price: true,
+          status: true,
+          payment_status: true,
+          estimated_done: true,
         },
+        take: many,
+        skip: ofs,
       });
-      total = data.length;
     } else if (query_status !== "all" && query_day === 9999) {
       data = await prisma.orders.findMany({
         where: {
           status: status,
         },
-        include: {
-          customers: true,
-          service_prices: true,
+        select: {
+          order_code: true,
+          customers: {
+            select: {
+              id: true,
+              name: true,
+              phone: true,
+            },
+          },
+          service_prices: {
+            select: {
+              id: true,
+              name: true,
+              pricing_type: true,
+              price_min: true,
+              price_max: true,
+              unit_label: true,
+            },
+          },
+          is_express: true,
+          quantity: true,
+          total_price: true,
+          status: true,
+          payment_status: true,
+          estimated_done: true,
         },
+        take: many,
+        skip: ofs,
       });
-      total = data.length;
     }
-    console.log(data);
     return {
       data: data,
+      page: page,
+      take: many,
       total: total,
     };
   },

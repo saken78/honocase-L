@@ -28,9 +28,23 @@ OrderController.post("/", async (c: Context) => {
 });
 
 OrderController.get("/all", async (c: Context) => {
-  const data = await OrderService.getAllOrdersJoin();
+  let take: number = Number(c.req.query("take"));
+  let page: number = Number(c.req.query("page"));
+
+  page = isNaN(page) ? 1 : page;
+  take = isNaN(take) ? 10 : take;
+
+  if (page === undefined) {
+    page = isNaN(page) ? 1 : page;
+  }
+
+  if (take === undefined) {
+    take = isNaN(take) ? 10 : take;
+  }
+  const data = await OrderService.getAllOrdersJoin(take, page);
   return c.json({
-    data: data,
+    ...data,
+    status_code: HttpStatus.OK,
   });
 });
 
@@ -43,9 +57,27 @@ OrderController.get("/status", async (c: Context) => {
   if (!query_day) {
     query_day = "9999";
   }
+  let take: number = Number(c.req.query("take"));
+  let page: number = Number(c.req.query("page"));
+
+  page = isNaN(page) ? 1 : page;
+  take = isNaN(take) ? 10 : take;
+
+  if (page === undefined) {
+    page = isNaN(page) ? 1 : page;
+  }
+
+  if (take === undefined) {
+    take = isNaN(take) ? 10 : take;
+  }
   const status: string = query_status;
   const day: number = Number(query_day);
-  const data = await OrderService.getAllOrdersJoinStatus(status, day);
+  const data = await OrderService.getAllOrdersJoinStatus(
+    status,
+    day,
+    take,
+    page,
+  );
   return c.json({
     ...data,
     status_code: HttpStatus.OK,
