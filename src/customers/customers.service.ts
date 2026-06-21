@@ -33,6 +33,7 @@ export const CustomerService = {
     page: number,
   ): Promise<Pagination<GetAllCustomers[]>> {
     const ofs: number = (page - 1) * many;
+
     const data = await prisma.customers.findMany({
       orderBy: { name: "asc" },
       take: many,
