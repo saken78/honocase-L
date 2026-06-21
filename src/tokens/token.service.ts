@@ -16,7 +16,15 @@ export const TokenService = {
       });
     }
 
-    const payload: JWT_PAYLOAD = await verify(rt_token, SECRET, "HS256");
+    let payload: JWT_PAYLOAD;
+
+    try {
+      payload = await verify(rt_token, SECRET, "HS256");
+    } catch {
+      throw new HTTPException(HttpStatus.UNAUTHORIZED, {
+        message: "Invalid or expired refresh token",
+      });
+    }
 
     if (!payload.sub) {
       throw new HTTPException(HttpStatus.NOT_FOUND, {
@@ -37,16 +45,30 @@ export const TokenService = {
       },
     });
 
-    if (!user) {
+    if (!user || !user.rt_hash) {
       throw new HTTPException(HttpStatus.NOT_FOUND, {
         message: "User not found",
       });
     }
 
-    const valid = await Bun.password.verify(rt_token, user.rt_hash!);
+    if (user.expires_at && new Date() > user.expires_at) {
+      throw new HTTPException(HttpStatus.UNAUTHORIZED, {
+        message: "Refresh token has expired",
+      });
+    }
+
+    let valid;
+    try {
+      valid = await Bun.password.verify(rt_token, user.rt_hash);
+    } catch {
+      throw new HTTPException(HttpStatus.UNAUTHORIZED, {
+        message: "Invalid or expired token",
+      });
+    }
+
     console.log("RT TOKEN DATBASE");
-    console.log(rt_token);
-    console.log(user.rt_hash!);
+    console.log("rt token: ", rt_token);
+    console.log("user rt hash: ", user.rt_hash);
     if (!valid) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
         message: "Refresh token not valid",
@@ -63,7 +85,7 @@ export const TokenService = {
     const access_token = await sign(ac_payload, SECRET, "HS256");
     await setSignedCookie(c, "access_token", access_token, SECRET, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 15,

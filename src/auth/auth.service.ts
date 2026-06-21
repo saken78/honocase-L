@@ -100,7 +100,7 @@ export const authService = {
     const access_token = await sign(ac_payload, SECRET, "HS256");
     await setSignedCookie(c, "access_token", access_token, SECRET, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 15,
@@ -126,7 +126,7 @@ export const authService = {
 
     await setSignedCookie(c, "refresh_token", refresh_token, SECRET, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
