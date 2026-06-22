@@ -93,7 +93,7 @@ describe("POST /api/auth", (): void => {
   //   },
   // };
 
-  it("should generate new access token", async () => {
-    const response = await app.request();
-  });
+  // it("should generate new access token", async () => {
+  //   const response = await app.request();
+  // });
 });

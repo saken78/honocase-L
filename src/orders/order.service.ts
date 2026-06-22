@@ -117,8 +117,6 @@ const OrderService = {
     page: number,
   ): Promise<Pagination<GetAllOrderJoinCleanResponse[]>> {
     const ofs: number = (page - 1) * many;
-    console.log(many);
-    console.log(ofs);
     const [raw_total] = await prisma.$queryRaw<TotalOrders[]>`
 select count(*) as total from orders;
 `;
@@ -126,7 +124,18 @@ select count(*) as total from orders;
 
     const data = await prisma.orders.findMany({
       select: {
+        id: true,
         order_code: true,
+        is_express: true,
+        quantity: true,
+        total_price: true,
+        status: true,
+        payment_status: true,
+        estimated_done: true,
+        created_at: true,
+        express_surcharge: true,
+        base_price: true,
+        condition_notes: true,
         customers: {
           select: {
             id: true,
@@ -144,12 +153,6 @@ select count(*) as total from orders;
             unit_label: true,
           },
         },
-        is_express: true,
-        quantity: true,
-        total_price: true,
-        status: true,
-        payment_status: true,
-        estimated_done: true,
       },
       take: many,
       skip: ofs,
@@ -183,7 +186,18 @@ where o.status = ${status};`;
     if (query_status !== "all" && query_day !== 9999) {
       data = await prisma.orders.findMany({
         select: {
+          id: true,
           order_code: true,
+          is_express: true,
+          quantity: true,
+          total_price: true,
+          status: true,
+          payment_status: true,
+          estimated_done: true,
+          created_at: true,
+          express_surcharge: true,
+          base_price: true,
+          condition_notes: true,
           customers: {
             select: {
               id: true,
@@ -201,12 +215,6 @@ where o.status = ${status};`;
               unit_label: true,
             },
           },
-          is_express: true,
-          quantity: true,
-          total_price: true,
-          status: true,
-          payment_status: true,
-          estimated_done: true,
         },
         take: many,
         skip: ofs,
@@ -225,7 +233,18 @@ where o.status = ${status};`;
           },
         },
         select: {
+          id: true,
           order_code: true,
+          is_express: true,
+          quantity: true,
+          total_price: true,
+          status: true,
+          payment_status: true,
+          estimated_done: true,
+          created_at: true,
+          express_surcharge: true,
+          base_price: true,
+          condition_notes: true,
           customers: {
             select: {
               id: true,
@@ -243,12 +262,6 @@ where o.status = ${status};`;
               unit_label: true,
             },
           },
-          is_express: true,
-          quantity: true,
-          total_price: true,
-          status: true,
-          payment_status: true,
-          estimated_done: true,
         },
         take: many,
         skip: ofs,
@@ -259,7 +272,18 @@ where o.status = ${status};`;
           status: status,
         },
         select: {
+          id: true,
           order_code: true,
+          is_express: true,
+          quantity: true,
+          total_price: true,
+          status: true,
+          payment_status: true,
+          estimated_done: true,
+          created_at: true,
+          express_surcharge: true,
+          base_price: true,
+          condition_notes: true,
           customers: {
             select: {
               id: true,
@@ -277,12 +301,6 @@ where o.status = ${status};`;
               unit_label: true,
             },
           },
-          is_express: true,
-          quantity: true,
-          total_price: true,
-          status: true,
-          payment_status: true,
-          estimated_done: true,
         },
         take: many,
         skip: ofs,

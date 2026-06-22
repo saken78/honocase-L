@@ -128,6 +128,7 @@ export type GetAllJoinOrdersResponse = {
   };
 };
 export type GetAllOrderJoinCleanResponse = {
+  id: string;
   order_code: string;
   customers: {
     name: string;
@@ -143,6 +144,10 @@ export type GetAllOrderJoinCleanResponse = {
   status: string;
   payment_status: string;
   estimated_done: Date | null;
+  created_at: Date | null;
+  express_surcharge?: Decimal | null;
+  base_price: Decimal;
+  condition_notes?: string | null;
 };
 
 export type GetOrderByIdResponse = {
