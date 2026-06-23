@@ -388,7 +388,14 @@ where
   async updateStatusOrder(
     id: string,
     status: orders_status,
+    userId: string,
   ): Promise<UpdateOrderResponse> {
+    const existing = await prisma.orders.findUnique({ where: { id: id } });
+    if (!existing) {
+      throw new HTTPException(HttpStatus.NOT_FOUND, {
+        message: "Order with id not found",
+      });
+    }
     const data = await prisma.orders.update({
       where: { id: id },
       data: {
@@ -400,6 +407,15 @@ where
         message: "Order not found",
       });
     }
+    console.log("before execute order log");
+    await prisma.order_audit_log.create({
+      data: {
+        order_id: id,
+        user_id: userId,
+        old_status: existing.status,
+        new_status: status,
+      },
+    });
     return data;
   },
 };

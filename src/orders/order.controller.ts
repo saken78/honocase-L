@@ -1,6 +1,6 @@
 import { Hono, type Context } from "hono";
 import { HTTPException } from "hono/http-exception";
-import type { JWT_RESPONSE } from "../auth/auth.model";
+import type { JWT_PAYLOAD, JWT_RESPONSE } from "../auth/auth.model";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import OrderService from "./order.service";
@@ -121,7 +121,8 @@ OrderController.put("/:id", async (c: Context) => {
       message: "param id undefined",
     });
   }
-  const data = await OrderService.updateStatusOrder(id, body.status);
+  const user: JWT_RESPONSE = c.get("user");
+  const data = await OrderService.updateStatusOrder(id, body.status, user.id);
   return c.json({
     data: data,
     status_code: HttpStatus.OK,

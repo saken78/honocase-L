@@ -18,7 +18,7 @@ export const AuthMiddleware: MiddlewareHandler = async (
   const token = await getSignedCookie(c, SECRET, "access_token");
   if (!token) {
     throw new HTTPException(HttpStatus.UNAUTHORIZED, {
-      message: "UNAUTHORIZED",
+      message: "Access token not found",
     });
   }
   let user: JWT_PAYLOAD;
