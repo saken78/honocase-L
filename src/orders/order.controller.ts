@@ -1,6 +1,6 @@
 import { Hono, type Context } from "hono";
 import { HTTPException } from "hono/http-exception";
-import type { JWT_PAYLOAD, JWT_RESPONSE } from "../auth/auth.model";
+import type { JWT_RESPONSE } from "../auth/auth.model";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import OrderService from "./order.service";

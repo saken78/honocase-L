@@ -14,28 +14,27 @@ export const CREATE_ORDER_SCHEMA = z.object({
   is_express: z.boolean().optional(),
   condition_notes: z.string().max(500).optional(),
   notes: z.string().max(500).optional(),
+  payment: z
+    .object({
+      method: z.enum(["cash", "transfer", "qris", "ewallet"]),
+      amount: z.coerce.number().positive(),
+      paid_by: z.string().min(1),
+    })
+    .optional(),
 });
 
 export type PostOrderRequest = {
-  // order_code: string;
   customer_id: string;
   service_price_id: string;
   quantity: Decimal;
   is_express?: boolean;
-  // base_price: Decimal;
-  // express_surcharge?: Decimal;
-  // total_price: Decimal;
-  // status: orders_status;
-  // payment_status: orders_payment_status;
-  // is_overdue?: boolean;
-  // needs_weight_label?: boolean;
   condition_notes?: string;
   notes?: string;
-  // estimated_done: string;
-  // created_by: string;
-  // created_at: string;
-  // updated_at: string;
-  // picked_up_at: string;
+  payment?: {
+    method: "cash" | "transfer" | "qris" | "ewallet";
+    amount: number;
+    paid_by?: string;
+  };
 };
 
 export type PostOrderResponse = {

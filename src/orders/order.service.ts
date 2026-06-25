@@ -110,6 +110,31 @@ const OrderService = {
       },
     });
 
+    // optional: Businesses process
+    if (valid.payment) {
+      const paymentAmount = new Prisma.Decimal(valid.payment.amount);
+
+      await prisma.payments.create({
+        data: {
+          order_id: data.id,
+          method: valid.payment.method,
+          amount: paymentAmount,
+          paid_by: valid.payment.paid_by,
+        },
+      });
+
+      const paymentStatus = paymentAmount.gte(total_price)
+        ? "lunas"
+        : "cicilan";
+
+      const updated = await prisma.orders.update({
+        where: { id: data.id },
+        data: { payment_status: paymentStatus as any },
+      });
+
+      return updated;
+    }
+
     return data;
   },
   async getAllOrdersJoin(
@@ -136,6 +161,7 @@ select count(*) as total from orders;
         express_surcharge: true,
         base_price: true,
         condition_notes: true,
+        picked_up_at: true,
         customers: {
           select: {
             id: true,
@@ -178,9 +204,9 @@ select count(*) as total from orders;
 
     let data;
     const [raw_total] = await prisma.$queryRaw<StatusCount[]>`
-select o.status as status_name, count(*) as status_count
-from orders as o
-where o.status = ${status};`;
+    select o.status as status_name, count(*) as status_count
+    from orders as o
+    where o.status = ${status};`;
     const total = Number(raw_total?.status_count);
 
     if (query_status !== "all" && query_day !== 9999) {
@@ -198,6 +224,7 @@ where o.status = ${status};`;
           express_surcharge: true,
           base_price: true,
           condition_notes: true,
+          picked_up_at: true,
           customers: {
             select: {
               id: true,
@@ -245,6 +272,7 @@ where o.status = ${status};`;
           express_surcharge: true,
           base_price: true,
           condition_notes: true,
+          picked_up_at: true,
           customers: {
             select: {
               id: true,
@@ -284,6 +312,7 @@ where o.status = ${status};`;
           express_surcharge: true,
           base_price: true,
           condition_notes: true,
+          picked_up_at: true,
           customers: {
             select: {
               id: true,

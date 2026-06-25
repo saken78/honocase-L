@@ -76,7 +76,7 @@ model payments {
   order_id String          @db.Char(70)
   method   payments_method
   amount   Decimal         @db.Decimal(10, 2)
-  paid_by  String?         @default("") @db.VarChar(100)
+  paid_by  String          @db.VarChar(100)
   paid_at  DateTime?       @default(now()) @db.Timestamp(0)
   notes    String?         @default("") @db.Text
   orders   orders          @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_payment_order_id")
