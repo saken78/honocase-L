@@ -213,7 +213,8 @@ export type PercentageDiffQuery = {
 };
 
 export type CountOrdersQuery = {
-  jumlah_order: number;
+  yesterday: number;
+  today: number;
 };
 
 export type StatusCount = {

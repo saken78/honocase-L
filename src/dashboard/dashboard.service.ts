@@ -108,11 +108,11 @@ export const DashboardService = {
   },
   async order7days() {
     const raw = await prisma.$queryRaw<ordersWeek>`
-select date(o.created_at) as date_, count(*) as order_count
-from orders as o
-where
+    select date(o.created_at) as date_, count(*) as order_count
+    from orders as o
+    where
     date(o.created_at) >= CURDATE() - interval 7 day
-GROUP BY
+    GROUP BY
     date(o.created_at);`;
     const data = raw.map((ord) => {
       return {
@@ -136,6 +136,17 @@ group by
         jumlah: Number(ord.jumlah),
       };
     });
+    return data;
+  },
+  async ordersCountDay(day: string) {
+    const data = await prisma.$queryRaw`select count(*) as order_day
+      from orders
+      where
+      date(created_at) > curdate() - interval ${day} day`;
+    if (!data) {
+      return 0;
+    }
+    console.log(data);
     return data;
   },
 };

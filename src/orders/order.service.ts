@@ -161,6 +161,7 @@ select count(*) as total from orders;
         express_surcharge: true,
         base_price: true,
         condition_notes: true,
+        notes: true,
         picked_up_at: true,
         customers: {
           select: {
@@ -224,6 +225,7 @@ select count(*) as total from orders;
           express_surcharge: true,
           base_price: true,
           condition_notes: true,
+          notes: true,
           picked_up_at: true,
           customers: {
             select: {
@@ -272,6 +274,7 @@ select count(*) as total from orders;
           express_surcharge: true,
           base_price: true,
           condition_notes: true,
+          notes: true,
           picked_up_at: true,
           customers: {
             select: {
@@ -312,6 +315,7 @@ select count(*) as total from orders;
           express_surcharge: true,
           base_price: true,
           condition_notes: true,
+          notes: true,
           picked_up_at: true,
           customers: {
             select: {
@@ -375,32 +379,45 @@ from orders`;
       };
     }
 
-    const data_diff = Number(data.diff);
-    const data_today = Number(data.today);
-    const data_yesterday = Number(data.yesterday);
+    const today = Number(data.today);
+    const yesterday = Number(data.yesterday);
 
-    if (data_today === 0 && data_yesterday === 0) {
+    if (today === 0 && yesterday === 0) {
       return {
         percentage_diff: 0,
       };
     }
 
-    const diff = (data_diff / data_yesterday) * 100;
+    if (yesterday === 0) {
+      return {
+        percentage_diff: 100,
+      };
+    }
+
+    const percentage = ((today - yesterday) / yesterday) * 100;
+
     return {
-      percentage_diff: diff,
+      percentage_diff: percentage,
     };
   },
 
   async countOrdersYesterday(): Promise<number> {
     const [data] = await prisma.$queryRaw<CountOrdersQuery[]>`
-select count(*) as jumlah_order
-from orders
-where
+    select count(*) as yesterday, (
+        select count(*)
+        from orders
+        where
+            date(created_at) = curdate()
+    ) as today
+    from orders
+    where
     date(created_at) = CURDATE() - interval 1 day`;
     if (!data) {
       return 0;
     }
-    return Number(data.jumlah_order);
+    const diff = data.today - data.yesterday;
+
+    return Number(diff);
   },
 
   async getOrderById(id: string): Promise<GetOrderByIdResponse> {

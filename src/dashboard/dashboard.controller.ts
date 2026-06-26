@@ -77,4 +77,17 @@ DashboardController.get("/servicecount", async (c: Context) => {
   });
 });
 
+DashboardController.get("/ordercountday", async (c: Context) => {
+  const day = c.req.query("day");
+  if (!day) {
+    throw new HTTPException(HttpStatus.BAD_REQUEST, {
+      message: "query not found",
+    });
+  }
+  const data = await DashboardService.ordersCountDay(day);
+  return c.json({
+    data: data,
+  });
+});
+
 export default DashboardController;
