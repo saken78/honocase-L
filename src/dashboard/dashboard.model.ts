@@ -43,16 +43,19 @@ export type Stats = {
 };
 
 export type income = {
-  [key: string]: {
-    income: number;
-  };
-};
+  income: number;
+}[];
 
 export type avgDay = {
   [key: string]: {
     avg_day: number;
   };
 };
+
+export type ordersDayCount = {
+  order_day: number;
+  customer_id: string;
+}[];
 
 export type incomeService = {
   id: string;

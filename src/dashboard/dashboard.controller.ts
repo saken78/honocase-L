@@ -23,13 +23,12 @@ DashboardController.get("/stats", async (c: Context) => {
 });
 
 DashboardController.get("/income", async (c: Context) => {
-  const qp = c.req.query("day");
-  if (!qp) {
+  const day = c.req.query("day");
+  if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
       message: "query param undefined",
     });
   }
-  const day = Number(qp);
   const data = await DashboardService.income(day);
   return c.json({
     data: {
@@ -40,13 +39,12 @@ DashboardController.get("/income", async (c: Context) => {
 });
 
 DashboardController.get("/avgday", async (c: Context) => {
-  const qp = c.req.query("day");
-  if (!qp) {
+  const day = c.req.query("day");
+  if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
       message: "query param undefined",
     });
   }
-  const day = Number(qp);
   const data = await DashboardService.avgDay(day);
   return c.json({
     data: {
@@ -57,7 +55,13 @@ DashboardController.get("/avgday", async (c: Context) => {
 });
 
 DashboardController.get("/incomeservice", async (c: Context) => {
-  const data = await DashboardService.incomeService();
+  const day = c.req.query("day");
+  if (!day) {
+    throw new HTTPException(HttpStatus.BAD_REQUEST, {
+      message: "query not found",
+    });
+  }
+  const data = await DashboardService.incomeService(day);
   return c.json({
     data: data,
   });
@@ -77,7 +81,7 @@ DashboardController.get("/servicecount", async (c: Context) => {
   });
 });
 
-DashboardController.get("/ordercountday", async (c: Context) => {
+DashboardController.get("/orderscountday", async (c: Context) => {
   const day = c.req.query("day");
   if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
@@ -86,7 +90,7 @@ DashboardController.get("/ordercountday", async (c: Context) => {
   }
   const data = await DashboardService.ordersCountDay(day);
   return c.json({
-    data: data,
+    ...data,
   });
 });
 

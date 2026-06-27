@@ -6,6 +6,7 @@ import { HttpStatus } from "../lib/status_code";
 import {
   CREATE_ORDER_SCHEMA,
   type CountOrdersQuery,
+  type DailyRevenue,
   type GetAllOrderJoinCleanResponse,
   type GetAllOrdersResponse,
   type GetOrderByIdResponse,
@@ -143,8 +144,7 @@ const OrderService = {
   ): Promise<Pagination<GetAllOrderJoinCleanResponse[]>> {
     const ofs: number = (page - 1) * many;
     const [raw_total] = await prisma.$queryRaw<TotalOrders[]>`
-select count(*) as total from orders;
-`;
+select count(*) as total from orders;`;
     const total = Number(raw_total?.total);
 
     const data = await prisma.orders.findMany({
@@ -462,6 +462,34 @@ from orders`;
         new_status: status,
       },
     });
+    return data;
+  },
+  async dailyRevenue(day: string) {
+    let raw;
+    if (day === "string") {
+      raw = await prisma.$queryRaw<DailyRevenue>`
+    select date(o.created_at) as date, sum(o.total_price) as revenue, count(*) as orders
+    from orders as o
+    group by
+      date(o.created_at)`;
+    } else {
+      raw = await prisma.$queryRaw<DailyRevenue>`
+    select date(o.created_at) as date, sum(o.total_price) as revenue, count(*) as orders
+    from orders as o
+    where
+      date(created_at) > CURDATE() - interval ${day} day
+    group by
+      date(o.created_at)`;
+    }
+    const data = raw.map((od) => {
+      return {
+        date: new Date(od.date).toISOString().split("T")[0],
+        revenue: Number(od.revenue),
+        orders: Number(od.orders),
+      };
+    });
+    console.log(data);
+
     return data;
   },
 };

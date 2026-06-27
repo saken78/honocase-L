@@ -225,3 +225,9 @@ export type StatusCount = {
 export type TotalOrders = {
   total: number;
 };
+
+export type DailyRevenue = {
+  date: string;
+  revenue: number;
+  orders: number;
+}[];

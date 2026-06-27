@@ -3,6 +3,7 @@ import type {
   avgDay,
   income,
   incomeService,
+  ordersDayCount,
   ordersWeek,
   serviceCounts,
   Stats,
@@ -57,44 +58,79 @@ export const DashboardService = {
       recentOrders: recentOrders,
     };
   },
-  async income(day: number) {
-    const { ...raw } = await prisma.$queryRaw<income>`
-    select sum(o.total_price) as income
-    from orders as o
-    where
-    created_at >= NOW() - INTERVAL ${day} DAY;`;
+  async income(day: string) {
+    let raw;
+
+    if (day === "all") {
+      raw = await prisma.$queryRaw<income>`
+      select sum(o.total_price) as income
+      from orders as o;`;
+    } else {
+      raw = await prisma.$queryRaw<income>`
+      select sum(o.total_price) as income
+      from orders as o
+      where
+      created_at >= NOW() - INTERVAL ${day} DAY;`;
+    }
+
     const data =
       raw[0]?.income === null || raw[0]?.income === undefined
         ? 0
         : raw[0]?.income;
     return data;
   },
-  async avgDay(day: number) {
-    const { ...raw } = await prisma.$queryRaw<avgDay>`
-    select sum(o.total_price) as avg_day from orders as o`;
-    console.log(raw);
-    const total =
-      raw[0]?.avg_day === null || raw[0]?.avg_day === undefined
-        ? 0
-        : raw[0]?.avg_day;
-    const raw_avg = total / day;
-    const avg_day = raw_avg < 0 ? 0 : raw_avg;
-    console.log(avg_day);
+  async avgDay(day: string) {
+    let raw;
+    if (day === "all") {
+      raw = await prisma.$queryRaw<avgDay>`
+        select sum(o.total_price) as avg_day from orders as o`;
+      // avg_day = total_all / number_of_days_since_first_order
+      // atau bisa total / 365 (rata-rata per hari setahun)
+    } else {
+      raw = await prisma.$queryRaw<avgDay>`
+        select sum(o.total_price) as avg_day
+        from orders as o
+        where created_at >= NOW() - INTERVAL ${day} DAY`;
+    }
+
+    const total = raw[0]?.avg_day ?? 0;
+    const divisor = day === "all" ? 365 : Number(day);
+    const avg_day = total > 0 ? total / divisor : 0;
     return avg_day;
   },
-  async incomeService() {
-    const raw = await prisma.$queryRaw<incomeService>`
-    SELECT
-        sp.id as id,
-        sp.name as service_name,
-        COUNT(*) as total_order,
-        SUM(o.total_price) as total_revenue
-    FROM orders as o
-        join service_prices as sp on sp.id = o.service_price_id
-    GROUP BY
-        sp.id,
-        sp.name
-    ORDER BY total_revenue DESC`;
+  async incomeService(day: string) {
+    let raw;
+    if (day === "all") {
+      raw = await prisma.$queryRaw<incomeService>`
+    select
+    sp.id as service_id,
+    sp.name as service_name,
+    count(*) as total_order,
+    COALESCE(sum(o.total_price), 0) as total_revenue
+from
+    service_prices as sp
+    left join orders as o on o.service_price_id = sp.id
+group by
+    sp.id,
+    sp.name
+order by total_revenue desc;`;
+    } else {
+      raw = await prisma.$queryRaw<incomeService>`
+    select
+    sp.id as service_id,
+    sp.name as service_name,
+    count(*) as total_order,
+    COALESCE(sum(o.total_price), 0) as total_revenue
+from
+    service_prices as sp
+    left join orders as o on o.service_price_id = sp.id
+    and date(o.created_at) > CURDATE() - interval ${day} DAY
+group by
+    sp.id,
+    sp.name
+order by total_revenue desc;`;
+    }
+
     const data = raw.map((c) => {
       return {
         id: c.id,
@@ -103,7 +139,6 @@ export const DashboardService = {
         total_revenue: c.total_revenue,
       };
     });
-    console.log(data.length);
     return data;
   },
   async order7days() {
@@ -139,14 +174,41 @@ group by
     return data;
   },
   async ordersCountDay(day: string) {
-    const data = await prisma.$queryRaw`select count(*) as order_day
-      from orders
+    let raw;
+    if (day === "all") {
+      raw = await prisma.$queryRaw<ordersDayCount>`
+      select o.customer_id, count(*) as order_day
+      from orders as o
+      GROUP BY o.customer_id;`;
+    } else {
+      raw = await prisma.$queryRaw<ordersDayCount>`
+      select o.customer_id, count(*) as order_day
+      from orders as o
       where
-      date(created_at) > curdate() - interval ${day} day`;
-    if (!data) {
+      date(o.created_at) > curdate() - interval ${day} day
+      GROUP BY o.customer_id;`;
+    }
+
+    if (!raw) {
       return 0;
     }
-    console.log(data);
-    return data;
+    const data = raw.map((ord) => {
+      return {
+        customer_id: ord.customer_id,
+        order_day: Number(ord.order_day),
+      };
+    });
+
+    let total = 0;
+    if (data !== undefined) {
+      for (let i = 0; i < data.length; i++) {
+        total = total + data[i]!.order_day;
+      }
+    }
+
+    return {
+      data: data,
+      total: total,
+    };
   },
 };

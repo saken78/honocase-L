@@ -99,6 +99,14 @@ OrderController.get("countorders", async (c: Context) => {
   });
 });
 
+OrderController.get("dailyrevenue", async (c: Context) => {
+  const day = c.req.query("day");
+  const data = await OrderService.dailyRevenue(day);
+  return c.json({
+    data: data,
+  });
+});
+
 OrderController.get("/:id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id) {
