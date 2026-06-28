@@ -8,6 +8,8 @@ import type {
   serviceCounts,
   Stats,
 } from "./dashboard.model";
+import { HTTPException } from "hono/http-exception";
+import { HttpStatus } from "@/lib/status_code";
 
 export const DashboardService = {
   async stats(): Promise<Stats> {
@@ -189,9 +191,6 @@ group by
       GROUP BY o.customer_id;`;
     }
 
-    if (!raw) {
-      return 0;
-    }
     const data = raw.map((ord) => {
       return {
         customer_id: ord.customer_id,
