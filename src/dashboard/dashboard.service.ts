@@ -3,6 +3,7 @@ import type {
   avgDay,
   income,
   incomeService,
+  ordersCountDayResponse,
   ordersDayCount,
   ordersWeek,
   serviceCounts,
@@ -175,7 +176,7 @@ group by
     });
     return data;
   },
-  async ordersCountDay(day: string) {
+  async ordersCountDay(day: string): Promise<ordersCountDayResponse> {
     let raw;
     if (day === "all") {
       raw = await prisma.$queryRaw<ordersDayCount>`

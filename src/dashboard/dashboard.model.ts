@@ -73,3 +73,11 @@ export type serviceCounts = {
   service_name: string;
   jumlah: number;
 }[];
+
+export type ordersCountDayResponse = {
+  data: {
+    customer_id: string;
+    order_day: number;
+  }[];
+  total: number;
+};
