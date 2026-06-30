@@ -3,9 +3,11 @@ import type {
   avgDay,
   income,
   incomeService,
+  order7daysResponse,
   ordersCountDayResponse,
   ordersDayCount,
   ordersWeek,
+  serviceCountResponse,
   serviceCounts,
   Stats,
 } from "./dashboard.model";
@@ -146,21 +148,29 @@ order by total_revenue desc;`;
   },
   async order7days() {
     const raw = await prisma.$queryRaw<ordersWeek>`
-    select date(o.created_at) as date_, count(*) as order_count
-    from orders as o
-    where
-    date(o.created_at) >= CURDATE() - interval 7 day
-    GROUP BY
-    date(o.created_at);`;
-    const data = raw.map((ord) => {
-      return {
-        date: new Date(ord.date_).toISOString().split("T")[0],
-        count: Number(ord.order_count),
-      };
-    });
-    return data;
+    SELECT DATE(o.created_at) AS date_, COUNT(*) AS order_count
+    FROM orders as o
+    WHERE DATE(o.created_at) >= CURDATE() - INTERVAL 6 DAY 
+    GROUP BY DATE(o.created_at);`;
+
+    const lookup = new Map(
+      raw.map((r) => [
+        new Date(r.date_).toISOString().split("T")[0],
+        Number(r.order_count),
+      ]),
+    );
+
+    const result: order7daysResponse = [];
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const key = date.toISOString().split("T")[0];
+      result.push({ date: key, count: lookup.get(key) ?? 0 });
+    }
+
+    return result;
   },
-  async orderPerService() {
+  async orderPerService(): Promise<serviceCountResponse> {
     const raw = await prisma.$queryRaw<serviceCounts>`
 select sp.name as service_name, count(*) as jumlah
 from orders as o

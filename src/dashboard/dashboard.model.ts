@@ -81,3 +81,13 @@ export type ordersCountDayResponse = {
   }[];
   total: number;
 };
+
+export type serviceCountResponse = {
+  service_name: string;
+  jumlah: number;
+}[];
+
+export type order7daysResponse = {
+  date: string;
+  count: number;
+}[];
