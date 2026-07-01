@@ -88,6 +88,6 @@ export type serviceCountResponse = {
 }[];
 
 export type order7daysResponse = {
-  date: string;
+  date: string | undefined;
   count: number;
 }[];
