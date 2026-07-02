@@ -31,9 +31,7 @@ DashboardController.get("/income", async (c: Context) => {
   }
   const data = await DashboardService.income(day);
   return c.json({
-    data: {
-      income: data,
-    },
+    data: data,
     status_code: HttpStatus.OK,
   });
 });
@@ -47,9 +45,7 @@ DashboardController.get("/avgday", async (c: Context) => {
   }
   const data = await DashboardService.avgDay(day);
   return c.json({
-    data: {
-      avg_day: data,
-    },
+    data: data,
     status_code: HttpStatus.OK,
   });
 });

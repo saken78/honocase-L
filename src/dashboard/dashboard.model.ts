@@ -4,7 +4,7 @@ import type {
   orders_status,
 } from "../../prisma/generated/enums";
 
-export type Stats = {
+export type DashboardStatsResponse = {
   stats: {
     todayOrders: number;
     todayRevenue: number;
@@ -42,39 +42,40 @@ export type Stats = {
   }[];
 };
 
-export type income = {
+export type DashboardIncomeQuery = {
   income: number;
 }[];
 
-export type avgDay = {
-  [key: string]: {
-    avg_day: number;
-  };
+export type DashboardIncomeResponse = {
+  income: number;
 };
 
-export type ordersDayCount = {
+export type DashboardAvgDayQuery = {
+  avg_day: number;
+}[];
+
+export type DashboardAvgDayResponse = {
+  avg_day: number;
+};
+
+export type DashboardOrdersDayCountResponse = {
   order_day: number;
   customer_id: string;
 }[];
 
-export type incomeService = {
+export type DashboardIncomeServiceResponse = {
   id: string;
   service_name: string;
   total_order: number;
   total_revenue: number;
 }[];
 
-export type ordersWeek = {
+export type DashboardOrdersWeekResponse = {
   date_: Date;
   order_count: number;
 }[];
 
-export type serviceCounts = {
-  service_name: string;
-  jumlah: number;
-}[];
-
-export type ordersCountDayResponse = {
+export type DashboardOrdersCountDayResponse = {
   data: {
     customer_id: string;
     order_day: number;
@@ -82,19 +83,17 @@ export type ordersCountDayResponse = {
   total: number;
 };
 
-export type serviceCountResponse = {
+export type DashboardOrdersCountDayQuery = {
+  customer_id: string;
+  order_day: number;
+};
+
+export type DashboardServiceCountResponse = {
   service_name: string;
   jumlah: number;
 }[];
 
-export type order7daysResponse = {
+export type DashboardOrder7daysResponse = {
   date: string | undefined;
   count: number;
-}[];
-
-export type incomeServiceResponse = {
-  id: string;
-  service_name: string;
-  total_order: number;
-  total_revenue: number;
 }[];
