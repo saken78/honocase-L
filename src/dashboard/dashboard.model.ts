@@ -91,3 +91,10 @@ export type order7daysResponse = {
   date: string | undefined;
   count: number;
 }[];
+
+export type incomeServiceResponse = {
+  id: string;
+  service_name: string;
+  total_order: number;
+  total_revenue: number;
+}[];

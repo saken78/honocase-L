@@ -3,6 +3,7 @@ import type {
   avgDay,
   income,
   incomeService,
+  incomeServiceResponse,
   order7daysResponse,
   ordersCountDayResponse,
   ordersDayCount,
@@ -89,8 +90,6 @@ export const DashboardService = {
     if (day === "all") {
       raw = await prisma.$queryRaw<avgDay>`
         select sum(o.total_price) as avg_day from orders as o`;
-      // avg_day = total_all / number_of_days_since_first_order
-      // atau bisa total / 365 (rata-rata per hari setahun)
     } else {
       raw = await prisma.$queryRaw<avgDay>`
         select sum(o.total_price) as avg_day
@@ -103,7 +102,7 @@ export const DashboardService = {
     const avg_day = total > 0 ? total / divisor : 0;
     return avg_day;
   },
-  async incomeService(day: string) {
+  async incomeService(day: string): Promise<incomeServiceResponse> {
     let raw;
     if (day === "all") {
       raw = await prisma.$queryRaw<incomeService>`
@@ -146,7 +145,7 @@ order by total_revenue desc;`;
     });
     return data;
   },
-  async order7days() {
+  async order7days(): Promise<order7daysResponse> {
     const raw = await prisma.$queryRaw<ordersWeek>`
     SELECT DATE(o.created_at) AS date_, COUNT(*) AS order_count
     FROM orders as o
