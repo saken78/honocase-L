@@ -7,12 +7,14 @@ import {
   CREATE_ORDER_SCHEMA,
   type CountOrdersQuery,
   type DailyRevenue,
+  type DailyRevenueResponse,
   type GetAllOrderJoinCleanResponse,
   type GetAllOrdersResponse,
   type GetOrderByIdResponse,
   type OrderCodeQueryResponse,
   type Pagination,
   type PercentageDiffQuery,
+  type PercentageOrderResponse,
   type PostOrderRequest,
   type PostOrderResponse,
   type StatusCount,
@@ -347,7 +349,7 @@ select count(*) as total from orders;`;
     };
   },
 
-  async percentageDiffTotal() {
+  async percentageDiffTotal(): Promise<PercentageOrderResponse> {
     const [data] = await prisma.$queryRaw<PercentageDiffQuery[]>`
 select sum(
         case
@@ -464,9 +466,9 @@ from orders`;
     });
     return data;
   },
-  async dailyRevenue(day: string) {
+  async dailyRevenue(day: string): Promise<DailyRevenueResponse[]> {
     let raw;
-    if (day === "string") {
+    if (day === "all") {
       raw = await prisma.$queryRaw<DailyRevenue>`
     select date(o.created_at) as date, sum(o.total_price) as revenue, count(*) as orders
     from orders as o
@@ -477,10 +479,11 @@ from orders`;
     select date(o.created_at) as date, sum(o.total_price) as revenue, count(*) as orders
     from orders as o
     where
-      date(created_at) > CURDATE() - interval ${day} day
+      date(created_at) >= CURDATE() - interval ${day} day
     group by
       date(o.created_at)`;
     }
+
     const data = raw.map((od) => {
       return {
         date: new Date(od.date).toISOString().split("T")[0],
@@ -488,7 +491,6 @@ from orders`;
         orders: Number(od.orders),
       };
     });
-    console.log(data);
 
     return data;
   },

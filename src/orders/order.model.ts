@@ -231,3 +231,13 @@ export type DailyRevenue = {
   revenue: number;
   orders: number;
 }[];
+
+export type PercentageOrderResponse = {
+  percentage_diff: number;
+};
+
+export type DailyRevenueResponse = {
+  date: string | undefined;
+  revenue: number;
+  orders: number;
+};

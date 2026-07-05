@@ -101,6 +101,11 @@ OrderController.get("countorders", async (c: Context) => {
 
 OrderController.get("dailyrevenue", async (c: Context) => {
   const day = c.req.query("day");
+  if (!day) {
+    throw new HTTPException(HttpStatus.BAD_REQUEST, {
+      message: "query param undefined",
+    });
+  }
   const data = await OrderService.dailyRevenue(day);
   return c.json({
     data: data,
