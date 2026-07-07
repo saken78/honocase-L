@@ -3,7 +3,7 @@ import { HTTPException } from "hono/http-exception";
 import type { JWT_RESPONSE } from "../auth/auth.model";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
-import OrderService from "./order.service";
+import { OrderService } from "./order.service";
 
 const OrderController = new Hono();
 OrderController.use(AuthMiddleware);

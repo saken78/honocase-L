@@ -1,5 +1,5 @@
 import { Hono, type Context } from "hono";
-import { ServiceService } from "./service.services";
+import { ServiceService } from "./service.service";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 

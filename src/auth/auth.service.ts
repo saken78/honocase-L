@@ -3,7 +3,7 @@ import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
 import { HTTPException } from "hono/http-exception";
 import { sign } from "hono/jwt";
 import { users_role } from "../../prisma/generated/enums";
-import { prisma } from "../db/index";
+import { prisma } from "../db";
 import { SECRET } from "../lib/secret";
 import { HttpStatus } from "../lib/status_code";
 import {

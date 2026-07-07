@@ -28,11 +28,6 @@
     "verbatimModuleSyntax": true,
     "noEmit": true,
 
-    // path
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-
     // Some stricter flags (disabled by default)
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -40,4 +35,3 @@
   },
   "exclude": ["**/*.test.ts", "**/*.spec.ts"]
 }
-

@@ -9,7 +9,7 @@ import {
   type RecordPaymentRequest,
 } from "./payment.model";
 
-const PaymentService = {
+export const PaymentService = {
   async recordPayment(req: RecordPaymentRequest): Promise<PaymentResponse> {
     const valid = RECORD_PAYMENT_SCHEMA.parse(req);
     const order = await prisma.orders.findUnique({
@@ -176,5 +176,3 @@ const PaymentService = {
     return data;
   },
 };
-
-export default PaymentService;

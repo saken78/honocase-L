@@ -2,7 +2,7 @@ import { Hono, type Context } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
-import PaymentService from "./payment.service";
+import { PaymentService } from "./payment.service";
 
 const PaymentController = new Hono();
 PaymentController.use(AuthMiddleware);

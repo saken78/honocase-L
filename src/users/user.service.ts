@@ -1,6 +1,6 @@
 import { HttpStatus } from "../lib/status_code";
 import { HTTPException } from "hono/http-exception";
-import { prisma } from "../db/index";
+import { prisma } from "../db";
 import type { UserResponse } from "./user.model";
 
 export const UserService = {

@@ -22,7 +22,7 @@ import {
   type UpdateOrderResponse,
 } from "./order.model";
 
-const OrderService = {
+export const OrderService = {
   async getAllOrders(): Promise<GetAllOrdersResponse[]> {
     const data = await prisma.orders.findMany();
     if (!data) {
@@ -495,5 +495,3 @@ from orders`;
     return data;
   },
 };
-
-export default OrderService;
