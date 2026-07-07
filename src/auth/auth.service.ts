@@ -18,7 +18,7 @@ import {
   RESET_PASSWORD_SCHEMA,
 } from "./auth.model";
 
-export const authService = {
+export const AuthService = {
   async register(req: RegisterUserRequest): Promise<AuthResponse> {
     const request = REGISTER_SCHEMA.parse(req);
 

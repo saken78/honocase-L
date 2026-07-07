@@ -4,7 +4,7 @@ import { Hono, type Context } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { UserService } from "./user.service";
 
-export const UserController = new Hono();
+const UserController = new Hono();
 
 UserController.use(AuthMiddleware);
 UserController.get("/", async (c: Context) => {

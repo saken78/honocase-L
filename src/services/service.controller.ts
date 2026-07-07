@@ -1,7 +1,7 @@
 import { Hono, type Context } from "hono";
 import { ServiceService } from "./service.services";
 import { HttpStatus } from "../lib/status_code";
-import { AuthMiddleware } from "@/middleware/auth.middleware";
+import { AuthMiddleware } from "../middleware/auth.middleware";
 
 const ServiceController = new Hono();
 ServiceController.use(AuthMiddleware);

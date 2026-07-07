@@ -1,7 +1,7 @@
-import { AuthMiddleware } from "@/middleware/auth.middleware";
+import { AuthMiddleware } from "../middleware/auth.middleware";
 import { Hono, type Context } from "hono";
 import { DashboardService } from "./dashboard.service";
-import { HttpStatus } from "@/lib/status_code";
+import { HttpStatus } from "../lib/status_code";
 import { HTTPException } from "hono/http-exception";
 
 const DashboardController = new Hono();

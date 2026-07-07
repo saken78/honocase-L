@@ -1,4 +1,4 @@
-import type { JWT_PAYLOAD } from "@/auth/auth.model";
+import type { JWT_PAYLOAD } from "../auth/auth.model";
 import type { Context } from "hono";
 import { getSignedCookie, setSignedCookie } from "hono/cookie";
 import { HTTPException } from "hono/http-exception";

@@ -2,16 +2,18 @@ import { HTTPException } from "hono/http-exception";
 import { orders_payment_status, Prisma } from "../../prisma/generated/client";
 import { prisma } from "../db";
 import { HttpStatus } from "../lib/status_code";
-import type {
-  PaymentResponse,
-  PaymentWithOrderResponse,
-  RecordPaymentRequest,
+import {
+  RECORD_PAYMENT_SCHEMA,
+  type PaymentResponse,
+  type PaymentWithOrderResponse,
+  type RecordPaymentRequest,
 } from "./payment.model";
 
 const PaymentService = {
   async recordPayment(req: RecordPaymentRequest): Promise<PaymentResponse> {
+    const valid = RECORD_PAYMENT_SCHEMA.parse(req);
     const order = await prisma.orders.findUnique({
-      where: { id: req.order_id },
+      where: { id: valid.order_id },
       select: { id: true, total_price: true, payment_status: true },
     });
 
@@ -21,21 +23,21 @@ const PaymentService = {
       });
     }
 
-    const amount = new Prisma.Decimal(req.amount);
+    const amount = new Prisma.Decimal(valid.amount);
 
     const payment = await prisma.payments.create({
       data: {
-        order_id: req.order_id,
-        method: req.method,
+        order_id: valid.order_id,
+        method: valid.method,
         amount: amount,
-        paid_by: req.paid_by,
-        notes: req.notes ?? "",
+        paid_by: valid.paid_by,
+        notes: valid.notes ?? "",
       },
     });
 
     const [aggregated] = await prisma.$queryRaw<
       { total_paid: number | null }[]
-    >`select coalesce(sum(amount), 0) as total_paid from payments where order_id = ${req.order_id}`;
+    >`select coalesce(sum(amount), 0) as total_paid from payments where order_id = ${valid.order_id}`;
 
     const totalPaid = new Prisma.Decimal(aggregated?.total_paid ?? 0);
     const totalPrice = order.total_price;
@@ -50,7 +52,7 @@ const PaymentService = {
     }
 
     await prisma.orders.update({
-      where: { id: req.order_id },
+      where: { id: valid.order_id },
       data: { payment_status: newPaymentStatus },
     });
 
