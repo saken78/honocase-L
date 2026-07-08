@@ -8,6 +8,7 @@ import {
   type PaymentWithOrderResponse,
   type RecordPaymentRequest,
 } from "./payment.model";
+import type { Pagination } from "../lib/types";
 
 export const PaymentService = {
   async recordPayment(req: RecordPaymentRequest): Promise<PaymentResponse> {
@@ -63,12 +64,7 @@ export const PaymentService = {
     orderId: string,
     many: number,
     page: number,
-  ): Promise<{
-    data: PaymentWithOrderResponse[];
-    page: number;
-    take: number;
-    total: number;
-  }> {
+  ): Promise<Pagination<PaymentWithOrderResponse[]>> {
     const ofs = (page - 1) * many;
 
     const [rawTotal] = await prisma.$queryRaw<{ total: number }[]>`
@@ -106,12 +102,7 @@ export const PaymentService = {
   async getAllPayments(
     many: number,
     page: number,
-  ): Promise<{
-    data: PaymentWithOrderResponse[];
-    page: number;
-    take: number;
-    total: number;
-  }> {
+  ): Promise<Pagination<PaymentWithOrderResponse[]>> {
     const ofs = (page - 1) * many;
 
     const [rawTotal] = await prisma.$queryRaw<{ total: number }[]>`

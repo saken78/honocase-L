@@ -12,13 +12,10 @@ CustomersController.use(AuthMiddleware);
 CustomersController.post("/", async (c: Context) => {
   const body = await c.req.json();
   const data = await CustomerService.registerCustomer(body);
-  return c.json(
-    {
-      data: data,
-      status_code: HttpStatus.CREATED,
-    },
-    HttpStatus.CREATED,
-  );
+  return c.json({
+    data: data,
+    status_code: HttpStatus.CREATED,
+  });
 });
 
 CustomersController.get("/", async (c: Context) => {
@@ -47,7 +44,7 @@ CustomersController.get("/:id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id || id === "") {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "param undefined",
+      message: "Param undefined",
     });
   }
   const data = await CustomerService.getCustomerById(id);
@@ -92,7 +89,6 @@ CustomersController.delete("/:id", async (c: Context) => {
   return c.json({
     data: data,
     status_code: HttpStatus.OK,
-    message: "Delete user success",
   });
 });
 

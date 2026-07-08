@@ -15,7 +15,7 @@ export type RecordPaymentRequest = {
   method: payments_method;
   amount: number;
   paid_by: string;
-  notes?: string | null | undefined;
+  notes?: string | null;
 };
 
 export type PaymentResponse = {
@@ -35,11 +35,4 @@ export type PaymentWithOrderResponse = PaymentResponse & {
     payment_status: string;
     status: string;
   };
-};
-
-export type Pagination<T> = {
-  data: T;
-  take?: number;
-  page?: number;
-  total?: number;
 };

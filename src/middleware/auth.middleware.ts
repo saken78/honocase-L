@@ -10,7 +10,7 @@ export const AuthMiddleware: MiddlewareHandler = async (
   c: Context,
   next: Next,
 ): Promise<void> => {
-  if (!SECRET || SECRET === undefined) {
+  if (!SECRET) {
     throw new HTTPException(HttpStatus.UNAUTHORIZED, {
       message: "SECRET NOT FOUND",
     });

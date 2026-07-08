@@ -24,17 +24,7 @@ export type UpdateCustomerRequest = {
   address?: string;
 };
 
-export type UpdateCustomerResponse = {
-  id: string;
-  name: string;
-  phone: string;
-  address: string | null;
-  total_orders: number | null;
-  created_at: Date | null;
-  updated_at: Date | null;
-};
-
-export type CreateCustomerResponse = {
+export type CustomersResponse = {
   id: string;
   name: string;
   phone: string;
@@ -47,30 +37,3 @@ export type CreateCustomerResponse = {
 export type DeleteCustomerResponse = {
   id: string;
 };
-
-export type GetAllCustomers = {
-  id: string;
-  name: string;
-  phone: string;
-  address?: string | null;
-  created_at: Date | null;
-  updated_at: Date | null;
-};
-
-export type GetCustomerById = {
-  id: string;
-  name: string;
-  phone: string;
-  address?: string | null;
-  created_at: Date | null;
-  updated_at: Date | null;
-};
-
-export type Pagination<T> = {
-  data: T;
-  take?: number;
-  page?: number;
-  total?: number;
-};
-
-// offset = (page - 1) * take

@@ -105,7 +105,7 @@ OrderController.get("dailyrevenue", async (c: Context) => {
   const day = c.req.query("day");
   if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "query param undefined",
+      message: "Query param undefined",
     });
   }
   const data = await OrderService.dailyRevenue(day);
@@ -119,7 +119,7 @@ OrderController.get("/:id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "param id undefined",
+      message: "Param id undefined",
     });
   }
   const data = await OrderService.getOrderById(id);
@@ -134,7 +134,7 @@ OrderController.put("/:id", async (c: Context) => {
   const body = await c.req.json();
   if (!id) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "param id undefined",
+      message: "Param id undefined",
     });
   }
   const user: JWT_RESPONSE = c.get("user");

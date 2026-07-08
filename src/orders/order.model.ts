@@ -2,7 +2,6 @@ import type { Decimal } from "@prisma/client/runtime/index-browser";
 import type {
   orders_payment_status,
   orders_status,
-  service_prices_category,
   service_prices_pricing_type,
 } from "../../prisma/generated/enums";
 import z from "zod";
@@ -37,7 +36,7 @@ export type PostOrderRequest = {
   };
 };
 
-export type PostOrderResponse = {
+export type OrdersResponse = {
   id: string;
   order_code: string;
   customer_id: string;
@@ -60,81 +59,64 @@ export type PostOrderResponse = {
   picked_up_at: Date | null;
 };
 
-export type GetAllOrdersResponse = {
-  id: string;
-  order_code: string;
-  customer_id: string;
-  service_price_id: string;
-  quantity: Decimal;
-  is_express?: boolean | null;
-  base_price: Decimal;
-  express_surcharge?: Decimal | null;
-  total_price: Decimal;
-  status: orders_status;
-  payment_status: orders_payment_status;
-  is_overdue?: boolean | null;
-  needs_weight_label?: boolean | null;
-  condition_notes?: string | null;
-  notes?: string | null;
-  estimated_done: Date | null;
-  created_by: string;
-  created_at: Date | null;
-  updated_at: Date | null;
-  picked_up_at: Date | null;
-};
+// export type GetAllJoinOrdersResponse = {
+//   id: string;
+//   order_code: string;
+//   customer_id: string;
+//   service_price_id: string;
+//   quantity: Decimal;
+//   is_express?: boolean | null;
+//   base_price: Decimal;
+//   express_surcharge?: Decimal | null;
+//   total_price: Decimal;
+//   status: orders_status;
+//   payment_status: orders_payment_status;
+//   is_overdue?: boolean | null;
+//   needs_weight_label?: boolean | null;
+//   condition_notes?: string | null;
+//   notes?: string | null;
+//   estimated_done: Date | null;
+//   created_by: string;
+//   created_at: Date | null;
+//   updated_at: Date | null;
+//   picked_up_at: Date | null;
+//   customers: {
+//     id: string;
+//     name: string;
+//     phone: string;
+//     address: string | null;
+//     total_orders: number | null;
+//     created_at: Date | null;
+//     updated_at: Date | null;
+//   };
+//   service_prices: {
+//     id: string;
+//     name: string;
+//     category: service_prices_category;
+//     pricing_type: service_prices_pricing_type;
+//     price_min: Decimal;
+//     price_max: Decimal | null;
+//     unit_label: string;
+//     default_turnaround_hours: number | null;
+//     is_active: boolean | null;
+//     updated_at: Date | null;
+//   };
+// };
 
-export type GetAllJoinOrdersResponse = {
+export type GetAllOrderJoinResponse = {
   id: string;
   order_code: string;
-  customer_id: string;
-  service_price_id: string;
-  quantity: Decimal;
-  is_express?: boolean | null;
-  base_price: Decimal;
-  express_surcharge?: Decimal | null;
-  total_price: Decimal;
-  status: orders_status;
-  payment_status: orders_payment_status;
-  is_overdue?: boolean | null;
-  needs_weight_label?: boolean | null;
-  condition_notes?: string | null;
-  notes?: string | null;
-  estimated_done: Date | null;
-  created_by: string;
-  created_at: Date | null;
-  updated_at: Date | null;
-  picked_up_at: Date | null;
   customers: {
     id: string;
     name: string;
     phone: string;
-    address: string | null;
-    total_orders: number | null;
-    created_at: Date | null;
-    updated_at: Date | null;
   };
   service_prices: {
     id: string;
     name: string;
-    category: service_prices_category;
     pricing_type: service_prices_pricing_type;
     price_min: Decimal;
     price_max: Decimal | null;
-    unit_label: string;
-    default_turnaround_hours: number | null;
-    is_active: boolean | null;
-    updated_at: Date | null;
-  };
-};
-export type GetAllOrderJoinCleanResponse = {
-  id: string;
-  order_code: string;
-  customers: {
-    name: string;
-    phone: string;
-  };
-  service_prices: {
-    name: string;
     unit_label: string;
   };
   is_express: boolean | null;
@@ -147,59 +129,6 @@ export type GetAllOrderJoinCleanResponse = {
   express_surcharge?: Decimal | null;
   base_price: Decimal;
   condition_notes?: string | null;
-};
-
-export type GetOrderByIdResponse = {
-  id: string;
-  order_code: string;
-  customer_id: string;
-  service_price_id: string;
-  quantity: Decimal;
-  is_express?: boolean | null;
-  base_price: Decimal;
-  express_surcharge?: Decimal | null;
-  total_price: Decimal;
-  status: orders_status;
-  payment_status: orders_payment_status;
-  is_overdue?: boolean | null;
-  needs_weight_label?: boolean | null;
-  condition_notes?: string | null;
-  notes?: string | null;
-  estimated_done: Date | null;
-  created_by: string;
-  created_at: Date | null;
-  updated_at: Date | null;
-  picked_up_at: Date | null;
-};
-
-export type UpdateOrderResponse = {
-  id: string;
-  order_code: string;
-  customer_id: string;
-  service_price_id: string;
-  quantity: Decimal;
-  is_express?: boolean | null;
-  base_price: Decimal;
-  express_surcharge?: Decimal | null;
-  total_price: Decimal;
-  status: orders_status;
-  payment_status: orders_payment_status;
-  is_overdue?: boolean | null;
-  needs_weight_label?: boolean | null;
-  condition_notes?: string | null;
-  notes?: string | null;
-  estimated_done: Date | null;
-  created_by: string;
-  created_at: Date | null;
-  updated_at: Date | null;
-  picked_up_at: Date | null;
-};
-
-export type Pagination<T> = {
-  data: T;
-  take?: number;
-  page?: number;
-  total?: number;
 };
 
 export type OrderCodeQueryResponse = {

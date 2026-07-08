@@ -927,6 +927,8 @@ export type Service_pricesScalarFieldEnum = (typeof Service_pricesScalarFieldEnu
 export const UsersScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  first_name: 'first_name',
+  last_name: 'last_name',
   password_hash: 'password_hash',
   role: 'role',
   is_active: 'is_active',
@@ -1011,6 +1013,8 @@ export type service_pricesOrderByRelevanceFieldEnum = (typeof service_pricesOrde
 export const usersOrderByRelevanceFieldEnum = {
   id: 'id',
   email: 'email',
+  first_name: 'first_name',
+  last_name: 'last_name',
   password_hash: 'password_hash',
   rt_hash: 'rt_hash'
 } as const

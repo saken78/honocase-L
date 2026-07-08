@@ -8,22 +8,19 @@ import {
   type CountOrdersQuery,
   type DailyRevenue,
   type DailyRevenueResponse,
-  type GetAllOrderJoinCleanResponse,
-  type GetAllOrdersResponse,
-  type GetOrderByIdResponse,
+  type GetAllOrderJoinResponse,
   type OrderCodeQueryResponse,
-  type Pagination,
+  type OrdersResponse,
   type PercentageDiffQuery,
   type PercentageOrderResponse,
   type PostOrderRequest,
-  type PostOrderResponse,
   type StatusCount,
   type TotalOrders,
-  type UpdateOrderResponse,
 } from "./order.model";
+import type { Pagination } from "../lib/types";
 
 export const OrderService = {
-  async getAllOrders(): Promise<GetAllOrdersResponse[]> {
+  async getAllOrders(): Promise<OrdersResponse[]> {
     const data = await prisma.orders.findMany();
     if (!data) {
       throw new HTTPException(HttpStatus.NOT_FOUND, {
@@ -35,7 +32,7 @@ export const OrderService = {
   async postOrder(
     req: PostOrderRequest,
     user: JWT_RESPONSE,
-  ): Promise<PostOrderResponse> {
+  ): Promise<OrdersResponse> {
     const valid = CREATE_ORDER_SCHEMA.parse(req);
     const service = await prisma.service_prices.findUnique({
       where: { id: valid.service_price_id },
@@ -143,7 +140,7 @@ export const OrderService = {
   async getAllOrdersJoin(
     many: number,
     page: number,
-  ): Promise<Pagination<GetAllOrderJoinCleanResponse[]>> {
+  ): Promise<Pagination<GetAllOrderJoinResponse[]>> {
     const ofs: number = (page - 1) * many;
     const [raw_total] = await prisma.$queryRaw<TotalOrders[]>`
 select count(*) as total from orders;`;
@@ -198,7 +195,7 @@ select count(*) as total from orders;`;
     query_day: number,
     many: number,
     page: number,
-  ): Promise<Pagination<GetAllOrderJoinCleanResponse[] | undefined>> {
+  ): Promise<Pagination<GetAllOrderJoinResponse[] | undefined>> {
     const status = query_status as orders_status;
     const ofs: number = (page - 1) * many;
 
@@ -422,7 +419,7 @@ from orders`;
     return Number(diff);
   },
 
-  async getOrderById(id: string): Promise<GetOrderByIdResponse> {
+  async getOrderById(id: string): Promise<OrdersResponse> {
     const data = await prisma.orders.findUnique({
       where: { id: id },
     });
@@ -437,7 +434,7 @@ from orders`;
     id: string,
     status: orders_status,
     userId: string,
-  ): Promise<UpdateOrderResponse> {
+  ): Promise<OrdersResponse> {
     const existing = await prisma.orders.findUnique({ where: { id: id } });
     if (!existing) {
       throw new HTTPException(HttpStatus.NOT_FOUND, {

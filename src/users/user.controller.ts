@@ -19,7 +19,9 @@ UserController.get("/:id", async (c: Context) => {
   const param: string | undefined = c.req.param("id");
 
   if (!param) {
-    throw new HTTPException(403, { message: "param not found" });
+    throw new HTTPException(HttpStatus.FORBIDDEN, {
+      message: "param not found",
+    });
   }
 
   const user = await UserService.getUserId(param);

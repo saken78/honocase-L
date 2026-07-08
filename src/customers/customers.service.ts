@@ -3,21 +3,18 @@ import {
   CREATE_CUSTOMERS_SCHEMA,
   UPDATE_CUSTOMER_SCHEMA,
   type CreateCustomerRequest,
-  type CreateCustomerResponse,
+  type CustomersResponse,
   type DeleteCustomerResponse,
-  type GetAllCustomers,
-  type GetCustomerById,
-  type Pagination,
   type UpdateCustomerRequest,
-  type UpdateCustomerResponse,
 } from "./customers.model";
 import { HTTPException } from "hono/http-exception";
 import { HttpStatus } from "../lib/status_code";
+import type { Pagination } from "../lib/types";
 
 export const CustomerService = {
   async registerCustomer(
     req: CreateCustomerRequest,
-  ): Promise<CreateCustomerResponse> {
+  ): Promise<CustomersResponse> {
     const valid = CREATE_CUSTOMERS_SCHEMA.parse(req);
     const data = await prisma.customers.create({
       data: {
@@ -31,7 +28,7 @@ export const CustomerService = {
   async getAllCustomer(
     many: number,
     page: number,
-  ): Promise<Pagination<GetAllCustomers[]>> {
+  ): Promise<Pagination<CustomersResponse[]>> {
     const ofs: number = (page - 1) * many;
 
     const data = await prisma.customers.findMany({
@@ -46,7 +43,7 @@ export const CustomerService = {
       total: await prisma.customers.count(),
     };
   },
-  async getCustomerById(id: string): Promise<Pagination<GetCustomerById>> {
+  async getCustomerById(id: string): Promise<Pagination<CustomersResponse>> {
     const data = await prisma.customers.findUnique({
       where: { id: id },
     });
@@ -64,7 +61,7 @@ export const CustomerService = {
   async updateCustomerById(
     id: string,
     cust_data: UpdateCustomerRequest,
-  ): Promise<UpdateCustomerResponse> {
+  ): Promise<CustomersResponse> {
     const check = await prisma.customers.findUnique({
       where: { id: id },
     });

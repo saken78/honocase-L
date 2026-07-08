@@ -19,6 +19,7 @@ DashboardController.get("/stats", async (c: Context) => {
       },
       recentOrders: data.recentOrders,
     },
+    status_code: HttpStatus.OK,
   });
 });
 
@@ -26,7 +27,7 @@ DashboardController.get("/income", async (c: Context) => {
   const day = c.req.query("day");
   if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "query param undefined",
+      message: "Query param undefined",
     });
   }
   const data = await DashboardService.income(day);
@@ -40,7 +41,7 @@ DashboardController.get("/avgday", async (c: Context) => {
   const day = c.req.query("day");
   if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "query param undefined",
+      message: "Query param undefined",
     });
   }
   const data = await DashboardService.avgDay(day);
@@ -54,12 +55,13 @@ DashboardController.get("/incomeservice", async (c: Context) => {
   const day = c.req.query("day");
   if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "query not found",
+      message: "Query param undefined",
     });
   }
   const data = await DashboardService.incomeService(day);
   return c.json({
     data: data,
+    status_code: HttpStatus.OK,
   });
 });
 
@@ -83,7 +85,7 @@ DashboardController.get("/orderscountday", async (c: Context) => {
   const day = c.req.query("day");
   if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "query not found",
+      message: "Query param undefined",
     });
   }
   const data = await DashboardService.ordersCountDay(day);
