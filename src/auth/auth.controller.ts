@@ -13,7 +13,6 @@ const AuthController = new Hono();
 AuthController.post("/", async (c: Context) => {
   const body: RegisterUserRequest = await c.req.json();
   const result = await AuthService.register(body);
-  c.status(HttpStatus.CREATED);
   return c.json({
     data: result,
     status_code: HttpStatus.CREATED,

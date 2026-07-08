@@ -42,6 +42,8 @@ export const AuthService = {
         email: request.email,
         password_hash: password,
         role: request.role,
+        first_name: request.first_name || null,
+        last_name: request.last_name || null,
       },
     });
 
@@ -49,6 +51,8 @@ export const AuthService = {
       id: user.id,
       email: user.email,
       role: user.role,
+      first_name: user.first_name,
+      last_name: user.last_name,
     };
   },
   async login(req: LoginUserRequest, c: Context): Promise<AuthResponse> {
@@ -60,17 +64,19 @@ export const AuthService = {
       });
     }
 
-    const result = await prisma.users.findUnique({
+    const user = await prisma.users.findUnique({
       where: { email: request.email },
       select: {
         id: true,
         email: true,
         password_hash: true,
         role: true,
+        first_name: true,
+        last_name: true,
       },
     });
 
-    if (!result) {
+    if (!user) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
         message: "Unauthorized",
       });
@@ -78,7 +84,7 @@ export const AuthService = {
 
     const match = await Bun.password.verify(
       request.password,
-      result.password_hash,
+      user.password_hash,
     );
 
     if (!match) {
@@ -86,12 +92,12 @@ export const AuthService = {
         message: "Unauthorized",
       });
     }
-    const user_role: string = result.role;
+    const user_role: string = user.role;
 
     // ==================== access_token ======================== //
     const ac_payload: JWT_PAYLOAD = {
-      sub: result.id,
-      email: result.email,
+      sub: user.id,
+      email: user.email,
       role: user_role,
       exp: Math.floor(Date.now() / 1000) + 60 * 15,
       iat: Math.floor(Date.now() / 1000),
@@ -109,8 +115,8 @@ export const AuthService = {
 
     // ==================== refresh_token ======================== //
     const rt_payload: JWT_PAYLOAD = {
-      sub: result.id,
-      email: result.email,
+      sub: user.id,
+      email: user.email,
       role: user_role,
       exp: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60,
       iat: Math.floor(Date.now() / 1000),
@@ -133,12 +139,14 @@ export const AuthService = {
     });
     // ==================== refresh_token ======================== //
 
-    await prisma.$executeRaw`UPDATE users set rt_hash = ${token_hash}, expires_at = ${expires_at} where id = ${result.id}`;
+    await prisma.$executeRaw`UPDATE users set rt_hash = ${token_hash}, expires_at = ${expires_at} where id = ${user.id}`;
 
     return {
-      id: result.id,
-      email: result.email,
-      role: result.role,
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      first_name: user.first_name || null,
+      last_name: user.last_name || null,
     };
   },
   async me(c: Context): Promise<JWT_RESPONSE> {

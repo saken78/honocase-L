@@ -103,6 +103,8 @@ model service_prices {
 model users {
   id              String            @id @default(dbgenerated("(uuid())")) @db.Char(70)
   email           String            @unique(map: "email") @db.VarChar(100)
+  first_name      String?           @db.Char(200)
+  last_name       String?           @db.Char(200)
   password_hash   String            @db.Char(200)
   role            users_role        @default(karyawan)
   is_active       Boolean?          @default(true)

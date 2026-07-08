@@ -5,11 +5,15 @@ export const REGISTER_SCHEMA = z.object({
   email: z.string().email().min(1).max(100),
   password: z.string().min(8).max(100),
   role: z.string(),
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
 });
 
 export type RegisterUserRequest = {
   email: string;
   password: string;
+  first_name?: string | null;
+  last_name?: string | null;
   role: users_role;
 };
 
@@ -39,10 +43,8 @@ export type AuthResponse = {
   id: string;
   email: string;
   role: string;
-};
-
-export const AUTH_RESPONSE_SCHEMA = {
-  email: z.string(),
+  first_name?: string | null;
+  last_name?: string | null;
 };
 
 export type JWT_PAYLOAD = {
@@ -57,19 +59,4 @@ export type JWT_RESPONSE = {
   id: string;
   email: string;
   role: string;
-};
-
-export type RegisterUserReponse<T> = {
-  data: T;
-  status_code: number;
-};
-
-export type LoginUserResponse<T> = {
-  data: T;
-  status_code: number;
-};
-
-export type GetMeUser<T> = {
-  data: T;
-  status_code: number;
 };
