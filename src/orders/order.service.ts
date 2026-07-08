@@ -463,6 +463,19 @@ from orders`;
     });
     return data;
   },
+  async deleteOrder(id: string): Promise<void> {
+    const data = await prisma.orders.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    if (!data) {
+      throw new HTTPException(HttpStatus.FOUND, {
+        message: "Failed delete order",
+      });
+    }
+    await prisma.orders.delete({ where: { id: id } });
+  },
   async dailyRevenue(day: string): Promise<DailyRevenueResponse[]> {
     let raw;
     if (day === "all") {

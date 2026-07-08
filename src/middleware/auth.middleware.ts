@@ -24,6 +24,7 @@ export const AuthMiddleware: MiddlewareHandler = async (
   let user: JWT_PAYLOAD;
   try {
     user = await verify(token, SECRET, "HS256");
+    console.log(user);
   } catch (err) {
     throw new HTTPException(HttpStatus.UNAUTHORIZED, {
       message: "Invalid or expired token",
@@ -33,6 +34,8 @@ export const AuthMiddleware: MiddlewareHandler = async (
     id: user.sub,
     email: user.email,
     role: user.role,
+    first_name: user.first_name,
+    last_name: user.last_name,
   });
   await next();
 };

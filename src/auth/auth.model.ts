@@ -51,6 +51,8 @@ export type JWT_PAYLOAD = {
   sub?: string;
   email?: string;
   role?: string;
+  first_name?: string | null;
+  last_name?: string | null;
   exp?: number;
   iat?: number;
 };

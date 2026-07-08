@@ -99,6 +99,8 @@ export const AuthService = {
       sub: user.id,
       email: user.email,
       role: user_role,
+      first_name: user.first_name,
+      last_name: user.last_name,
       exp: Math.floor(Date.now() / 1000) + 60 * 15,
       iat: Math.floor(Date.now() / 1000),
     };
@@ -118,6 +120,8 @@ export const AuthService = {
       sub: user.id,
       email: user.email,
       role: user_role,
+      first_name: user.first_name,
+      last_name: user.last_name,
       exp: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60,
       iat: Math.floor(Date.now() / 1000),
     };
