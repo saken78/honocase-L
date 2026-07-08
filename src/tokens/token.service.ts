@@ -40,6 +40,8 @@ export const TokenService = {
         id: true,
         email: true,
         role: true,
+        first_name: true,
+        last_name: true,
         expires_at: true,
         rt_hash: true,
       },
@@ -66,9 +68,6 @@ export const TokenService = {
       });
     }
 
-    console.log("RT TOKEN DATBASE");
-    console.log("rt token: ", rt_token);
-    console.log("user rt hash: ", user.rt_hash);
     if (!valid) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
         message: "Refresh token not valid",
@@ -79,6 +78,8 @@ export const TokenService = {
       sub: user.id,
       email: user.email,
       role: user.role,
+      first_name: user.first_name,
+      last_name: user.last_name,
       exp: Math.floor(Date.now() / 1000) + 60 * 15,
       iat: Math.floor(Date.now() / 1000),
     };
