@@ -6,6 +6,7 @@ import { HTTPException } from "hono/http-exception";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import type { UpdateCustomerRequest } from "./customers.model";
 import { OwnerMiddleware } from "../middleware/owner.middleware";
+import { parsePagination } from "../lib/types";
 
 const CustomersController = new Hono();
 CustomersController.use(AuthMiddleware);
@@ -22,18 +23,9 @@ CustomersController.get("/", async (c: Context) => {
   let take: number = Number(c.req.query("take"));
   let page: number = Number(c.req.query("page"));
 
-  page = isNaN(page) ? 1 : page;
-  take = isNaN(take) ? 10 : take;
+  const pg = parsePagination(page, take);
 
-  if (page === undefined) {
-    page = isNaN(page) ? 1 : page;
-  }
-
-  if (take === undefined) {
-    take = isNaN(take) ? 10 : take;
-  }
-
-  const data = await CustomerService.getAllCustomer(take, page);
+  const data = await CustomerService.getAllCustomer(pg.take, pg.page);
   return c.json({
     ...data,
     status_code: HttpStatus.OK,
@@ -58,7 +50,7 @@ CustomersController.put("/:id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id || id === "") {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
-      message: "param undefined",
+      message: "Param undefined",
     });
   }
 

@@ -3,6 +3,7 @@ import { HTTPException } from "hono/http-exception";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { PaymentService } from "./payment.service";
+import { parsePagination } from "../lib/types";
 
 const PaymentController = new Hono();
 PaymentController.use(AuthMiddleware);
@@ -11,7 +12,7 @@ PaymentController.post("/", async (c: Context) => {
   const body = await c.req.json();
   const data = await PaymentService.recordPayment(body);
   return c.json({
-    data,
+    data: data,
     status_code: HttpStatus.CREATED,
   });
 });
@@ -19,9 +20,8 @@ PaymentController.post("/", async (c: Context) => {
 PaymentController.get("/", async (c: Context) => {
   let take = Number(c.req.query("take"));
   let page = Number(c.req.query("page"));
-  page = isNaN(page) ? 1 : page;
-  take = isNaN(take) ? 10 : take;
-  const data = await PaymentService.getAllPayments(take, page);
+  const pg = parsePagination(page, take);
+  const data = await PaymentService.getAllPayments(pg.take, pg.page);
   return c.json({
     ...data,
     status_code: HttpStatus.OK,
@@ -37,9 +37,12 @@ PaymentController.get("/order/:orderId", async (c: Context) => {
   }
   let take = Number(c.req.query("take"));
   let page = Number(c.req.query("page"));
-  page = isNaN(page) ? 1 : page;
-  take = isNaN(take) ? 10 : take;
-  const data = await PaymentService.getPaymentsByOrderId(orderId, take, page);
+  const pg = parsePagination(page, take);
+  const data = await PaymentService.getPaymentsByOrderId(
+    orderId,
+    pg.take,
+    pg.page,
+  );
   return c.json({
     ...data,
     status_code: HttpStatus.OK,
@@ -55,7 +58,7 @@ PaymentController.get("/:id", async (c: Context) => {
   }
   const data = await PaymentService.getPaymentById(id);
   return c.json({
-    data,
+    data: data,
     status_code: HttpStatus.OK,
   });
 });

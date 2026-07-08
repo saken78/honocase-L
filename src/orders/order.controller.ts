@@ -4,6 +4,7 @@ import type { JWT_RESPONSE } from "../auth/auth.model";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { OrderService } from "./order.service";
+import { parsePagination } from "../lib/types";
 
 const OrderController = new Hono();
 OrderController.use(AuthMiddleware);
@@ -30,17 +31,8 @@ OrderController.get("/all", async (c: Context) => {
   let take: number = Number(c.req.query("take"));
   let page: number = Number(c.req.query("page"));
 
-  page = isNaN(page) ? 1 : page;
-  take = isNaN(take) ? 10 : take;
-
-  if (page === undefined) {
-    page = isNaN(page) ? 1 : page;
-  }
-
-  if (take === undefined) {
-    take = isNaN(take) ? 10 : take;
-  }
-  const data = await OrderService.getAllOrdersJoin(take, page);
+  const pg = parsePagination(page, take);
+  const data = await OrderService.getAllOrdersJoin(pg.take, pg.page);
   return c.json({
     ...data,
     status_code: HttpStatus.OK,
@@ -59,23 +51,14 @@ OrderController.get("/status", async (c: Context) => {
   let take: number = Number(c.req.query("take"));
   let page: number = Number(c.req.query("page"));
 
-  page = isNaN(page) ? 1 : page;
-  take = isNaN(take) ? 10 : take;
-
-  if (page === undefined) {
-    page = isNaN(page) ? 1 : page;
-  }
-
-  if (take === undefined) {
-    take = isNaN(take) ? 10 : take;
-  }
+  const pg = parsePagination(page, take);
   const status: string = query_status;
   const day: number = Number(query_day);
   const data = await OrderService.getAllOrdersJoinStatus(
     status,
     day,
-    take,
-    page,
+    pg.take,
+    pg.page,
   );
   return c.json({
     ...data,
@@ -141,6 +124,20 @@ OrderController.put("/:id", async (c: Context) => {
   const data = await OrderService.updateStatusOrder(id, body.status, user.id);
   return c.json({
     data: data,
+    status_code: HttpStatus.OK,
+  });
+});
+
+OrderController.delete("/:id", async (c: Context) => {
+  const id = c.req.param("id");
+  if (!id) {
+    throw new HTTPException(HttpStatus.BAD_REQUEST, {
+      message: "Param id undefined",
+    });
+  }
+  await OrderService.deleteOrder(id);
+  return c.json({
+    data: "Delete order successfully",
     status_code: HttpStatus.OK,
   });
 });

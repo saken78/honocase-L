@@ -1,4 +1,4 @@
-import type { Decimal } from "@prisma/client/runtime/index-browser";
+import type { Decimal } from "@prisma/client/runtime/client";
 import type { payments_method } from "../../prisma/generated/enums";
 import z from "zod";
 
