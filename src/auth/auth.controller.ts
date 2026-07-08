@@ -14,35 +14,26 @@ AuthController.post("/", async (c: Context) => {
   const body: RegisterUserRequest = await c.req.json();
   const result = await AuthService.register(body);
   c.status(HttpStatus.CREATED);
-  return c.json(
-    {
-      data: result,
-      status_code: HttpStatus.CREATED,
-    },
-    HttpStatus.CREATED,
-  );
+  return c.json({
+    data: result,
+    status_code: HttpStatus.CREATED,
+  });
 });
 AuthController.post("/login", async (c: Context) => {
   const body: LoginUserRequest = await c.req.json();
   const result = await AuthService.login(body, c);
-  return c.json(
-    {
-      data: result,
-      status_code: HttpStatus.OK,
-    },
-    HttpStatus.OK,
-  );
+  return c.json({
+    data: result,
+    status_code: HttpStatus.OK,
+  });
 });
 AuthController.use(AuthMiddleware);
 AuthController.get("/me", async (c: Context) => {
   const result = await AuthService.me(c);
-  return c.json(
-    {
-      data: result,
-      status_code: HttpStatus.OK,
-    },
-    HttpStatus.OK,
-  );
+  return c.json({
+    data: result,
+    status_code: HttpStatus.OK,
+  });
 });
 AuthController.patch("/current", async (c: Context) => {
   const user: JWT_RESPONSE = c.get("user");
@@ -56,7 +47,7 @@ AuthController.patch("/current", async (c: Context) => {
 AuthController.delete("/current", async (c: Context) => {
   await AuthService.logout(c);
   return c.json({
-    message: "Cookies cleared successfully",
+    data: "Cookies cleared successfully",
     status_code: HttpStatus.OK,
   });
 });
@@ -64,7 +55,7 @@ AuthController.delete("/delete_account", async (c: Context) => {
   const user: JWT_RESPONSE = c.get("user");
   await AuthService.deleteAccount(user.email);
   return c.json({
-    message: "Account deleted successfully",
+    data: "Account Deleted successfully",
     status_code: HttpStatus.OK,
   });
 });

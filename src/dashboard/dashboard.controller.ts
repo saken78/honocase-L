@@ -67,6 +67,7 @@ DashboardController.get("/orderweek", async (c: Context) => {
   const data = await DashboardService.order7days();
   return c.json({
     data: data,
+    status_code: HttpStatus.OK,
   });
 });
 
@@ -74,6 +75,7 @@ DashboardController.get("/servicecount", async (c: Context) => {
   const data = await DashboardService.orderPerService();
   return c.json({
     data: data,
+    status_code: HttpStatus.OK,
   });
 });
 
@@ -87,6 +89,7 @@ DashboardController.get("/orderscountday", async (c: Context) => {
   const data = await DashboardService.ordersCountDay(day);
   return c.json({
     ...data,
+    status_code: HttpStatus.OK,
   });
 });
 

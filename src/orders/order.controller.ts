@@ -88,6 +88,7 @@ OrderController.get("percentage", async (c: Context) => {
   console.log("percentage: ", data);
   return c.json({
     data: data,
+    status_code: HttpStatus.OK,
   });
 });
 
@@ -96,6 +97,7 @@ OrderController.get("countorders", async (c: Context) => {
   console.log("count orders: ", data);
   return c.json({
     data: data,
+    status_code: HttpStatus.OK,
   });
 });
 
@@ -109,6 +111,7 @@ OrderController.get("dailyrevenue", async (c: Context) => {
   const data = await OrderService.dailyRevenue(day);
   return c.json({
     data: data,
+    status_code: HttpStatus.OK,
   });
 });
 

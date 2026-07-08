@@ -9,12 +9,10 @@ const UserController = new Hono();
 UserController.use(AuthMiddleware);
 UserController.get("/", async (c: Context) => {
   const user = await UserService.getAllUser();
-  return c.json(
-    {
-      data: user,
-    },
-    HttpStatus.OK,
-  );
+  return c.json({
+    data: user,
+    status_code: HttpStatus.OK,
+  });
 });
 
 UserController.get("/:id", async (c: Context) => {
@@ -25,12 +23,10 @@ UserController.get("/:id", async (c: Context) => {
   }
 
   const user = await UserService.getUserId(param);
-  return c.json(
-    {
-      data: user,
-    },
-    HttpStatus.OK,
-  );
+  return c.json({
+    data: user,
+    status_code: HttpStatus.OK,
+  });
 });
 
 export default UserController;
