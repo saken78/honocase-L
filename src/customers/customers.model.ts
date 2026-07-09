@@ -13,8 +13,8 @@ export const UPDATE_CUSTOMER_SCHEMA = z.object({
 });
 
 export type CreateCustomerRequest = {
-  name?: string;
-  phone?: string | undefined;
+  name: string;
+  phone: string;
   address?: string | undefined;
 };
 

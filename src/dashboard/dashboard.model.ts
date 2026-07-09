@@ -1,8 +1,8 @@
-import type { Decimal } from "@prisma/client/runtime/index-browser";
 import type {
   orders_payment_status,
   orders_status,
 } from "../../prisma/generated/enums";
+import type { Decimal } from "../../prisma/generated/internal/prismaNamespace";
 
 export type DashboardStatsResponse = {
   stats: {
@@ -24,7 +24,6 @@ export type DashboardStatsResponse = {
     status: orders_status;
     payment_status: orders_payment_status;
     is_overdue?: boolean | null;
-    needs_weight_label?: boolean | null;
     condition_notes?: string | null;
     notes?: string | null;
     estimated_done: Date | null;

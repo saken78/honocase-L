@@ -22,8 +22,7 @@ const GlobalError = async (err: unknown, c: Context) => {
     if (err.code === "P2002") {
       c.status(409);
       return c.json({
-        errors:
-          "There is a unique constraint violation, a new user cannot be created with this email",
+        errors: "There is a unique constraint violation",
       });
     }
 

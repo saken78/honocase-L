@@ -471,7 +471,7 @@ from orders`;
       },
     });
     if (!data) {
-      throw new HTTPException(HttpStatus.FOUND, {
+      throw new HTTPException(HttpStatus.NOT_FOUND, {
         message: "Failed delete order",
       });
     }

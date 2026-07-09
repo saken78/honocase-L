@@ -13,7 +13,7 @@ import TokenController from "./tokens/token.controller";
 import DashboardController from "./dashboard/dashboard.controller";
 
 const app = new Hono();
-app.use("/*", cors({ origin: "http://localhost:5173", credentials: true }));
+app.use("/*", cors({ origin: Bun.env.CORS_ORIGIN_DEV, credentials: true }));
 app.use("/*", logger());
 app
   .basePath("/api")

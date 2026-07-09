@@ -168,11 +168,8 @@ export const AuthService = {
     deleteCookie(c, "refresh_token");
     deleteCookie(c, "access_token");
   },
-  // bug
   async resetPassword(password: string, email: string): Promise<void> {
-    const request = RESET_PASSWORD_SCHEMA.parse(password);
-
-    const npw = await Bun.password.hash(request.password, {
+    const npw = await Bun.password.hash(password, {
       algorithm: "argon2id",
       memoryCost: 4,
       timeCost: 3,

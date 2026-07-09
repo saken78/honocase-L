@@ -1,2 +1,2 @@
 import "dotenv/config";
-export const SECRET = process.env["SECRET"] as string;
+export const SECRET = Bun.env.SECRET;
