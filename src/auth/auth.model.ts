@@ -1,10 +1,10 @@
-import z from "zod";
+import { z } from "zod";
 import { users_role } from "../../prisma/generated/enums";
 
 export const REGISTER_SCHEMA = z.object({
   email: z.string().email().min(1).max(100),
   password: z.string().min(8).max(100),
-  role: z.string(),
+  role: z.nativeEnum(users_role),
   first_name: z.string().optional(),
   last_name: z.string().optional(),
 });

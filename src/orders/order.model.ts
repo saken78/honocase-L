@@ -4,7 +4,7 @@ import type {
   orders_status,
   service_prices_pricing_type,
 } from "../../prisma/generated/enums";
-import z from "zod";
+import { z } from "zod";
 
 export const CREATE_ORDER_SCHEMA = z.object({
   customer_id: z.string().min(1),
@@ -49,7 +49,6 @@ export type OrdersResponse = {
   status: orders_status;
   payment_status: orders_payment_status;
   is_overdue?: boolean | null;
-  needs_weight_label?: boolean | null;
   condition_notes?: string | null;
   notes?: string | null;
   estimated_done: Date | null;

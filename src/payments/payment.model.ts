@@ -1,6 +1,6 @@
 import type { Decimal } from "@prisma/client/runtime/client";
 import type { payments_method } from "../../prisma/generated/enums";
-import z from "zod";
+import { z } from "zod";
 
 export const RECORD_PAYMENT_SCHEMA = z.object({
   order_id: z.string().min(1),

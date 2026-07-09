@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 
 export const CREATE_CUSTOMERS_SCHEMA = z.object({
   name: z.string().min(1).max(100),

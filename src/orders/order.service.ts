@@ -1,5 +1,9 @@
 import { HTTPException } from "hono/http-exception";
-import { orders_status, Prisma } from "../../prisma/generated/client";
+import {
+  orders_payment_status,
+  orders_status,
+  Prisma,
+} from "../../prisma/generated/client";
 import type { JWT_RESPONSE } from "../auth/auth.model";
 import { prisma } from "../db";
 import { HttpStatus } from "../lib/status_code";
@@ -74,8 +78,6 @@ export const OrderService = {
 
     const db_order_code = lastOrder[0]?.order_code || "ORD-202605-0001";
 
-    console.log(db_order_code);
-
     let sequence = 1;
     const parts = db_order_code.split("-");
     if (parts.length < 3) {
@@ -129,7 +131,7 @@ export const OrderService = {
 
       const updated = await prisma.orders.update({
         where: { id: data.id },
-        data: { payment_status: paymentStatus as any },
+        data: { payment_status: paymentStatus as orders_payment_status },
       });
 
       return updated;
@@ -452,7 +454,6 @@ from orders`;
         message: "Order not found",
       });
     }
-    console.log("before execute order log");
     await prisma.order_audit_log.create({
       data: {
         order_id: id,

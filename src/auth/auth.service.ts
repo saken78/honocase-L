@@ -58,7 +58,7 @@ export const AuthService = {
   async login(req: LoginUserRequest, c: Context): Promise<AuthResponse> {
     const request = LOGIN_SCHEMA.parse(req);
 
-    if (!SECRET || SECRET === undefined) {
+    if (!SECRET) {
       throw new HTTPException(HttpStatus.BAD_REQUEST, {
         message: "Secret not found",
       });
@@ -168,6 +168,7 @@ export const AuthService = {
     deleteCookie(c, "refresh_token");
     deleteCookie(c, "access_token");
   },
+  // bug
   async resetPassword(password: string, email: string): Promise<void> {
     const request = RESET_PASSWORD_SCHEMA.parse(password);
 

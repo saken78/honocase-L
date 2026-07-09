@@ -66,25 +66,23 @@ OrderController.get("/status", async (c: Context) => {
   });
 });
 
-OrderController.get("percentage", async (c: Context) => {
+OrderController.get("/percentage", async (c: Context) => {
   const data = await OrderService.percentageDiffTotal();
-  console.log("percentage: ", data);
   return c.json({
     data: data,
     status_code: HttpStatus.OK,
   });
 });
 
-OrderController.get("countorders", async (c: Context) => {
+OrderController.get("/countorders", async (c: Context) => {
   const data = await OrderService.countOrdersYesterday();
-  console.log("count orders: ", data);
   return c.json({
     data: data,
     status_code: HttpStatus.OK,
   });
 });
 
-OrderController.get("dailyrevenue", async (c: Context) => {
+OrderController.get("/dailyrevenue", async (c: Context) => {
   const day = c.req.query("day");
   if (!day) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
