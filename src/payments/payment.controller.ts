@@ -11,10 +11,12 @@ PaymentController.use(AuthMiddleware);
 PaymentController.post("/", async (c: Context) => {
   const body = await c.req.json();
   const data = await PaymentService.recordPayment(body);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.CREATED,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.CREATED,
+  );
 });
 
 PaymentController.get("/", async (c: Context) => {
@@ -22,10 +24,12 @@ PaymentController.get("/", async (c: Context) => {
   let page = Number(c.req.query("page"));
   const pg = parsePagination(page, take);
   const data = await PaymentService.getAllPayments(pg.take, pg.page);
-  return c.json({
-    ...data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      ...data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 PaymentController.get("/order/:orderId", async (c: Context) => {
@@ -43,10 +47,12 @@ PaymentController.get("/order/:orderId", async (c: Context) => {
     pg.take,
     pg.page,
   );
-  return c.json({
-    ...data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      ...data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 PaymentController.get("/:id", async (c: Context) => {
@@ -57,10 +63,12 @@ PaymentController.get("/:id", async (c: Context) => {
     });
   }
   const data = await PaymentService.getPaymentById(id);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 export default PaymentController;

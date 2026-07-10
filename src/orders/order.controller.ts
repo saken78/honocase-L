@@ -5,26 +5,31 @@ import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { OrderService } from "./order.service";
 import { parsePagination } from "../lib/types";
+import { UPDATE_ORDER_STATUS_SCHEMA } from "./order.model";
 
 const OrderController = new Hono();
 OrderController.use(AuthMiddleware);
 
 OrderController.get("/", async (c: Context) => {
   const data = await OrderService.getAllOrders();
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 OrderController.post("/", async (c: Context) => {
   const body = await c.req.json();
   const user: JWT_RESPONSE = c.get("user");
   const data = await OrderService.postOrder(body, user);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.CREATED,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.CREATED,
+  );
 });
 
 OrderController.get("/all", async (c: Context) => {
@@ -33,10 +38,12 @@ OrderController.get("/all", async (c: Context) => {
 
   const pg = parsePagination(page, take);
   const data = await OrderService.getAllOrdersJoin(pg.take, pg.page);
-  return c.json({
-    ...data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      ...data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 OrderController.get("/status", async (c: Context) => {
@@ -60,26 +67,32 @@ OrderController.get("/status", async (c: Context) => {
     pg.take,
     pg.page,
   );
-  return c.json({
-    ...data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      ...data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 OrderController.get("/percentage", async (c: Context) => {
   const data = await OrderService.percentageDiffTotal();
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 OrderController.get("/countorders", async (c: Context) => {
   const data = await OrderService.countOrdersYesterday();
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 OrderController.get("/dailyrevenue", async (c: Context) => {
@@ -90,10 +103,12 @@ OrderController.get("/dailyrevenue", async (c: Context) => {
     });
   }
   const data = await OrderService.dailyRevenue(day);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 OrderController.get("/:id", async (c: Context) => {
@@ -104,26 +119,35 @@ OrderController.get("/:id", async (c: Context) => {
     });
   }
   const data = await OrderService.getOrderById(id);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 OrderController.put("/:id", async (c: Context) => {
   const id = c.req.param("id");
-  const body = await c.req.json();
   if (!id) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
       message: "Param id undefined",
     });
   }
+  const body = await c.req.json();
+  const validated = UPDATE_ORDER_STATUS_SCHEMA.parse(body);
   const user: JWT_RESPONSE = c.get("user");
-  const data = await OrderService.updateStatusOrder(id, body.status, user.id);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  const data = await OrderService.updateStatusOrder(
+    id,
+    validated.status,
+    user.id,
+  );
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 OrderController.delete("/:id", async (c: Context) => {
@@ -134,10 +158,12 @@ OrderController.delete("/:id", async (c: Context) => {
     });
   }
   await OrderService.deleteOrder(id);
-  return c.json({
-    data: "Delete order successfully",
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: "Delete order successfully",
+    },
+    HttpStatus.OK,
+  );
 });
 
 export default OrderController;

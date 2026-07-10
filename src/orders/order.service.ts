@@ -197,7 +197,7 @@ select count(*) as total from orders;`;
     query_day: number,
     many: number,
     page: number,
-  ): Promise<Pagination<GetAllOrderJoinResponse[] | undefined>> {
+  ): Promise<Pagination<GetAllOrderJoinResponse[]>> {
     const status = query_status as orders_status;
     const ofs: number = (page - 1) * many;
 
@@ -211,135 +211,59 @@ select count(*) as total from orders;`;
     where o.status = ${status};`;
     const total = Number(raw_total?.status_count);
 
+    const select = {
+      id: true,
+      order_code: true,
+      is_express: true,
+      quantity: true,
+      total_price: true,
+      status: true,
+      payment_status: true,
+      estimated_done: true,
+      created_at: true,
+      express_surcharge: true,
+      base_price: true,
+      condition_notes: true,
+      notes: true,
+      picked_up_at: true,
+      customers: {
+        select: {
+          id: true,
+          name: true,
+          phone: true,
+        },
+      },
+      service_prices: {
+        select: {
+          id: true,
+          name: true,
+          pricing_type: true,
+          price_min: true,
+          price_max: true,
+          unit_label: true,
+        },
+      },
+    };
+    const where: Prisma.ordersWhereInput = {};
+
     if (query_status !== "all" && query_day !== 9999) {
-      data = await prisma.orders.findMany({
-        select: {
-          id: true,
-          order_code: true,
-          is_express: true,
-          quantity: true,
-          total_price: true,
-          status: true,
-          payment_status: true,
-          estimated_done: true,
-          created_at: true,
-          express_surcharge: true,
-          base_price: true,
-          condition_notes: true,
-          notes: true,
-          picked_up_at: true,
-          customers: {
-            select: {
-              id: true,
-              name: true,
-              phone: true,
-            },
-          },
-          service_prices: {
-            select: {
-              id: true,
-              name: true,
-              pricing_type: true,
-              price_min: true,
-              price_max: true,
-              unit_label: true,
-            },
-          },
-        },
-        take: many,
-        skip: ofs,
-        where: {
-          status: status,
-          created_at: {
-            gte: startDate,
-          },
-        },
-      });
-    } else if (query_status === "all" && query_day !== 9999) {
-      data = await prisma.orders.findMany({
-        where: {
-          created_at: {
-            gte: startDate,
-          },
-        },
-        select: {
-          id: true,
-          order_code: true,
-          is_express: true,
-          quantity: true,
-          total_price: true,
-          status: true,
-          payment_status: true,
-          estimated_done: true,
-          created_at: true,
-          express_surcharge: true,
-          base_price: true,
-          condition_notes: true,
-          notes: true,
-          picked_up_at: true,
-          customers: {
-            select: {
-              id: true,
-              name: true,
-              phone: true,
-            },
-          },
-          service_prices: {
-            select: {
-              id: true,
-              name: true,
-              pricing_type: true,
-              price_min: true,
-              price_max: true,
-              unit_label: true,
-            },
-          },
-        },
-        take: many,
-        skip: ofs,
-      });
-    } else if (query_status !== "all" && query_day === 9999) {
-      data = await prisma.orders.findMany({
-        where: {
-          status: status,
-        },
-        select: {
-          id: true,
-          order_code: true,
-          is_express: true,
-          quantity: true,
-          total_price: true,
-          status: true,
-          payment_status: true,
-          estimated_done: true,
-          created_at: true,
-          express_surcharge: true,
-          base_price: true,
-          condition_notes: true,
-          notes: true,
-          picked_up_at: true,
-          customers: {
-            select: {
-              id: true,
-              name: true,
-              phone: true,
-            },
-          },
-          service_prices: {
-            select: {
-              id: true,
-              name: true,
-              pricing_type: true,
-              price_min: true,
-              price_max: true,
-              unit_label: true,
-            },
-          },
-        },
-        take: many,
-        skip: ofs,
-      });
+      where.status = status;
+      where.created_at = { gte: startDate };
     }
+    if (query_status === "all" && query_day !== 9999) {
+      where.created_at = { gte: startDate };
+    }
+    if (query_status !== "all" && query_day === 9999) {
+      where.status = status;
+    }
+
+    data = await prisma.orders.findMany({
+      select,
+      where,
+      take: many,
+      skip: ofs,
+    });
+
     return {
       data: data,
       page: page,
@@ -347,7 +271,6 @@ select count(*) as total from orders;`;
       total: total,
     };
   },
-
   async percentageDiffTotal(): Promise<PercentageOrderResponse> {
     const [data] = await prisma.$queryRaw<PercentageDiffQuery[]>`
 select sum(
@@ -401,7 +324,6 @@ from orders`;
       percentage_diff: percentage,
     };
   },
-
   async countOrdersYesterday(): Promise<number> {
     const [data] = await prisma.$queryRaw<CountOrdersQuery[]>`
     select count(*) as yesterday, (
@@ -420,7 +342,6 @@ from orders`;
 
     return Number(diff);
   },
-
   async getOrderById(id: string): Promise<OrdersResponse> {
     const data = await prisma.orders.findUnique({
       where: { id: id },

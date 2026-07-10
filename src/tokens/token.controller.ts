@@ -6,10 +6,12 @@ const TokenController = new Hono();
 TokenController.get("/", async (c: Context) => {
   await TokenService.refreshToken(c);
 
-  return c.json({
-    data: "Token generated successfully",
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: "Token generated successfully",
+    },
+    HttpStatus.OK,
+  );
 });
 
 export default TokenController;

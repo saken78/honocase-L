@@ -9,18 +9,20 @@ DashboardController.use(AuthMiddleware);
 
 DashboardController.get("/stats", async (c: Context) => {
   const data = await DashboardService.stats();
-  return c.json({
-    data: {
-      stats: {
-        todayOrders: data.stats.todayOrders,
-        todayRevenue: data.stats.todayRevenue,
-        pendingPickup: data.stats.pendingPickup,
-        overdueOrders: data.stats.overdueOrders,
+  return c.json(
+    {
+      data: {
+        stats: {
+          todayOrders: data.stats.todayOrders,
+          todayRevenue: data.stats.todayRevenue,
+          pendingPickup: data.stats.pendingPickup,
+          overdueOrders: data.stats.overdueOrders,
+        },
+        recentOrders: data.recentOrders,
       },
-      recentOrders: data.recentOrders,
     },
-    status_code: HttpStatus.OK,
-  });
+    HttpStatus.OK,
+  );
 });
 
 DashboardController.get("/income", async (c: Context) => {
@@ -31,10 +33,12 @@ DashboardController.get("/income", async (c: Context) => {
     });
   }
   const data = await DashboardService.income(day);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 DashboardController.get("/avgday", async (c: Context) => {
@@ -45,10 +49,12 @@ DashboardController.get("/avgday", async (c: Context) => {
     });
   }
   const data = await DashboardService.avgDay(day);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 DashboardController.get("/incomeservice", async (c: Context) => {
@@ -59,26 +65,32 @@ DashboardController.get("/incomeservice", async (c: Context) => {
     });
   }
   const data = await DashboardService.incomeService(day);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 DashboardController.get("/orderweek", async (c: Context) => {
   const data = await DashboardService.order7days();
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 DashboardController.get("/servicecount", async (c: Context) => {
   const data = await DashboardService.orderPerService();
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 DashboardController.get("/orderscountday", async (c: Context) => {
@@ -89,10 +101,12 @@ DashboardController.get("/orderscountday", async (c: Context) => {
     });
   }
   const data = await DashboardService.ordersCountDay(day);
-  return c.json({
-    ...data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      ...data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 export default DashboardController;

@@ -22,6 +22,18 @@ export const CREATE_ORDER_SCHEMA = z.object({
     .optional(),
 });
 
+export const UPDATE_ORDER_STATUS_SCHEMA = z.object({
+  status: z.enum([
+    "received",
+    "proses",
+    "cuci",
+    "jemur",
+    "setrika",
+    "ready",
+    "picked_up",
+  ]),
+});
+
 export type PostOrderRequest = {
   customer_id: string;
   service_price_id: string;

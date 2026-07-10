@@ -13,10 +13,12 @@ CustomersController.use(AuthMiddleware);
 CustomersController.post("/", async (c: Context) => {
   const body = await c.req.json();
   const data = await CustomerService.registerCustomer(body);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.CREATED,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.CREATED,
+  );
 });
 
 CustomersController.get("/", async (c: Context) => {
@@ -26,10 +28,12 @@ CustomersController.get("/", async (c: Context) => {
   const pg = parsePagination(page, take);
 
   const data = await CustomerService.getAllCustomer(pg.take, pg.page);
-  return c.json({
-    ...data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      ...data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 CustomersController.get("/:id", async (c: Context) => {
@@ -40,10 +44,12 @@ CustomersController.get("/:id", async (c: Context) => {
     });
   }
   const data = await CustomerService.getCustomerById(id);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 CustomersController.put("/:id", async (c: Context) => {
@@ -63,10 +69,12 @@ CustomersController.put("/:id", async (c: Context) => {
   }
 
   const data = await CustomerService.updateCustomerById(id, body);
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 CustomersController.use(OwnerMiddleware);
 CustomersController.delete("/:id", async (c: Context) => {
@@ -78,10 +86,12 @@ CustomersController.delete("/:id", async (c: Context) => {
   }
   const data = await CustomerService.deleteCustomerById(id);
 
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 export default CustomersController;

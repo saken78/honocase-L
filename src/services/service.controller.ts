@@ -8,10 +8,12 @@ ServiceController.use(AuthMiddleware);
 
 ServiceController.get("/", async (c: Context) => {
   const data = await ServiceService.getAllService();
-  return c.json({
-    data: data,
-    status_code: HttpStatus.OK,
-  });
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
 });
 
 export default ServiceController;
