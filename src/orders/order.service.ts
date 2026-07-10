@@ -319,9 +319,10 @@ from orders`;
     }
 
     const percentage = ((today - yesterday) / yesterday) * 100;
+    const percentage_tofixed = Number(percentage.toFixed(1));
 
     return {
-      percentage_diff: percentage,
+      percentage_diff: percentage_tofixed,
     };
   },
   async countOrdersYesterday(): Promise<number> {

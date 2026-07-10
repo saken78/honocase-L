@@ -78,7 +78,7 @@ export const AuthService = {
 
     if (!user) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
-        message: "Unauthorized",
+        message: "User tidak ditemukan",
       });
     }
 
@@ -89,7 +89,7 @@ export const AuthService = {
 
     if (!match) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
-        message: "Unauthorized",
+        message: "Password atau email salah",
       });
     }
     const user_role: string = user.role;
