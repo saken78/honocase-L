@@ -3,6 +3,8 @@ import { PrismaClient } from "../../prisma/generated/client";
 import { winstonlogger } from "../lib/winston-logger";
 
 const adapter = new PrismaMariaDb({
+  host: Bun.env.DATABASE_HOST,
+  port: Number(Bun.env.DATABASE_PORT),
   user: Bun.env.DATABASE_USER,
   database: Bun.env.DATABASE_NAME,
   password: Bun.env.DATABASE_PASSWORD,
