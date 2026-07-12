@@ -3,8 +3,9 @@ import { PrismaClient } from "../../prisma/generated/client";
 import { winstonlogger } from "../lib/winston-logger";
 
 const adapter = new PrismaMariaDb({
-  user: process.env["DATABASE_USER"] || "",
-  database: process.env["DATABASE_NAME"] || "",
+  user: Bun.env.DATABASE_USER,
+  database: Bun.env.DATABASE_NAME,
+  password: Bun.env.DATABASE_NAME,
 });
 
 const prisma = new PrismaClient({
