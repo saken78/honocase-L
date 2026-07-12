@@ -3,10 +3,6 @@ generator client {
   output   = "../prisma/generated/"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-}
-
 datasource db {
   provider = "mysql"
 }
