@@ -5,7 +5,7 @@ import { winstonlogger } from "../lib/winston-logger";
 const adapter = new PrismaMariaDb({
   user: Bun.env.DATABASE_USER,
   database: Bun.env.DATABASE_NAME,
-  password: Bun.env.DATABASE_NAME,
+  password: Bun.env.DATABASE_PASSWORD,
 });
 
 const prisma = new PrismaClient({
