@@ -365,17 +365,26 @@ from orders`;
         message: "Order with id not found",
       });
     }
+
+    if (existing.status === "ready" && existing.payment_status !== "lunas") {
+      throw new HTTPException(HttpStatus.BAD_REQUEST, {
+        message: "Lengkapi pembayaran dulu",
+      });
+    }
+
     const data = await prisma.orders.update({
       where: { id: id },
       data: {
         status: status,
       },
     });
+
     if (!data) {
       throw new HTTPException(HttpStatus.NOT_FOUND, {
         message: "Order not found",
       });
     }
+
     await prisma.order_audit_log.create({
       data: {
         order_id: id,
