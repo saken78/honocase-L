@@ -4,7 +4,7 @@ import type {
   service_prices_pricing_type,
 } from "../../prisma/generated/client";
 
-export type ServiceResponseAll = {
+export type ServiceResponse = {
   id: string;
   name: string;
   category: service_prices_category;
