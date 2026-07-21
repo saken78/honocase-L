@@ -16,7 +16,7 @@ ServiceController.get("/", async (c: Context) => {
     HttpStatus.OK,
   );
 });
-ServiceController.put(":id/", async (c: Context) => {
+ServiceController.put(":id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id) {
     throw new HTTPException(HttpStatus.BAD_REQUEST, {
