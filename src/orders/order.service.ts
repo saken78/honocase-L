@@ -325,6 +325,14 @@ from orders`;
       percentage_diff: percentage_tofixed,
     };
   },
+  async getOrderExpress(): Promise<number> {
+    const data = await prisma.orders.count({
+      where: {
+        is_express: true,
+      },
+    });
+    return data;
+  },
   async countOrdersYesterday(): Promise<number> {
     const [data] = await prisma.$queryRaw<CountOrdersQuery[]>`
     select count(*) as yesterday, (

@@ -111,6 +111,16 @@ OrderController.get("/dailyrevenue", async (c: Context) => {
   );
 });
 
+OrderController.get("/express", async (c: Context) => {
+  const data = await OrderService.getOrderExpress();
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
+});
+
 OrderController.get("/:id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id) {
