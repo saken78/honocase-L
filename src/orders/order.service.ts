@@ -14,6 +14,7 @@ import {
   type DailyRevenueResponse,
   type GetAllOrderJoinResponse,
   type OrderCodeQueryResponse,
+  type OrderOverdue,
   type OrdersResponse,
   type PercentageDiffQuery,
   type PercentageOrderResponse,
@@ -332,6 +333,20 @@ from orders`;
       },
     });
     return data;
+  },
+  async getOrderOverdue(): Promise<number> {
+    const [data] = await prisma.$queryRaw<OrderOverdue[]>`
+    select count(*) as overdue
+    from orders
+    where
+        payment_status = "lunas"
+        and status = "ready"
+        and NOW() > DATE_ADD(
+            estimated_done,
+            interval 30 day
+        );`;
+    const overdue = Number(data?.overdue);
+    return overdue;
   },
   async countOrdersYesterday(): Promise<number> {
     const [data] = await prisma.$queryRaw<CountOrdersQuery[]>`

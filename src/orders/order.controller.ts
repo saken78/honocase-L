@@ -121,6 +121,16 @@ OrderController.get("/express", async (c: Context) => {
   );
 });
 
+OrderController.get("/overdue", async (c: Context) => {
+  const data = await OrderService.getOrderOverdue();
+  return c.json(
+    {
+      data: data,
+    },
+    HttpStatus.OK,
+  );
+});
+
 OrderController.get("/:id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id) {

@@ -181,3 +181,7 @@ export type DailyRevenueResponse = {
   revenue: number;
   orders: number;
 };
+
+export type OrderOverdue = {
+  overdue: number;
+};
