@@ -330,6 +330,9 @@ from orders`;
     const data = await prisma.orders.count({
       where: {
         is_express: true,
+        status: {
+          notIn: ["ready", "picked_up"],
+        },
       },
     });
     return data;
