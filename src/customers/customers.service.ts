@@ -25,7 +25,13 @@ export const CustomerService = {
     });
     return data;
   },
-  async getAllCustomer(
+  async getAllCustomer(): Promise<CustomersResponse[]> {
+    const data = await prisma.customers.findMany({
+      orderBy: { name: "asc" },
+    });
+    return data;
+  },
+  async getAllCustomerPagination(
     many: number,
     page: number,
   ): Promise<Pagination<CustomersResponse[]>> {

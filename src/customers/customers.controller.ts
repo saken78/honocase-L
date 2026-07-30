@@ -27,10 +27,20 @@ CustomersController.get("/", async (c: Context) => {
 
   const pg = parsePagination(page, take);
 
-  const data = await CustomerService.getAllCustomer(pg.take, pg.page);
+  const data = await CustomerService.getAllCustomerPagination(pg.take, pg.page);
   return c.json(
     {
       ...data,
+    },
+    HttpStatus.OK,
+  );
+});
+
+CustomersController.get("/all", async (c: Context) => {
+  const data = await CustomerService.getAllCustomer();
+  return c.json(
+    {
+      data: data,
     },
     HttpStatus.OK,
   );
