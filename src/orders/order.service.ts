@@ -19,7 +19,6 @@ import {
   type PercentageDiffQuery,
   type PercentageOrderResponse,
   type PostOrderRequest,
-  type StatusCount,
   type TotalOrders,
 } from "./order.model";
 import type { Pagination } from "../lib/types";
