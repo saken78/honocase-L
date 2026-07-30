@@ -47,8 +47,12 @@ OrderController.get("/all", async (c: Context) => {
 });
 
 OrderController.get("/status", async (c: Context) => {
+  let type = c.req.query("type");
   let query_status = c.req.query("status");
   let query_day = c.req.query("day");
+  if (!type) {
+    type = "all";
+  }
   if (!query_status) {
     query_status = "all";
   }
@@ -64,6 +68,7 @@ OrderController.get("/status", async (c: Context) => {
   const data = await OrderService.getAllOrdersJoinStatus(
     status,
     day,
+    type,
     pg.take,
     pg.page,
   );

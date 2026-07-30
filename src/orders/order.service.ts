@@ -196,6 +196,7 @@ select count(*) as total from orders;`;
   async getAllOrdersJoinStatus(
     query_status: string,
     query_day: number,
+    query_type: string,
     many: number,
     page: number,
   ): Promise<Pagination<GetAllOrderJoinResponse[]>> {
@@ -204,13 +205,6 @@ select count(*) as total from orders;`;
 
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - query_day);
-
-    let data;
-    const [raw_total] = await prisma.$queryRaw<StatusCount[]>`
-    select o.status as status_name, count(*) as status_count
-    from orders as o
-    where o.status = ${status};`;
-    const total = Number(raw_total?.status_count);
 
     const select = {
       id: true,
@@ -247,6 +241,12 @@ select count(*) as total from orders;`;
     };
     const where: Prisma.ordersWhereInput = {};
 
+    if (query_type === "express") {
+      where.is_express = true;
+    }
+    if (query_type === "reguler") {
+      where.is_express = false;
+    }
     if (query_status !== "all" && query_day !== 9999) {
       where.status = status;
       where.created_at = { gte: startDate };
@@ -258,7 +258,9 @@ select count(*) as total from orders;`;
       where.status = status;
     }
 
-    data = await prisma.orders.findMany({
+    const total = await prisma.orders.count({ where });
+
+    const data = await prisma.orders.findMany({
       select,
       where,
       take: many,
