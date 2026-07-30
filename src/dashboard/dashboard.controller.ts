@@ -16,7 +16,6 @@ DashboardController.get("/stats", async (c: Context) => {
           todayOrders: data.stats.todayOrders,
           todayRevenue: data.stats.todayRevenue,
           pendingPickup: data.stats.pendingPickup,
-          overdueOrders: data.stats.overdueOrders,
         },
         recentOrders: data.recentOrders,
       },

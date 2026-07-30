@@ -9,7 +9,6 @@ export type DashboardStatsResponse = {
     todayOrders: number;
     todayRevenue: number;
     pendingPickup: number;
-    overdueOrders: number;
   };
   recentOrders: {
     id: string;
