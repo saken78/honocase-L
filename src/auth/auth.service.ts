@@ -1,21 +1,19 @@
 import type { Context } from "hono";
-import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
+import { deleteCookie, getSignedCookie } from "hono/cookie";
 import { HTTPException } from "hono/http-exception";
-import { sign } from "hono/jwt";
 import { users_role } from "../../prisma/generated/enums";
 import { prisma } from "../db";
 import { SECRET } from "../lib/secret";
 import { HttpStatus } from "../lib/status_code";
+import { renewTokens } from "./auth.helper";
 import {
   type AuthResponse,
   DELETE_SCHEMA,
-  type JWT_PAYLOAD,
   type JWT_RESPONSE,
   LOGIN_SCHEMA,
   type LoginUserRequest,
   REGISTER_SCHEMA,
   type RegisterUserRequest,
-  RESET_PASSWORD_SCHEMA,
 } from "./auth.model";
 
 export const AuthService = {
@@ -92,58 +90,8 @@ export const AuthService = {
         message: "Password atau email salah",
       });
     }
-    const user_role: string = user.role;
 
-    // ==================== access_token ======================== //
-    const ac_payload: JWT_PAYLOAD = {
-      sub: user.id,
-      email: user.email,
-      role: user_role,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      exp: Math.floor(Date.now() / 1000) + 60 * 15,
-      iat: Math.floor(Date.now() / 1000),
-    };
-
-    const access_token = await sign(ac_payload, SECRET, "HS256");
-    await setSignedCookie(c, "access_token", access_token, SECRET, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 15,
-    });
-    // ==================== access_token ======================== //
-
-    // ==================== refresh_token ======================== //
-    const rt_payload: JWT_PAYLOAD = {
-      sub: user.id,
-      email: user.email,
-      role: user_role,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      exp: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60,
-      iat: Math.floor(Date.now() / 1000),
-    };
-    const refresh_token = await sign(rt_payload, SECRET, "HS256");
-    const token_hash = await Bun.password.hash(refresh_token, {
-      algorithm: "argon2id",
-      memoryCost: 4,
-      timeCost: 3,
-    });
-
-    const expires_at = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-    await setSignedCookie(c, "refresh_token", refresh_token, SECRET, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-    // ==================== refresh_token ======================== //
-
-    await prisma.$executeRaw`UPDATE users set rt_hash = ${token_hash}, expires_at = ${expires_at} where id = ${user.id}`;
+    await renewTokens(c, user);
 
     return {
       id: user.id,
@@ -167,6 +115,31 @@ export const AuthService = {
 
     deleteCookie(c, "refresh_token");
     deleteCookie(c, "access_token");
+  },
+  async changeName(
+    first_name: string,
+    last_name: string,
+    email: string,
+    c: Context,
+  ): Promise<void> {
+    const user = await prisma.users.update({
+      where: {
+        email: email,
+      },
+      data: {
+        first_name: first_name,
+        last_name: last_name,
+      },
+      select: {
+        id: true,
+        email: true,
+        role: true,
+        first_name: true,
+        last_name: true,
+      },
+    });
+
+    await renewTokens(c, user);
   },
   async resetPassword(password: string, email: string): Promise<void> {
     const npw = await Bun.password.hash(password, {

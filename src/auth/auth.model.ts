@@ -35,6 +35,16 @@ export type ResetPasswordRequest = {
   password: string;
 };
 
+export const CHANGE_NAME_SCHEMA = z.object({
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
+});
+
+export type ChangeNameRequest = {
+  first_name: string;
+  last_name: string;
+};
+
 export const DELETE_SCHEMA = z.object({
   email: z.string().email().min(1).max(100),
 });
@@ -45,6 +55,14 @@ export type AuthResponse = {
   role: string;
   first_name?: string | null;
   last_name?: string | null;
+};
+
+export type UserForToken = {
+  id: string;
+  email: string;
+  role: string;
+  first_name: string | null;
+  last_name: string | null;
 };
 
 export type JWT_PAYLOAD = {

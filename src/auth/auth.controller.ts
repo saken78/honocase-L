@@ -2,6 +2,7 @@ import { Hono, type Context } from "hono";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import {
+  type ChangeNameRequest,
   type JWT_RESPONSE,
   type LoginUserRequest,
   type RegisterUserRequest,
@@ -36,6 +37,17 @@ AuthController.get("/me", async (c: Context) => {
   return c.json(
     {
       data: result,
+    },
+    HttpStatus.OK,
+  );
+});
+AuthController.patch("/name", async (c: Context) => {
+  const user: JWT_RESPONSE = c.get("user");
+  const body: ChangeNameRequest = await c.req.json();
+  await AuthService.changeName(body.first_name, body.last_name, user.email, c);
+  return c.json(
+    {
+      data: "Name changed successfully",
     },
     HttpStatus.OK,
   );
