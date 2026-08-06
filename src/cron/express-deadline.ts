@@ -10,7 +10,7 @@ export function startExpressDeadlineCron(): void {
       const affected = await prisma.$executeRaw`
         UPDATE orders 
         SET estimated_done = DATE_ADD(estimated_done, INTERVAL ${EXTEND_HOURS} HOUR)
-        WHERE is_express = true 
+        WHERE is_express = true
           AND estimated_done IS NOT NULL
           AND status NOT IN ('ready', 'picked_up')
           AND NOW() > estimated_done

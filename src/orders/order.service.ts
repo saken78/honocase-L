@@ -145,7 +145,7 @@ export const OrderService = {
   ): Promise<Pagination<GetAllOrderJoinResponse[]>> {
     const ofs: number = (page - 1) * many;
     const [raw_total] = await prisma.$queryRaw<TotalOrders[]>`
-select count(*) as total from orders;`;
+      select count(*) as total from orders;`;
     const total = Number(raw_total?.total);
 
     const data = await prisma.orders.findMany({
@@ -275,30 +275,30 @@ select count(*) as total from orders;`;
   },
   async percentageDiffTotal(): Promise<PercentageOrderResponse> {
     const [data] = await prisma.$queryRaw<PercentageDiffQuery[]>`
-select sum(
-        case
-            when date(created_at) = CURDATE() - interval 1 day then total_price
-            else 0
-        end
-    ) as yesterday, sum(
-        case
-            when date(created_at) = curdate() then total_price
-            else 0
-        end
-    ) as today, (
-        sum(
+    select sum(
             case
-                when date(created_at) = CURDATE() then total_price
+                when date(created_at) = CURDATE() - interval 1 day then total_price
                 else 0
             end
-        ) - sum(
+        ) as yesterday, sum(
             case
-                when date(created_at) = curdate() - interval 1 day then total_price
+                when date(created_at) = curdate() then total_price
                 else 0
             end
-        )
-    ) as diff
-from orders`;
+        ) as today, (
+            sum(
+                case
+                    when date(created_at) = CURDATE() then total_price
+                    else 0
+                end
+            ) - sum(
+                case
+                    when date(created_at) = curdate() - interval 1 day then total_price
+                    else 0
+                end
+            )
+        ) as diff
+    from orders`;
     if (!data) {
       return {
         percentage_diff: 0,
