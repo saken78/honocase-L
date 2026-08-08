@@ -3,6 +3,7 @@ import { ServiceService } from "./service.service";
 import { HttpStatus } from "../lib/status_code";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { HTTPException } from "hono/http-exception";
+import { OwnerMiddleware } from "../middleware/owner.middleware";
 
 const ServiceController = new Hono();
 ServiceController.use(AuthMiddleware);
@@ -16,6 +17,7 @@ ServiceController.get("/", async (c: Context) => {
     HttpStatus.OK,
   );
 });
+ServiceController.use(OwnerMiddleware);
 ServiceController.put(":id", async (c: Context) => {
   const id = c.req.param("id");
   if (!id) {
