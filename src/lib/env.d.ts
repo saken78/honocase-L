@@ -8,6 +8,7 @@ declare module "bun" {
     DATABASE_HOST: string;
     DATABASE_PORT: string;
     SECRET: string;
+    PORT_DEV: string;
     CORS_ORIGIN_DEV: string;
   }
 }

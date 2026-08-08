@@ -22,7 +22,7 @@ export const AuthService = {
 
     const password = await Bun.password.hash(request.password, {
       algorithm: "argon2id",
-      memoryCost: 4,
+      memoryCost: 65536,
       timeCost: 3,
     });
 
@@ -76,7 +76,7 @@ export const AuthService = {
 
     if (!user) {
       throw new HTTPException(HttpStatus.UNAUTHORIZED, {
-        message: "User tidak ditemukan",
+        message: "Password atau email salah",
       });
     }
 

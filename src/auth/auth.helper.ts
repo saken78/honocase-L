@@ -41,7 +41,7 @@ export async function renewTokens(
   const refresh_token = await sign(rt_payload, SECRET, "HS256");
   const token_hash = await Bun.password.hash(refresh_token, {
     algorithm: "argon2id",
-    memoryCost: 4,
+    memoryCost: 65536,
     timeCost: 3,
   });
 
