@@ -2,6 +2,7 @@ import { HTTPException } from "hono/http-exception";
 import { ZodError } from "zod";
 import { Prisma } from "../../prisma/generated/client";
 import { type Context } from "hono";
+import { winstonlogger } from "./winston-logger";
 
 const GlobalError = async (err: unknown, c: Context) => {
   if (err instanceof HTTPException) {
@@ -26,24 +27,26 @@ const GlobalError = async (err: unknown, c: Context) => {
       });
     }
 
+    winstonlogger.error(
+      `[Prisma ${err.code}] ${err.message}\n${err.stack ?? ""}`,
+    );
     c.status(500);
     return c.json({
-      errors: err.message,
+      errors: "Internal Server Error",
     });
+  }
+
+  if (err instanceof Error) {
+    winstonlogger.error(`${err.name}: ${err.message}\n${err.stack ?? ""}`);
+  } else {
+    winstonlogger.error(`Unknown error: ${JSON.stringify(err)}`);
   }
 
   // fallback
   c.status(500);
 
   return c.json({
-    errors:
-      err instanceof Error
-        ? {
-            error: err.name,
-            message: err.message,
-            cause: err.cause,
-          }
-        : "Internal Server Error",
+    errors: "Internal Server Error",
   });
 };
 
