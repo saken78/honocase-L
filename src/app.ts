@@ -25,7 +25,10 @@ const limiter = rateLimiter({
 app.use(
   "/*",
   cors({
-    origin: Bun.env.CORS_ORIGIN_DEV,
+    origin:
+      Bun.env.NODE_ENV === "production"
+        ? Bun.env.CORS_ORIGIN_PROD
+        : Bun.env.CORS_ORIGIN_DEV,
     credentials: true,
   }),
 );

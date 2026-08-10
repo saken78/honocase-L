@@ -144,7 +144,7 @@ export const AuthService = {
   async resetPassword(password: string, email: string): Promise<void> {
     const npw = await Bun.password.hash(password, {
       algorithm: "argon2id",
-      memoryCost: 4,
+      memoryCost: 65536,
       timeCost: 3,
     });
 

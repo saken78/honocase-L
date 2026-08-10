@@ -1,6 +1,5 @@
 declare module "bun" {
   interface Env {
-    AWESOME: string;
     DATABASE_URL: string;
     DATABASE_USER: string;
     DATABASE_PASSWORD: string;
@@ -10,5 +9,6 @@ declare module "bun" {
     SECRET: string;
     PORT_DEV: string;
     CORS_ORIGIN_DEV: string;
+    CORS_ORIGIN_PROD: string;
   }
 }

@@ -19,6 +19,13 @@ const GlobalError = async (err: unknown, c: Context) => {
     });
   }
 
+  if (err instanceof SyntaxError) {
+    c.status(400);
+    return c.json({
+      errors: "Invalid JSON Body",
+    });
+  }
+
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     if (err.code === "P2002") {
       c.status(409);
