@@ -1,5 +1,4 @@
 import { prisma } from "../src/db/index";
-import bcrypt from "bcryptjs";
 
 export class AuthTest {
   static async create(): Promise<void> {
@@ -7,7 +6,11 @@ export class AuthTest {
       data: {
         email: "test@gmail.com",
         role: "owner",
-        password_hash: await bcrypt.hash("testtesttest", 10),
+        password_hash: await Bun.password.hash("testtesttest", {
+          algorithm: "argon2id",
+          memoryCost: 65536,
+          timeCost: 3,
+        }),
       },
     });
   }

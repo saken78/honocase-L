@@ -9,7 +9,6 @@ import {
   type ResetPasswordRequest,
 } from "./auth.model";
 import { AuthService } from "./auth.service";
-import { HTTPException } from "hono/http-exception";
 
 const AuthController = new Hono();
 AuthController.post("/", async (c: Context) => {
