@@ -2,28 +2,15 @@ import { z } from "zod";
 import { users_role } from "../../prisma/generated/enums";
 
 export const REGISTER_SCHEMA = z.object({
-  email: z.string().email().min(1).max(100),
+  email: z.email().min(1).max(100),
   password: z.string().min(8).max(100),
-  role: z.nativeEnum(users_role),
+  role: z.enum(users_role),
   first_name: z.string().optional(),
   last_name: z.string().optional(),
 });
 
-export type RegisterUserRequest = {
-  email: string;
-  password: string;
-  first_name?: string | null;
-  last_name?: string | null;
-  role: users_role;
-};
-
-export type LoginUserRequest = {
-  email: string;
-  password: string;
-};
-
 export const LOGIN_SCHEMA = z.object({
-  email: z.string().email().min(1).max(100),
+  email: z.email().min(1).max(100),
   password: z.string().min(8).max(100),
 });
 
@@ -31,23 +18,19 @@ export const RESET_PASSWORD_SCHEMA = z.object({
   password: z.string().min(8).max(100),
 });
 
-export type ResetPasswordRequest = {
-  password: string;
-};
-
 export const CHANGE_NAME_SCHEMA = z.object({
   first_name: z.string().optional(),
-  last_name: z.string().optional(),
+  last_name: z.string().nullable().optional(),
 });
-
-export type ChangeNameRequest = {
-  first_name: string;
-  last_name: string;
-};
 
 export const DELETE_SCHEMA = z.object({
-  email: z.string().email().min(1).max(100),
+  email: z.email().min(1).max(100),
 });
+
+export type RegisterUserRequest = z.infer<typeof REGISTER_SCHEMA>;
+export type LoginUserRequest = z.infer<typeof LOGIN_SCHEMA>;
+export type ChangeNameRequest = z.infer<typeof CHANGE_NAME_SCHEMA>;
+export type ResetPasswordRequest = z.infer<typeof RESET_PASSWORD_SCHEMA>;
 
 export type AuthResponse = {
   id: string;

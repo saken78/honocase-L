@@ -9,6 +9,7 @@ import {
   type ResetPasswordRequest,
 } from "./auth.model";
 import { AuthService } from "./auth.service";
+import { HTTPException } from "hono/http-exception";
 
 const AuthController = new Hono();
 AuthController.post("/", async (c: Context) => {
@@ -44,7 +45,7 @@ AuthController.get("/me", async (c: Context) => {
 AuthController.patch("/name", async (c: Context) => {
   const user: JWT_RESPONSE = c.get("user");
   const body: ChangeNameRequest = await c.req.json();
-  await AuthService.changeName(body.first_name, body.last_name, user.email, c);
+  await AuthService.changeName(c, user.email, body);
   return c.json(
     {
       data: "Name changed successfully",
@@ -77,7 +78,7 @@ AuthController.delete("/delete_account", async (c: Context) => {
   await AuthService.deleteAccount(user.email);
   return c.json(
     {
-      data: "Account Deleted successfully",
+      data: "Account deleted successfully",
     },
     HttpStatus.OK,
   );

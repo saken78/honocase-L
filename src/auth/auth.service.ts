@@ -8,6 +8,7 @@ import { HttpStatus } from "../lib/status_code";
 import { renewTokens } from "./auth.helper";
 import {
   type AuthResponse,
+  type ChangeNameRequest,
   DELETE_SCHEMA,
   type JWT_RESPONSE,
   LOGIN_SCHEMA,
@@ -117,18 +118,17 @@ export const AuthService = {
     deleteCookie(c, "access_token");
   },
   async changeName(
-    first_name: string,
-    last_name: string,
-    email: string,
     c: Context,
+    email: string,
+    body: ChangeNameRequest,
   ): Promise<void> {
     const user = await prisma.users.update({
       where: {
         email: email,
       },
       data: {
-        first_name: first_name,
-        last_name: last_name,
+        ...(body.first_name !== undefined && { first_name: body.first_name }),
+        ...(body.last_name !== undefined && { last_name: body.last_name }),
       },
       select: {
         id: true,
