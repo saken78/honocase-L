@@ -1,3 +1,4 @@
+import { HTTPException } from "hono/http-exception";
 import { prisma } from "../db";
 import type {
   DashboardStatsResponse,
@@ -12,6 +13,7 @@ import type {
   DashboardAvgDayResponse,
   DashboardOrdersCountDayQuery,
 } from "./dashboard.model";
+import { HttpStatus } from "../lib/status_code";
 
 export const DashboardService = {
   async stats(): Promise<DashboardStatsResponse> {
@@ -90,8 +92,19 @@ export const DashboardService = {
     }
 
     const total = raw[0]?.avg_day ?? 0;
-    const divisor = day === "all" ? 365 : Number(day);
-    const avg_day = total > 0 ? total / divisor : 0;
+    if (day === "all") {
+      const avg_day = total > 0 ? total / 365 : 0;
+      return {
+        avg_day: avg_day,
+      };
+    }
+    const numDay = Number(day);
+    if (isNaN(numDay) || numDay <= 0) {
+      throw new HTTPException(HttpStatus.BAD_REQUEST, {
+        message: "Invalid day parameter",
+      });
+    }
+    const avg_day = total > 0 ? total / numDay : 0;
     return {
       avg_day: avg_day,
     };

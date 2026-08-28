@@ -86,7 +86,7 @@ export const TokenService = {
     const access_token = await sign(ac_payload, SECRET, "HS256");
     await setSignedCookie(c, "access_token", access_token, SECRET, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: Bun.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 15,
