@@ -114,6 +114,18 @@ export const AuthService = {
       });
     }
 
+    const user: JWT_RESPONSE = c.get("user");
+
+    await prisma.users.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        rt_hash: null,
+        expires_at: null,
+      },
+    });
+
     deleteCookie(c, "refresh_token");
     deleteCookie(c, "access_token");
   },
