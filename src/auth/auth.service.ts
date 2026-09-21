@@ -58,7 +58,7 @@ export const AuthService = {
     const request = LOGIN_SCHEMA.parse(req);
 
     if (!SECRET) {
-      throw new HTTPException(HttpStatus.BAD_REQUEST, {
+      throw new HTTPException(HttpStatus.INTERNAL_SERVER_ERROR, {
         message: "Secret not found",
       });
     }
