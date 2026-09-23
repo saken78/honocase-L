@@ -70,6 +70,23 @@ export type OrdersResponse = {
   picked_up_at: Date | null;
 };
 
+export const ORDER_STATUS_VALUES = [
+  "received",
+  "proses",
+  "cuci",
+  "jemur",
+  "setrika",
+  "ready",
+  "picked_up",
+] as const;
+
+export const ORDER_STATUS_FILTER_SCHEMA = z.enum([
+  "all",
+  ...ORDER_STATUS_VALUES,
+]);
+
+export const ORDER_TYPE_FILTER_SCHEMA = z.enum(["all", "express", "reguler"]);
+
 // export type GetAllJoinOrdersResponse = {
 //   id: string;
 //   order_code: string;
